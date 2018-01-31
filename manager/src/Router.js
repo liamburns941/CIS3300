@@ -1,9 +1,9 @@
 import React from 'react';
 import { Scene, Router, Actions } from 'react-native-router-flux';
 import LoginForm from './components/LoginForm';
-import EmployeeList from './components/EmployeeList';
-import EmployeeCreate from './components/EmployeeCreate';
-import EmployeeEdit from './components/EmployeeEdit';
+import ClientList from './components/ClientList';
+import ClientCreate from './components/ClientCreate';
+import ClientEdit from './components/ClientEdit';
 
 const RouterComponent = () => {
   return (
@@ -15,15 +15,15 @@ const RouterComponent = () => {
 
         <Scene key="main">
           <Scene
-            onRight={() => Actions.employeeCreate()}
+            onRight={() => Actions.clientCreate()}
             rightTitle="Add"
-            key="employeeList"
-            component={EmployeeList}
-            title="Employees"
+            key="clientList"
+            component={ClientList}
+            title="Clients"
             initial
           />
-          <Scene key="employeeCreate" component={EmployeeCreate} title="Create Employee" />
-          <Scene key="employeeEdit" component={EmployeeEdit} title="Edit Employee" />
+          <Scene key="clientCreate" component={ClientCreate} title="Create Client" />
+          <Scene key="clientEdit" component={ClientEdit} title="Edit Client" />
         </Scene>
       </Scene>
     </Router>

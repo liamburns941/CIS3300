@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, Picker } from 'react-native';
 import { connect } from 'react-redux';
-import { employeeUpdate } from '../actions';
+import { clientUpdate } from '../actions';
 import { CardSection, Input } from './common';
 
-class EmployeeForm extends Component {
+class ClientForm extends Component {
   render() {
     return (
       <View>
@@ -13,7 +13,7 @@ class EmployeeForm extends Component {
             label="Name"
             placeholder="Jane"
             value={this.props.name}
-            onChangeText={value => this.props.employeeUpdate({ prop: 'name', value })}
+            onChangeText={value => this.props.clientUpdate({ prop: 'name', value })}
           />
         </CardSection>
 
@@ -22,7 +22,7 @@ class EmployeeForm extends Component {
             label="Phone"
             placeholder="555-555-5555"
             value={this.props.phone}
-            onChangeText={value => this.props.employeeUpdate({ prop: 'phone', value })}
+            onChangeText={value => this.props.clientUpdate({ prop: 'phone', value })}
           />
         </CardSection>
 
@@ -31,7 +31,7 @@ class EmployeeForm extends Component {
           <Picker
             style={{ flex: 1 }}
             selectedValue={this.props.shift}
-            onValueChange={value => this.props.employeeUpdate({ prop: 'shift', value })}
+            onValueChange={value => this.props.clientUpdate({ prop: 'shift', value })}
           >
             <Picker.Item label="Monday" value="Monday" />
             <Picker.Item label="Tuesday" value="Tuesday" />
@@ -55,9 +55,9 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  const { name, phone, shift } = state.employeeForm;
+  const { name, phone, shift } = state.clientForm;
 
   return { name, phone, shift };
 };
 
-export default connect(mapStateToProps, { employeeUpdate })(EmployeeForm);
+export default connect(mapStateToProps, { clientUpdate })(ClientForm);
