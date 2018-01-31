@@ -2,23 +2,23 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Communications from 'react-native-communications';
-import EmployeeForm from './EmployeeForm';
-import { employeeUpdate, employeeSave, employeeDelete } from '../actions';
+import ClientForm from './ClientForm';
+import { clientUpdate, clientSave, clientDelete } from '../actions';
 import { Card, CardSection, Button, Confirm } from './common';
 
-class EmployeeEdit extends Component {
+class ClientEdit extends Component {
   state = { showModal: false };
 
   componentWillMount() {
-    _.each(this.props.employee, (value, prop) => {
-      this.props.employeeUpdate({ prop, value });
+    _.each(this.props.client, (value, prop) => {
+      this.props.clientUpdate({ prop, value });
     });
   }
 
   onButtonPress() {
     const { name, phone, shift } = this.props;
 
-    this.props.employeeSave({ name, phone, shift, uid: this.props.employee.uid });
+    this.props.clientSave({ name, phone, shift, uid: this.props.client.uid });
   }
 
   onTextPress() {
@@ -28,9 +28,9 @@ class EmployeeEdit extends Component {
   }
 
   onAccept() {
-    const { uid } = this.props.employee;
+    const { uid } = this.props.client;
 
-    this.props.employeeDelete({ uid });
+    this.props.clientDelete({ uid });
   }
 
   onDecline() {
@@ -40,7 +40,7 @@ class EmployeeEdit extends Component {
   render() {
     return (
       <Card>
-        <EmployeeForm />
+        <ClientForm />
 
         <CardSection>
           <Button onPress={this.onButtonPress.bind(this)}>
@@ -56,7 +56,7 @@ class EmployeeEdit extends Component {
 
         <CardSection>
           <Button onPress={() => this.setState({ showModal: !this.state.showModal })}>
-            Fire Employee
+            Fire Client
           </Button>
         </CardSection>
 
@@ -73,11 +73,11 @@ class EmployeeEdit extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { name, phone, shift } = state.employeeForm;
+  const { name, phone, shift } = state.clientForm;
 
   return { name, phone, shift };
 };
 
 export default connect(mapStateToProps, {
-  employeeUpdate, employeeSave, employeeDelete
-})(EmployeeEdit);
+  clientUpdate, clientSave, clientDelete
+})(ClientEdit);
