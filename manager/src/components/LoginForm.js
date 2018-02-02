@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import { Text, Image, KeyboardAvoidingView, View, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { emailChanged, passwordChanged, loginUser } from '../actions';
 import { Card, CardSection, Input, Button, Spinner } from './common';
 
 class LoginForm extends Component {
+
   onEmailChange(text) {
     this.props.emailChanged(text);
   }
@@ -33,7 +34,19 @@ class LoginForm extends Component {
 
   render() {
     return (
-      <Card>
+
+    <ScrollView>
+    <KeyboardAvoidingView
+      keyboardVerticalOffset= {-200}
+      behavior="padding"
+    >
+      <CardSection>
+      <Image source={require('./images/CIS3300_Login_Icon.png')}
+             style={{
+               height: 300,
+               flex: 1,
+               width: null}} />
+      </CardSection>
         <CardSection>
           <Input
             label="Email"
@@ -60,7 +73,8 @@ class LoginForm extends Component {
         <CardSection>
           {this.renderButton()}
         </CardSection>
-      </Card>
+    </KeyboardAvoidingView>
+    </ScrollView>
     );
   }
 }
