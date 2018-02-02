@@ -14,12 +14,12 @@ export const clientUpdate = ({ prop, value }) => {
   };
 };
 
-export const clientCreate = ({ name, phone }) => {
+export const clientCreate = ({ name }) => {
   const { currentUser } = firebase.auth();
 
   return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/clients`)
-      .push({ name, phone })
+      .push({ name })
       .then(() => {
         dispatch({ type: CLIENT_CREATE });
         Actions.pop({ type: 'reset' });
@@ -38,12 +38,12 @@ export const clientsFetch = () => {
   };
 };
 
-export const clientSave = ({ name, phone, uid }) => {
+export const clientSave = ({ name, uid }) => {
   const { currentUser } = firebase.auth();
 
   return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/clients/${uid}`)
-      .set({ name, phone })
+      .set({ name })
       .then(() => {
         dispatch({ type: CLIENT_SAVE_SUCCESS });
         Actions.pop({ type: 'reset' });

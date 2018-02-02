@@ -11,18 +11,9 @@ class ClientForm extends Component {
         <CardSection>
           <Input
             label="Name"
-            placeholder="Jane"
+            placeholder="Enter client's name"
             value={this.props.name}
             onChangeText={value => this.props.clientUpdate({ prop: 'name', value })}
-          />
-        </CardSection>
-
-        <CardSection>
-          <Input
-            label="Phone"
-            placeholder="555-555-5555"
-            value={this.props.phone}
-            onChangeText={value => this.props.clientUpdate({ prop: 'phone', value })}
           />
         </CardSection>
       </View>
@@ -38,9 +29,9 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  const { name, phone } = state.clientForm;
+  const { name } = state.clientForm;
 
-  return { name, phone };
+  return { name };
 };
 
 export default connect(mapStateToProps, { clientUpdate })(ClientForm);

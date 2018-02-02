@@ -16,15 +16,9 @@ class ClientEdit extends Component {
   }
 
   onButtonPress() {
-    const { name, phone } = this.props;
+    const { name } = this.props;
 
-    this.props.clientSave({ name, phone, uid: this.props.client.uid });
-  }
-
-  onTextPress() {
-    const { phone } = this.props;
-
-    Communications.text(phone, `Hello there!`);
+    this.props.clientSave({ name, uid: this.props.client.uid });
   }
 
   onAccept() {
@@ -49,14 +43,8 @@ class ClientEdit extends Component {
         </CardSection>
 
         <CardSection>
-          <Button onPress={this.onTextPress.bind(this)}>
-            Text Schedule
-          </Button>
-        </CardSection>
-
-        <CardSection>
           <Button onPress={() => this.setState({ showModal: !this.state.showModal })}>
-            Fire Client
+            Remove Client
           </Button>
         </CardSection>
 
@@ -65,7 +53,7 @@ class ClientEdit extends Component {
           onAccept={this.onAccept.bind(this)}
           onDecline={this.onDecline.bind(this)}
         >
-          Are you sure you want to delete this?
+          Are you sure you want to remove this client?
         </Confirm>
       </Card>
     );
@@ -73,9 +61,9 @@ class ClientEdit extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { name, phone } = state.clientForm;
+  const { name } = state.clientForm;
 
-  return { name, phone };
+  return { name };
 };
 
 export default connect(mapStateToProps, {
