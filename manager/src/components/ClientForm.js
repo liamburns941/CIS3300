@@ -11,7 +11,7 @@ class ClientForm extends Component {
         <CardSection>
           <Input
             label="Name"
-            placeholder="Enter client's name"
+            placeholder="Enter client name"
             value={this.props.name}
             onChangeText={value => this.props.clientUpdate({ prop: 'name', value })}
           />
