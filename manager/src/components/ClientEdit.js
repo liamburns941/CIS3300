@@ -16,15 +16,15 @@ class ClientEdit extends Component {
   }
 
   onButtonPress() {
-    const { name, phone, shift } = this.props;
+    const { name, phone } = this.props;
 
-    this.props.clientSave({ name, phone, shift, uid: this.props.client.uid });
+    this.props.clientSave({ name, phone, uid: this.props.client.uid });
   }
 
   onTextPress() {
-    const { phone, shift } = this.props;
+    const { phone } = this.props;
 
-    Communications.text(phone, `Your upcoming shift is on ${shift}`);
+    Communications.text(phone, `Hello there!`);
   }
 
   onAccept() {
@@ -73,9 +73,9 @@ class ClientEdit extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { name, phone, shift } = state.clientForm;
+  const { name, phone } = state.clientForm;
 
-  return { name, phone, shift };
+  return { name, phone };
 };
 
 export default connect(mapStateToProps, {
