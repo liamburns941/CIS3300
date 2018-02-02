@@ -6,9 +6,9 @@ import ClientForm from './ClientForm';
 
 class ClientCreate extends Component {
   onButtonPress() {
-    const { name, phone, shift } = this.props;
+    const { name } = this.props;
 
-    this.props.clientCreate({ name, phone, shift: shift || 'Monday' });
+    this.props.clientCreate({ name });
   }
 
   render() {
@@ -26,9 +26,9 @@ class ClientCreate extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { name, phone, shift } = state.clientForm;
+  const { name } = state.clientForm;
 
-  return { name, phone, shift };
+  return { name };
 };
 
 export default connect(mapStateToProps, {
