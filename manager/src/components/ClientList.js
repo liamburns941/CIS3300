@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ListView } from 'react-native';
 import { clientsFetch } from '../actions';
-import ListItem from './ListItem';
+import ClientListItem from './ClientListItem';
 
 class ClientList extends Component {
   componentWillMount() {
@@ -21,6 +21,7 @@ class ClientList extends Component {
   }
 
   createDataSource({ clients }) {
+    debugger;
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
@@ -29,7 +30,7 @@ class ClientList extends Component {
   }
 
   renderRow(client) {
-    return <ListItem client={client} />;
+    return <ClientListItem client={client} />;
   }
 
   render() {

@@ -4,6 +4,8 @@ import LoginForm from './components/LoginForm';
 import ClientList from './components/ClientList';
 import ClientCreate from './components/ClientCreate';
 import ClientEdit from './components/ClientEdit';
+import WorkoutList from './components/WorkoutList';
+import WorkoutCreate from './components/WorkoutCreate';
 
 const RouterComponent = () => {
   return (
@@ -24,6 +26,15 @@ const RouterComponent = () => {
           />
           <Scene key="clientCreate" component={ClientCreate} title="Create Client" />
           <Scene key="clientEdit" component={ClientEdit} title="Edit Client" />
+
+          <Scene
+            onRight={() => Actions.workoutCreate()}
+            rightTitle="Add"
+            key="workoutList"
+            component={WorkoutList}
+            title="Workouts"
+          />
+          <Scene key="workoutCreate" component={WorkoutCreate} title="Create Workout" />
         </Scene>
       </Scene>
     </Router>
