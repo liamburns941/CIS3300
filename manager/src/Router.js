@@ -7,7 +7,7 @@ import ClientEdit from './components/ClientEdit';
 
 const RouterComponent = () => {
   return (
-    <Router sceneStyle={{ paddingTop: 65 }}>
+    <Router>
       <Scene key="root">
         <Scene key="auth">
           <Scene key="login" component={LoginForm} title="Welcome" />
