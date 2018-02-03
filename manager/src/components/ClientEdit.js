@@ -10,6 +10,7 @@ class ClientEdit extends Component {
   state = { showModal: false };
 
   componentWillMount() {
+    debugger;
     _.each(this.props.client, (value, prop) => {
       this.props.clientUpdate({ prop, value });
     });

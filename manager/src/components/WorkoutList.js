@@ -7,9 +7,14 @@ import WorkoutListItem from './WorkoutListItem';
 
 class WorkoutList extends Component {
   componentWillMount() {
-    //debugger;
-    this.props.workoutsFetch(this.props.client.uid);
+    debugger;
+      console.log(this.props.client);
+    //_.each(this.props.client, (name, value) => {
+      //console.log(client);
+    //  this.props.workoutsFetch({uid:client.uid});
+  //  });
 
+    this.props.workoutsFetch({ uid:this.props.client.uid });
     this.createDataSource(this.props);
   }
 
@@ -48,6 +53,7 @@ class WorkoutList extends Component {
 }
 
 const mapStateToProps = state => {
+
   const workouts = _.map(state.workouts, (val, uid) => {
     return { ...val, uid };
   });

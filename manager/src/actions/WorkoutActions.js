@@ -14,14 +14,15 @@ export const workoutUpdate = ({ prop, value }) => {
   };
 };
 
-export const workoutCreate = ({ name, client }) => {
+export const workoutCreate = ({ name, uid }) => {
   const { currentUser } = firebase.auth();
+  console.log(uid);
   //debugger;
   //const clientUid = client.uid;
   // on line 24 client should be replaced by the clientUid
 
   return (dispatch) => {
-    firebase.database().ref(`/users/${currentUser.uid}/clients/${client}/workouts`)
+    firebase.database().ref(`/users/${currentUser.uid}/clients/${uid}/workouts`)
       .push({ name })
       .then(() => {
         dispatch({ type: WORKOUT_CREATE });
@@ -30,16 +31,20 @@ export const workoutCreate = ({ name, client }) => {
   };
 };
 
-export const workoutsFetch = ({ clientUid }) => {
+export const workoutsFetch = ({uid}) => {
+  //console.log(params);
+  //const uid = params.props.value;
   const { currentUser } = firebase.auth();
+  console.log(uid);
+  // const clientUid = client.uid;
 
   return (dispatch) => {
     //debugger;
-    firebase.database().ref(`/users/${currentUser.uid}/clients/${clientUid}/workouts`)
+    firebase.database().ref(`/users/${currentUser.uid}/clients/${uid}/workouts`)
       .on('value', snapshot => {
         dispatch({ type: WORKOUTS_FETCH_SUCCESS, payload: snapshot.val() });
       });
-      // Actions.workoutList();
+       //Actions.workoutList();
   };
 };
 

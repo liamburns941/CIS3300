@@ -8,8 +8,8 @@ class WorkoutCreate extends Component {
   onButtonPress() {
     //debugger;
     const { name, client } = this.props;
-    console.log(name, client);
-    this.props.workoutCreate({ name, client });
+    console.log(name, client.uid);
+    this.props.workoutCreate({ name, uid:this.props.client.uid });
   }
 
   render() {
