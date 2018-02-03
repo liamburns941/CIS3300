@@ -6,9 +6,10 @@ import WorkoutForm from './WorkoutForm';
 
 class WorkoutCreate extends Component {
   onButtonPress() {
-    const { name } = this.props;
-
-    this.props.workoutCreate({ name });
+    //debugger;
+    const { name, client } = this.props;
+    console.log(name, client);
+    this.props.workoutCreate({ name, client });
   }
 
   render() {
@@ -26,9 +27,10 @@ class WorkoutCreate extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { name } = state.workoutForm;
+  console.log(state);
+  const { name, client } = state.workoutForm;
 
-  return { name };
+  return { name, client };
 };
 
 export default connect(mapStateToProps, {

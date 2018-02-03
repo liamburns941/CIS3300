@@ -7,7 +7,7 @@ import WorkoutListItem from './WorkoutListItem';
 
 class WorkoutList extends Component {
   componentWillMount() {
-    debugger;
+    //debugger;
     this.props.workoutsFetch(this.props.client.uid);
 
     this.createDataSource(this.props);
@@ -25,7 +25,7 @@ class WorkoutList extends Component {
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
-      debugger;
+      //debugger;
 
     this.dataSource = ds.cloneWithRows(workouts);
   }
@@ -35,7 +35,8 @@ class WorkoutList extends Component {
   }
 
   render() {
-    console.log('The workouts for ' + this.props.client.Name + ' will go here');
+    //console.log(this.props.client.name);
+    console.log('The workouts for ' + this.props.client.name + ' will go here');
     return (
         <ListView
           enableEmptySections

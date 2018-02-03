@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import { Text, TouchableWithoutFeedback, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { CardSection } from './common';
+import { workoutUpdate } from '../actions';
 
 class ClientListItem extends Component {
   onRowPress() {
     // this is what it previously was, trying to change it to going to the workout
 
     // Actions.clientEdit({ client: this.props.client });
-
+    // workoutUpdate({ props: 'client', value:this.props.client });
     Actions.workoutList({ client: this.props.client });
-    debugger;
+    //debugger;
 
   }
 

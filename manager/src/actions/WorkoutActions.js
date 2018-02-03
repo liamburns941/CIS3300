@@ -14,11 +14,14 @@ export const workoutUpdate = ({ prop, value }) => {
   };
 };
 
-export const workoutCreate = ({ name, clientUid }) => {
+export const workoutCreate = ({ name, client }) => {
   const { currentUser } = firebase.auth();
+  //debugger;
+  //const clientUid = client.uid;
+  // on line 24 client should be replaced by the clientUid
 
   return (dispatch) => {
-    firebase.database().ref(`/users/${currentUser.uid}/clients/${clientUid}/workouts`)
+    firebase.database().ref(`/users/${currentUser.uid}/clients/${client}/workouts`)
       .push({ name })
       .then(() => {
         dispatch({ type: WORKOUT_CREATE });
@@ -31,7 +34,7 @@ export const workoutsFetch = ({ clientUid }) => {
   const { currentUser } = firebase.auth();
 
   return (dispatch) => {
-    debugger;
+    //debugger;
     firebase.database().ref(`/users/${currentUser.uid}/clients/${clientUid}/workouts`)
       .on('value', snapshot => {
         dispatch({ type: WORKOUTS_FETCH_SUCCESS, payload: snapshot.val() });
