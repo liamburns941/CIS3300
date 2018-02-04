@@ -6,31 +6,8 @@ import { workoutUpdate, workoutsFetch } from '../actions';
 
 class ClientListItem extends Component {
   onRowPress() {
-    // this is what it previously was, trying to change it to going to the workout
-
-     //Actions.clientEdit({ client: this.props.client });
-    // workoutUpdate({ props: 'client', value:this.props.client });
-
-    debugger;
-    //Actions.workoutList({ client: this.props.client });
-    Actions.workoutList({ client:this.props.client });
-
-    //const { uid } = this.props.client;
-
-    //workoutsFetch({ clientUid: uid });
-
     //debugger;
-    // workoutsFetch({ props: 'clientUid', clientUid:this.props.client.uid });
-
-  //  console.log(this.props.client.uid);
-
-    //const { client } = this.props;
-
-    //workoutsFetch({client});
-
-
-    //this.props.clientSave({ client });
-
+    Actions.workoutList({ client:this.props.client });
   }
 
   render() {

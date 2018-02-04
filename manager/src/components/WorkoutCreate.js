@@ -5,12 +5,11 @@ import { Card, CardSection, Button } from './common';
 import WorkoutForm from './WorkoutForm';
 
 class WorkoutCreate extends Component {
+
   onButtonPress() {
-    //debugger;
-    const { name, client } = this.props;
-    //console.log(name, client.uid);
     debugger;
-    this.props.workoutCreate({ name, uid:this.props.client.uid });
+    const { name, exerciseTime, restTime, sets } = this.props;
+    this.props.workoutCreate({ name, exerciseTime, restTime, sets, uid:this.props.uid });
   }
 
   render() {
@@ -29,9 +28,9 @@ class WorkoutCreate extends Component {
 
 const mapStateToProps = (state) => {
   console.log(state);
-  const { name, client } = state.workoutForm;
+  const { name, exerciseTime, restTime, sets, client } = state.workoutForm;
 
-  return { name, client };
+  return { name, exerciseTime, restTime, sets, client };
 };
 
 export default connect(mapStateToProps, {

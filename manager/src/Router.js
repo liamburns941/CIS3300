@@ -18,7 +18,7 @@ const RouterComponent = () => {
         <Scene key="main">
           <Scene
             onRight={() => Actions.clientCreate()}
-            rightTitle="Add"
+            rightTitle="Create"
             key="clientList"
             component={ClientList}
             title="Clients"
@@ -27,12 +27,9 @@ const RouterComponent = () => {
           <Scene key="clientCreate" component={ClientCreate} title="Create Client" />
           <Scene key="clientEdit" component={ClientEdit} title="Edit Client" />
           <Scene
-            onRight={() =>
-              Actions.workoutCreate()}
-            rightTitle="Add"
             key="workoutList"
             component={WorkoutList}
-            title="Workouts"
+            title="Profile"
           />
           <Scene key="workoutCreate" component={WorkoutCreate} title="Create Workout" />
         </Scene>

@@ -1,21 +1,20 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ListView } from 'react-native';
-import { workoutsFetch } from '../actions';
+import { ListView, Text } from 'react-native';
+import { workoutsFetch, workoutCreate } from '../actions';
 import WorkoutListItem from './WorkoutListItem';
+import { Card, CardSection, Button } from './common';
+import { Actions } from 'react-native-router-flux';
 
 class WorkoutList extends Component {
   componentWillMount() {
-    debugger;
+    //debugger;
       console.log(this.props.client);
-    //_.each(this.props.client, (name, value) => {
-      //console.log(client);
-    //  this.props.workoutsFetch({uid:client.uid});
-  //  });
 
     this.props.workoutsFetch({ uid:this.props.client.uid });
     this.createDataSource(this.props);
+    //debugger;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -30,7 +29,6 @@ class WorkoutList extends Component {
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
-      //debugger;
 
     this.dataSource = ds.cloneWithRows(workouts);
   }
@@ -39,18 +37,53 @@ class WorkoutList extends Component {
     return <WorkoutListItem workout={workout} />;
   }
 
+  onButtonPress() {
+    //debugger;
+    Actions.workoutCreate({ uid:this.props.client.uid });
+  }
+
   render() {
-    //console.log(this.props.client.name);
-    console.log('The workouts for ' + this.props.client.name + ' will go here');
+    const { name } = this.props.client;
+
+    const { nameStyle, workoutTitleStyle } = styles;
+
     return (
+      <Card>
+        <Text style={nameStyle}>
+          {name}
+        </Text>
+        <CardSection>
+          <Button onPress={this.onButtonPress.bind(this)}>
+            Add
+          </Button>
+        </CardSection>
+        <Text style={workoutTitleStyle}>
+        Workouts
+        </Text>
         <ListView
           enableEmptySections
           dataSource={this.dataSource}
           renderRow={this.renderRow}
         />
+      </Card>
     );
   }
 }
+
+const styles = {
+  nameStyle: {
+    fontSize: 36,
+    paddingTop: 20,
+    paddingBottom: 20,
+    textAlign: 'center'
+  },
+  workoutTitleStyle: {
+    fontSize: 24,
+    paddingTop: 20,
+    paddingBottom: 20,
+    textAlign: 'center'
+  }
+};
 
 const mapStateToProps = state => {
 
@@ -61,4 +94,4 @@ const mapStateToProps = state => {
   return { workouts };
 };
 
-export default connect(mapStateToProps, { workoutsFetch })(WorkoutList);
+export default connect(mapStateToProps, { workoutsFetch, workoutCreate })(WorkoutList);

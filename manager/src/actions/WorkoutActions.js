@@ -14,16 +14,12 @@ export const workoutUpdate = ({ prop, value }) => {
   };
 };
 
-export const workoutCreate = ({ name, uid }) => {
+export const workoutCreate = ({ name, exerciseTime, restTime, sets, uid }) => {
   const { currentUser } = firebase.auth();
-  console.log(uid);
-  //debugger;
-  //const clientUid = client.uid;
-  // on line 24 client should be replaced by the clientUid
 
   return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/clients/${uid}/workouts`)
-      .push({ name })
+      .push({ name, exerciseTime, restTime, sets })
       .then(() => {
         dispatch({ type: WORKOUT_CREATE });
         Actions.pop({ type: 'reset' });
@@ -32,11 +28,8 @@ export const workoutCreate = ({ name, uid }) => {
 };
 
 export const workoutsFetch = ({uid}) => {
-  //console.log(params);
-  //const uid = params.props.value;
   const { currentUser } = firebase.auth();
   console.log(uid);
-  // const clientUid = client.uid;
 
   return (dispatch) => {
     //debugger;
