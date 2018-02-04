@@ -5,7 +5,9 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
-  name: ''
+  firstName: '',
+  lastName: '',
+  email: ''
 };
 
 export default (state = INITIAL_STATE, action) => {

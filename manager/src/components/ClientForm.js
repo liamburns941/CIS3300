@@ -10,10 +10,26 @@ class ClientForm extends Component {
       <View>
         <CardSection>
           <Input
-            label="Name"
-            placeholder="Enter client name"
-            value={this.props.name}
-            onChangeText={value => this.props.clientUpdate({ prop: 'name', value })}
+            label="First Name"
+            placeholder="Enter client first name"
+            value={this.props.firstName}
+            onChangeText={value => this.props.clientUpdate({ prop: 'firstName', value })}
+          />
+        </CardSection>
+        <CardSection>
+          <Input
+            label="Last Name"
+            placeholder="Enter client last name"
+            value={this.props.lastName}
+            onChangeText={value => this.props.clientUpdate({ prop: 'lastName', value })}
+          />
+        </CardSection>
+        <CardSection>
+          <Input
+            label="Email"
+            placeholder="Enter client email"
+            value={this.props.email}
+            onChangeText={value => this.props.clientUpdate({ prop: 'email', value })}
           />
         </CardSection>
       </View>
@@ -22,9 +38,9 @@ class ClientForm extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { name } = state.clientForm;
+  const { firstName, lastName, email } = state.clientForm;
 
-  return { name };
+  return { firstName, lastName, email };
 };
 
 export default connect(mapStateToProps, { clientUpdate })(ClientForm);

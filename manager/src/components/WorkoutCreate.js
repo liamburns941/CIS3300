@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { workoutUpdate, workoutCreate } from '../actions';
 import { Card, CardSection, Button } from './common';
 import WorkoutForm from './WorkoutForm';
+import { Text } from 'react-native';
 
 class WorkoutCreate extends Component {
 
@@ -16,6 +17,9 @@ class WorkoutCreate extends Component {
     return (
       <Card>
         <WorkoutForm {...this.props} />
+        <Text>
+        Exercises
+        </Text>
         <CardSection>
           <Button onPress={this.onButtonPress.bind(this)}>
             Create
@@ -27,7 +31,6 @@ class WorkoutCreate extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   const { name, exerciseTime, restTime, sets, client } = state.workoutForm;
 
   return { name, exerciseTime, restTime, sets, client };

@@ -11,14 +11,14 @@ class ClientListItem extends Component {
   }
 
   render() {
-    const { name } = this.props.client;
+    const { firstName, lastName } = this.props.client;
 
     return (
       <TouchableWithoutFeedback onPress={this.onRowPress.bind(this)}>
         <View>
           <CardSection>
             <Text style={styles.titleStyle}>
-              {name}
+              {firstName} {lastName}
             </Text>
           </CardSection>
         </View>

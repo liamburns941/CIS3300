@@ -43,14 +43,14 @@ class WorkoutList extends Component {
   }
 
   render() {
-    const { name } = this.props.client;
+    const { firstName, lastName } = this.props.client;
 
     const { nameStyle, workoutTitleStyle } = styles;
 
     return (
       <Card>
         <Text style={nameStyle}>
-          {name}
+          {firstName} {lastName}
         </Text>
         <CardSection>
           <Button onPress={this.onButtonPress.bind(this)}>
