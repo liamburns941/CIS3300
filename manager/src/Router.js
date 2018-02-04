@@ -6,6 +6,7 @@ import ClientCreate from './components/ClientCreate';
 import ClientEdit from './components/ClientEdit';
 import WorkoutList from './components/WorkoutList';
 import WorkoutCreate from './components/WorkoutCreate';
+import ExerciseList from './components/ExerciseList';
 
 const RouterComponent = () => {
   return (
@@ -32,6 +33,11 @@ const RouterComponent = () => {
             title="Profile"
           />
           <Scene key="workoutCreate" component={WorkoutCreate} title="Create Workout" />
+          <Scene
+            key="exerciseList"
+            component={ExerciseList}
+            title="Exercises"
+          />
         </Scene>
       </Scene>
     </Router>
