@@ -31,7 +31,6 @@ export const exercisesFetch = ({ clientUid, workoutUid }) => {
   const { currentUser } = firebase.auth();
 
   return (dispatch) => {
-    //debugger;
     firebase.database().ref(`/users/${currentUser.uid}/clients/${clientUid}/workouts/${workoutUid}/exercises`)
       .on('value', snapshot => {
         dispatch({ type: EXERCISES_FETCH_SUCCESS, payload: snapshot.val() });

@@ -11,9 +11,9 @@ class ExerciseCreate extends Component {
   }
 
   onButtonPress() {
-    const { exerciseName, benchmark } = this.props;
+    const { exerciseName, benchmark, clientUid, workoutUid } = this.props;
     debugger;
-    this.props.exerciseCreate({ exerciseName, benchmark, clientUid:this.props.clientUid, workoutUid:this.props.workoutUid });
+    this.props.exerciseCreate({ exerciseName, benchmark, clientUid, workoutUid });
   }
 
   render() {
@@ -31,7 +31,6 @@ class ExerciseCreate extends Component {
 }
 
 const mapStateToProps = (state) => {
-  debugger;
   const { benchmark, exerciseName } = state.exerciseForm;
 
   return { benchmark, exerciseName };

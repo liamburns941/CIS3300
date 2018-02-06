@@ -8,9 +8,8 @@ import { Actions } from 'react-native-router-flux';
 
 class WorkoutCreate extends Component {
   onButtonPress() {
-    const { workoutName, exerciseTime, restTime, sets } = this.props;
-    debugger;
-    this.props.workoutCreate({ workoutName, exerciseTime, restTime, sets, clientUid:this.props.clientUid });
+    const { workoutName, exerciseTime, restTime, sets, clientUid } = this.props;
+    this.props.workoutCreate({ workoutName, exerciseTime, restTime, sets, clientUid });
   }
 
   render() {
@@ -42,7 +41,6 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  debugger;
   const { workoutName, exerciseTime, restTime, sets } = state.workoutForm;
 
   return { workoutName, exerciseTime, restTime, sets };

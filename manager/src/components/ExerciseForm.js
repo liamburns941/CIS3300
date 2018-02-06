@@ -6,7 +6,6 @@ import { CardSection, Input } from './common';
 
 class ExerciseForm extends Component {
   render() {
-    debugger;
     return (
       <View>
         <CardSection>
@@ -31,7 +30,6 @@ class ExerciseForm extends Component {
 }
 
 const mapStateToProps = (state) => {
-debugger;
   const { exerciseName, benchmark } = state.exerciseForm;
 
   return { exerciseName, benchmark };
