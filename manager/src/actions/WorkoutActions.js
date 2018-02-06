@@ -24,8 +24,7 @@ export const workoutCreate = ({ workoutName, exerciseTime, restTime, sets, clien
 
     const workoutUid = ref.push().getKey();
 
-    ref.child(workoutUid).setValue(ref)
-      .push({ workoutName, exerciseTime, restTime, sets }).getKey()
+    ref.push({ workoutName, exerciseTime, restTime, sets })
       .then(() => {
         dispatch({ type: WORKOUT_CREATE });
         debugger;
