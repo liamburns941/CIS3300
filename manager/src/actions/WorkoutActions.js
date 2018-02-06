@@ -24,7 +24,7 @@ export const workoutCreate = ({ workoutName, exerciseTime, restTime, sets, clien
 
     const workoutUid = ref.push().getKey();
 
-    mGroupRef.child(workoutUid).setValue(ref)
+    ref.child(workoutUid).setValue(ref)
       .push({ workoutName, exerciseTime, restTime, sets }).getKey()
       .then(() => {
         dispatch({ type: WORKOUT_CREATE });
