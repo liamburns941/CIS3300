@@ -4,39 +4,28 @@ import { workoutUpdate, workoutCreate } from '../actions';
 import { Card, CardSection, Button } from './common';
 import WorkoutForm from './WorkoutForm';
 import { Text } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 class WorkoutCreate extends Component {
-
-  onCreateWorkoutButtonPress() {
-    const { name, exerciseTime, restTime, sets } = this.props;
-    this.props.workoutCreate({ name, exerciseTime, restTime, sets, uid:this.props.uid });
-  }
-
-  onAddExerciseButtonPress() {
-
+  onButtonPress() {
+    const { workoutName, exerciseTime, restTime, sets } = this.props;
+    debugger;
+    this.props.workoutCreate({ workoutName, exerciseTime, restTime, sets, clientUid:this.props.clientUid });
+    Actions.exerciseCreate({ clientUid:this.props.clientUid, workoutUid:this.props.workoutUid });
   }
 
   render() {
-
     const { titleStyle } = styles;
 
     return (
       <Card>
         <Text style={titleStyle}>
-        Workout Details
+        Step 1: Workout Details
         </Text>
         <WorkoutForm {...this.props} />
-        <Text style={titleStyle}>
-        Workout Exercises
-        </Text>
         <CardSection>
-          <Button onPress={this.onAddExerciseButtonPress.bind(this)}>
-            Add Exercise
-          </Button>
-        </CardSection>
-        <CardSection>
-          <Button onPress={this.onCreateWorkoutButtonPress.bind(this)}>
-            Create Workout
+          <Button onPress={this.onButtonPress.bind(this)}>
+            Next
           </Button>
         </CardSection>
       </Card>
@@ -54,9 +43,10 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  const { name, exerciseTime, restTime, sets, client } = state.workoutForm;
+  debugger;
+  const { workoutName, exerciseTime, restTime, sets, client } = state.workoutForm;
 
-  return { name, exerciseTime, restTime, sets, client };
+  return { workoutName, exerciseTime, restTime, sets, client };
 };
 
 export default connect(mapStateToProps, {

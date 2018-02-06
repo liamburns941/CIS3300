@@ -12,8 +12,8 @@ class WorkoutForm extends Component {
           <Input
             label="Name"
             placeholder="Enter workout name"
-            value={this.props.name}
-            onChangeText={value => this.props.workoutUpdate({ prop: 'name', value })}
+            value={this.props.workoutName}
+            onChangeText={value => this.props.workoutUpdate({ prop: 'workoutName', value })}
           />
         </CardSection>
         <CardSection>
@@ -46,9 +46,9 @@ class WorkoutForm extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { name, exerciseTime, restTime, sets } = state.workoutForm;
+  const { workoutName, exerciseTime, restTime, sets } = state.workoutForm;
 
-  return { name, exerciseTime, restTime, sets };
+  return { workoutName, exerciseTime, restTime, sets };
 };
 
 export default connect(mapStateToProps, { workoutUpdate })(WorkoutForm);

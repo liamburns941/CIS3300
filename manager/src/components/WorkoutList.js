@@ -9,12 +9,8 @@ import { Actions } from 'react-native-router-flux';
 
 class WorkoutList extends Component {
   componentWillMount() {
-    //debugger;
-      console.log(this.props.client);
-
-    this.props.workoutsFetch({ uid:this.props.client.uid });
+    this.props.workoutsFetch({ clientUid:this.props.client.clientUid });
     this.createDataSource(this.props);
-    //debugger;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -39,7 +35,7 @@ class WorkoutList extends Component {
 
   onButtonPress() {
     //debugger;
-    Actions.workoutCreate({ uid:this.props.client.uid });
+    Actions.workoutCreate({ clientUid:this.props.client.clientUid });
   }
 
   render() {
@@ -87,8 +83,8 @@ const styles = {
 
 const mapStateToProps = state => {
 
-  const workouts = _.map(state.workouts, (val, uid) => {
-    return { ...val, uid };
+  const workouts = _.map(state.workouts, (val, clientUid) => {
+    return { ...val, clientUid };
   });
 
   return { workouts };

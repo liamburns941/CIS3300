@@ -5,7 +5,8 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
-  name: ''
+  exerciseName: '',
+  benchmark: ''
 };
 
 export default (state = INITIAL_STATE, action) => {

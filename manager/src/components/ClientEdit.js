@@ -19,13 +19,13 @@ class ClientEdit extends Component {
   onButtonPress() {
     const { firstName, lastName, email } = this.props;
 
-    this.props.clientSave({ firstName, lastName, email, uid: this.props.client.uid });
+    this.props.clientSave({ firstName, lastName, email, clientUid: this.props.client.clientUid });
   }
 
   onAccept() {
-    const { uid } = this.props.client;
+    const { clientUid } = this.props.client;
 
-    this.props.clientDelete({ uid });
+    this.props.clientDelete({ clientUid });
   }
 
   onDecline() {

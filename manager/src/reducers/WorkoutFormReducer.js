@@ -5,7 +5,10 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
-  name: ''
+  workoutName: '',
+  exerciseTime: '',
+  restTime: '',
+  sets: ''
 };
 
 export default (state = INITIAL_STATE, action) => {

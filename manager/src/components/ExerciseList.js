@@ -45,8 +45,8 @@ class ExerciseList extends Component {
 }
 
 const mapStateToProps = state => {
-  const exercises = _.map(state.exercises, (val, uid) => {
-    return { ...val, uid };
+  const exercises = _.map(state.exercises, (val, exerciseUid) => {
+    return { ...val, exerciseUid };
   });
 
   return { exercises };

@@ -45,8 +45,8 @@ class ClientList extends Component {
 }
 
 const mapStateToProps = state => {
-  const clients = _.map(state.clients, (val, uid) => {
-    return { ...val, uid };
+  const clients = _.map(state.clients, (val, clientUid) => {
+    return { ...val, clientUid };
   });
 
   return { clients };

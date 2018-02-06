@@ -38,11 +38,11 @@ export const clientsFetch = () => {
   };
 };
 
-export const clientSave = ({ firstName, lastName, email, uid }) => {
+export const clientSave = ({ firstName, lastName, email, clientUid }) => {
   const { currentUser } = firebase.auth();
 
   return (dispatch) => {
-    firebase.database().ref(`/users/${currentUser.uid}/clients/${uid}`)
+    firebase.database().ref(`/users/${currentUser.uid}/clients/${clientUid}`)
       .set({ firstName, lastName, email })
       .then(() => {
         dispatch({ type: CLIENT_SAVE_SUCCESS });
@@ -51,11 +51,11 @@ export const clientSave = ({ firstName, lastName, email, uid }) => {
   };
 };
 
-export const clientDelete = ({ uid }) => {
+export const clientDelete = ({ clientUid }) => {
   const { currentUser } = firebase.auth();
 
   return () => {
-    firebase.database().ref(`/users/${currentUser.uid}/clients/${uid}`)
+    firebase.database().ref(`/users/${currentUser.uid}/clients/${clientUid}`)
       .remove()
       .then(() => {
         Actions.pop({ type: 'reset' });

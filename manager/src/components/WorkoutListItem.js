@@ -9,14 +9,14 @@ class WorkoutListItem extends Component {
   }
 
   render() {
-    const { name } = this.props.workout;
+    const { workoutName } = this.props.workout;
 
     return (
       <TouchableWithoutFeedback onPress={this.onRowPress.bind(this)}>
         <View>
           <CardSection>
             <Text style={styles.titleStyle}>
-              {name}
+              {workoutName}
             </Text>
           </CardSection>
         </View>

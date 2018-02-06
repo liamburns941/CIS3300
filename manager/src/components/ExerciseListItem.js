@@ -5,18 +5,18 @@ import { CardSection } from './common';
 
 class ExerciseListItem extends Component {
   onRowPress() {
-    
+
   }
 
   render() {
-    const { name } = this.props.exercise;
+    const { exerciseName } = this.props.exercise;
 
     return (
       <TouchableWithoutFeedback onPress={this.onRowPress.bind(this)}>
         <View>
           <CardSection>
             <Text style={styles.titleStyle}>
-              {name}
+              {exerciseName}
             </Text>
           </CardSection>
         </View>

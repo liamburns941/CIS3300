@@ -14,12 +14,12 @@ export const exerciseUpdate = ({ prop, value }) => {
   };
 };
 
-export const exerciseCreate = ({ name, clientUid, workoutUid }) => {
+export const exerciseCreate = ({ exerciseName, benchmark, clientUid, workoutUid }) => {
   const { currentUser } = firebase.auth();
 
   return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/clients/${clientUid}/workouts/${workoutUid}/exercises`)
-      .push({ name })
+      .push({ exerciseName, benchmark })
       .then(() => {
         dispatch({ type: EXERCISE_CREATE });
         Actions.pop({ type: 'reset' });
@@ -32,19 +32,19 @@ export const exercisesFetch = ({ clientUid, workoutUid }) => {
 
   return (dispatch) => {
     //debugger;
-    firebase.database().ref(`/users/${currentUser.uid}/clients/${uid}/workouts/${workoutUid}/exercises`)
+    firebase.database().ref(`/users/${currentUser.uid}/clients/${clientUid}/workouts/${workoutUid}/exercises`)
       .on('value', snapshot => {
         dispatch({ type: EXERCISES_FETCH_SUCCESS, payload: snapshot.val() });
       });
   };
 };
 
-export const exerciseSave = ({ name, clientUid, workoutUid, exerciseUid }) => {
+export const exerciseSave = ({ exerciseName, benchmark, clientUid, workoutUid, exerciseUid }) => {
   const { currentUser } = firebase.auth();
 
   return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/clients/${clientUid}/workouts/${workoutUid}/exercises/${exerciseUid}`)
-      .set({ name })
+      .set({ exerciseName, benchmark })
       .then(() => {
         dispatch({ type: EXERCISE_SAVE_SUCCESS });
         Actions.pop({ type: 'reset' });

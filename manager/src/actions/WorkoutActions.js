@@ -14,39 +14,37 @@ export const workoutUpdate = ({ prop, value }) => {
   };
 };
 
-export const workoutCreate = ({ name, exerciseTime, restTime, sets, uid }) => {
+export const workoutCreate = ({ workoutName, exerciseTime, restTime, sets, clientUid }) => {
   const { currentUser } = firebase.auth();
 
   return (dispatch) => {
-    firebase.database().ref(`/users/${currentUser.uid}/clients/${uid}/workouts`)
-      .push({ name, exerciseTime, restTime, sets })
+    firebase.database().ref(`/users/${currentUser.uid}/clients/${clientUid}/workouts`)
+      .push({ workoutName, exerciseTime, restTime, sets })
       .then(() => {
         dispatch({ type: WORKOUT_CREATE });
-        Actions.pop({ type: 'reset' });
+        // Actions.pop({ type: 'reset' });
       });
   };
 };
 
-export const workoutsFetch = ({uid}) => {
+export const workoutsFetch = ({clientUid}) => {
   const { currentUser } = firebase.auth();
-  console.log(uid);
 
   return (dispatch) => {
     //debugger;
-    firebase.database().ref(`/users/${currentUser.uid}/clients/${uid}/workouts`)
+    firebase.database().ref(`/users/${currentUser.uid}/clients/${clientUid}/workouts`)
       .on('value', snapshot => {
         dispatch({ type: WORKOUTS_FETCH_SUCCESS, payload: snapshot.val() });
       });
-       //Actions.workoutList();
   };
 };
 
-export const workoutSave = ({ name, clientUid, workoutUid }) => {
+export const workoutSave = ({ workoutName, clientUid, workoutUid }) => {
   const { currentUser } = firebase.auth();
 
   return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/clients/${clientUid}/workouts/${workoutUid}`)
-      .set({ name })
+      .set({ workoutName })
       .then(() => {
         dispatch({ type: WORKOUT_SAVE_SUCCESS });
         Actions.pop({ type: 'reset' });
