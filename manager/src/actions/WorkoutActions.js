@@ -20,9 +20,11 @@ export const workoutCreate = ({ workoutName, exerciseTime, restTime, sets, clien
   return (dispatch) => {
     debugger;
 
-    const workoutUid = mGroupRef.push().getKey();
+    const ref = firebase.database().ref(`/users/${currentUser.uid}/clients/${clientUid}/workouts`)
 
-    mGroupRef.child(workoutUid).setValue(firebase.database().ref(`/users/${currentUser.uid}/clients/${clientUid}/workouts`))
+    const workoutUid = ref.push().getKey();
+
+    mGroupRef.child(workoutUid).setValue(ref)
       .push({ workoutName, exerciseTime, restTime, sets }).getKey()
       .then(() => {
         dispatch({ type: WORKOUT_CREATE });
