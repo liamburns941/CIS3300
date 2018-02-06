@@ -49,7 +49,7 @@ class WorkoutList extends Component {
         </Text>
         <CardSection>
           <Button onPress={this.onButtonPress.bind(this)}>
-            Add Workout
+            Create Workout
           </Button>
         </CardSection>
         <Text style={workoutTitleStyle}>
