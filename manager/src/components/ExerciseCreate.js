@@ -5,10 +5,15 @@ import { Card, CardSection, Button } from './common';
 import ExerciseForm from './ExerciseForm';
 
 class ExerciseCreate extends Component {
+
+  componentWillMount() {
+    debugger;
+  }
+
   onButtonPress() {
     const { exerciseName, benchmark } = this.props;
-
-    this.props.exerciseCreate({ exerciseName, benchmark });
+    debugger;
+    this.props.exerciseCreate({ exerciseName, benchmark, clientUid:this.props.clientUid, workoutUid:this.props.workoutUid });
   }
 
   render() {

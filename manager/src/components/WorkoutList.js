@@ -34,7 +34,7 @@ class WorkoutList extends Component {
   }
 
   onButtonPress() {
-    //debugger;
+    debugger;
     Actions.workoutCreate({ clientUid:this.props.client.clientUid });
   }
 

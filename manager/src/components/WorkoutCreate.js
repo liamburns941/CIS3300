@@ -42,6 +42,7 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
+  debugger;
   const { workoutName, exerciseTime, restTime, sets } = state.workoutForm;
 
   return { workoutName, exerciseTime, restTime, sets };

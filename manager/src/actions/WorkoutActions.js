@@ -19,17 +19,24 @@ export const workoutCreate = ({ workoutName, exerciseTime, restTime, sets, clien
 
   return (dispatch) => {
     debugger;
+    const ref = firebase.database().ref().child(`/users/${currentUser.uid}/clients/${clientUid}/workouts`);
 
-    const ref = firebase.database().ref(`/users/${currentUser.uid}/clients/${clientUid}/workouts`)
+    const workout = ref.push({ workoutName, exerciseTime, restTime, sets });
 
-    const workoutUid = ref.push().getKey();
+    const workoutUid = workout.key;
 
-    ref.push({ workoutName, exerciseTime, restTime, sets })
-      .then(() => {
-        dispatch({ type: WORKOUT_CREATE });
         debugger;
-        Actions.exerciseCreate({ clientUid, workoutUid });
-      });
+        workout.then(() => {
+            dispatch({ type: WORKOUT_CREATE });
+            Actions.exerciseCreate({ clientUid, workoutUid });
+          });
+
+
+
+        //dispatch({ type: WORKOUT_CREATE });
+        //debugger;
+        //Actions.exerciseCreate({ clientUid, workoutUid });
+    ///});
   };
 };
 
