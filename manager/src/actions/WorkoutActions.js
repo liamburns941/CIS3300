@@ -18,14 +18,31 @@ export const workoutCreate = ({ workoutName, exerciseTime, restTime, sets, clien
   const { currentUser } = firebase.auth();
 
   return (dispatch) => {
-    firebase.database().ref(`/users/${currentUser.uid}/clients/${clientUid}/workouts`)
-      .push({ workoutName, exerciseTime, restTime, sets })
+    debugger;
+
+    const workoutUid = mGroupRef.push().getKey();
+
+    mGroupRef.child(workoutUid).setValue(firebase.database().ref(`/users/${currentUser.uid}/clients/${clientUid}/workouts`))
+      .push({ workoutName, exerciseTime, restTime, sets }).getKey()
       .then(() => {
         dispatch({ type: WORKOUT_CREATE });
-        // Actions.pop({ type: 'reset' });
+        debugger;
+        Actions.exerciseCreate({ clientUid, workoutUid });
       });
   };
 };
+
+
+
+
+
+
+  //   firebase.database().ref(`/users/${currentUser.uid}/clients/${clientUid}/workouts`)
+    //   .push({ workoutName, exerciseTime, restTime, sets })
+    //   .then(() => {
+    //     dispatch({ type: WORKOUT_CREATE });
+        // Actions.pop({ type: 'reset' });
+        // Actions.exerciseCreate({ clientUid, workoutUid });
 
 export const workoutsFetch = ({clientUid}) => {
   const { currentUser } = firebase.auth();

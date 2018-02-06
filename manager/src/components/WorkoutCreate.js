@@ -11,7 +11,6 @@ class WorkoutCreate extends Component {
     const { workoutName, exerciseTime, restTime, sets } = this.props;
     debugger;
     this.props.workoutCreate({ workoutName, exerciseTime, restTime, sets, clientUid:this.props.clientUid });
-    Actions.exerciseCreate({ clientUid:this.props.clientUid, workoutUid:this.props.workoutUid });
   }
 
   render() {
@@ -43,10 +42,9 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  debugger;
-  const { workoutName, exerciseTime, restTime, sets, client } = state.workoutForm;
+  const { workoutName, exerciseTime, restTime, sets } = state.workoutForm;
 
-  return { workoutName, exerciseTime, restTime, sets, client };
+  return { workoutName, exerciseTime, restTime, sets };
 };
 
 export default connect(mapStateToProps, {
