@@ -4,6 +4,10 @@ import LoginForm from './components/LoginForm';
 import ClientList from './components/ClientList';
 import ClientCreate from './components/ClientCreate';
 import ClientEdit from './components/ClientEdit';
+import WorkoutList from './components/WorkoutList';
+import WorkoutCreate from './components/WorkoutCreate';
+import ExerciseList from './components/ExerciseList';
+import ExerciseCreate from './components/ExerciseCreate';
 
 const RouterComponent = () => {
   return (
@@ -16,7 +20,7 @@ const RouterComponent = () => {
         <Scene key="main">
           <Scene
             onRight={() => Actions.clientCreate()}
-            rightTitle="Add"
+            rightTitle="Create"
             key="clientList"
             component={ClientList}
             title="Clients"
@@ -24,6 +28,18 @@ const RouterComponent = () => {
           />
           <Scene key="clientCreate" component={ClientCreate} title="Create Client" />
           <Scene key="clientEdit" component={ClientEdit} title="Edit Client" />
+          <Scene
+            key="workoutList"
+            component={WorkoutList}
+            title="Profile"
+          />
+          <Scene key="workoutCreate" component={WorkoutCreate} title="Create Workout" />
+          <Scene
+            key="exerciseList"
+            component={ExerciseList}
+            title="Exercises"
+          />
+          <Scene key="exerciseCreate" component={ExerciseCreate} title="Create Workout" />
         </Scene>
       </Scene>
     </Router>

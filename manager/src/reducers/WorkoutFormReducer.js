@@ -1,22 +1,23 @@
 import {
-  CLIENT_UPDATE,
-  CLIENT_CREATE,
-  CLIENT_SAVE_SUCCESS
+  WORKOUT_UPDATE,
+  WORKOUT_CREATE,
+  WORKOUT_SAVE_SUCCESS
 } from '../actions/types';
 
 const INITIAL_STATE = {
-  firstName: '',
-  lastName: '',
-  email: ''
+  workoutName: '',
+  exerciseTime: '',
+  restTime: '',
+  sets: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case CLIENT_UPDATE:
+    case WORKOUT_UPDATE:
       return { ...state, [action.payload.prop]: action.payload.value };
-    case CLIENT_CREATE:
+    case WORKOUT_CREATE:
       return INITIAL_STATE;
-    case CLIENT_SAVE_SUCCESS:
+    case WORKOUT_SAVE_SUCCESS:
       return INITIAL_STATE;
     default:
       return state;

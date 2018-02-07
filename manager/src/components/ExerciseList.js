@@ -2,12 +2,12 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ListView } from 'react-native';
-import { clientsFetch } from '../actions';
-import ClientListItem from './ClientListItem';
+import { exercisesFetch } from '../actions';
+import ExerciseListItem from './ExerciseListItem';
 
-class ClientList extends Component {
+class ExerciseList extends Component {
   componentWillMount() {
-    this.props.clientsFetch();
+    this.props.exercisesFetch();
 
     this.createDataSource(this.props);
   }
@@ -20,16 +20,17 @@ class ClientList extends Component {
     this.createDataSource(nextProps);
   }
 
-  createDataSource({ clients }) {
+  createDataSource({ exercises }) {
+    //debugger;
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
 
-    this.dataSource = ds.cloneWithRows(clients);
+    this.dataSource = ds.cloneWithRows(exercises);
   }
 
-  renderRow(client) {
-    return <ClientListItem client={client} />;
+  renderRow(exercise) {
+    return <ExerciseListItem exercise={exercise} />;
   }
 
   render() {
@@ -44,11 +45,11 @@ class ClientList extends Component {
 }
 
 const mapStateToProps = state => {
-  const clients = _.map(state.clients, (val, clientUid) => {
-    return { ...val, clientUid };
+  const exercises = _.map(state.exercises, (val, exerciseUid) => {
+    return { ...val, exerciseUid };
   });
 
-  return { clients };
+  return { exercises };
 };
 
-export default connect(mapStateToProps, { clientsFetch })(ClientList);
+export default connect(mapStateToProps, { exercisesFetch })(ExerciseList);

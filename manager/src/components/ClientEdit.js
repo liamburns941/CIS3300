@@ -16,15 +16,15 @@ class ClientEdit extends Component {
   }
 
   onButtonPress() {
-    const { name } = this.props;
+    const { firstName, lastName, email } = this.props;
 
-    this.props.clientSave({ name, uid: this.props.client.uid });
+    this.props.clientSave({ firstName, lastName, email, clientUid: this.props.client.clientUid });
   }
 
   onAccept() {
-    const { uid } = this.props.client;
+    const { clientUid } = this.props.client;
 
-    this.props.clientDelete({ uid });
+    this.props.clientDelete({ clientUid });
   }
 
   onDecline() {
@@ -61,9 +61,9 @@ class ClientEdit extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { name } = state.clientForm;
+  const { firstName, lastName, email } = state.clientForm;
 
-  return { name };
+  return { firstName, lastName, email };
 };
 
 export default connect(mapStateToProps, {

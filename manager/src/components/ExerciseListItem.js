@@ -3,20 +3,20 @@ import { Text, TouchableWithoutFeedback, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { CardSection } from './common';
 
-class ListItem extends Component {
+class ExerciseListItem extends Component {
   onRowPress() {
-    Actions.clientEdit({ client: this.props.client });
+
   }
 
   render() {
-    const { name } = this.props.client;
+    const { exerciseName } = this.props.exercise;
 
     return (
       <TouchableWithoutFeedback onPress={this.onRowPress.bind(this)}>
         <View>
           <CardSection>
             <Text style={styles.titleStyle}>
-              {name}
+              {exerciseName}
             </Text>
           </CardSection>
         </View>
@@ -34,4 +34,4 @@ const styles = {
   }
 };
 
-export default ListItem;
+export default ExerciseListItem;
