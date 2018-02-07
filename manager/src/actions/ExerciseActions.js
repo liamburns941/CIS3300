@@ -23,8 +23,7 @@ export const exerciseCreate = ({ exerciseName, benchmark, clientUid, workoutUid 
       .then(() => {
         dispatch({ type: EXERCISE_CREATE });
         //Actions.pop({ type: 'reset' });
-        debugger;
-        Actions.workoutList({ client:this.props.client });
+        Actions.main();
       });
   };
 };

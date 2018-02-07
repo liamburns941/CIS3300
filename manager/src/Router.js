@@ -39,7 +39,7 @@ const RouterComponent = () => {
             component={ExerciseList}
             title="Exercises"
           />
-          <Scene key="exerciseCreate" component={ExerciseCreate} title="Create Exercise" />
+          <Scene key="exerciseCreate" component={ExerciseCreate} title="Create Workout" />
         </Scene>
       </Scene>
     </Router>
