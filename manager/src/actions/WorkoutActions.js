@@ -20,7 +20,7 @@ export const workoutCreate = ({ workoutName, exerciseTime, restTime, sets, clien
   return (dispatch) => {
     const ref = firebase.database().ref().child(`/users/${currentUser.uid}/clients/${clientUid}/workouts`);
 
-    const workout = ref.push({ workoutName, exerciseTime, restTime, sets });
+    const workout = ref.push({ workoutName, exerciseTime, restTime, sets, dateCreated: '', dateCompleted: '', attempts: '0', status: 'Outstanding', });
 
     const workoutUid = workout.key;
 

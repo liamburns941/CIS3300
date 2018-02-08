@@ -5,18 +5,24 @@ import { CardSection } from './common';
 
 class WorkoutListItem extends Component {
   onRowPress() {
-    Actions.workoutEdit({ workout: this.props.workout });
+    Actions.workoutDetail({ workout: this.props.workout });
   }
 
   render() {
-    const { workoutName } = this.props.workout;
+    const { workoutName, status } = this.props.workout;
 
     return (
       <TouchableWithoutFeedback onPress={this.onRowPress.bind(this)}>
         <View>
-          <CardSection>
-            <Text style={styles.titleStyle}>
+          <CardSection style={styles.cardSectionStyle}>
+            <Text style={styles.workoutTitleStyle}>
               {workoutName}
+            </Text>
+            <Text style={styles.dashTitleStyle}>
+              -
+            </Text>
+            <Text style={styles.statusTitleStyle}>
+              {status}
             </Text>
           </CardSection>
         </View>
@@ -26,11 +32,35 @@ class WorkoutListItem extends Component {
 }
 
 const styles = {
-  titleStyle: {
+  workoutTitleStyle: {
+    //flex: 5,
     fontSize: 24,
-    paddingLeft: 15,
     paddingTop: 20,
-    paddingBottom: 20
+    paddingBottom: 20,
+    fontWeight: 'bold',
+    textAlign: 'center'
+  },
+  dashTitleStyle: {
+    //flex: 2,
+    fontSize: 24,
+    paddingTop: 20,
+    paddingBottom: 20,
+    textAlign: 'center'
+  },
+  statusTitleStyle: {
+    //flex: 3,
+    fontSize: 24,
+    paddingTop: 20,
+    paddingBottom: 20,
+    color: '#FFBF00',
+    textAlign: 'center'
+  },
+  cardSectionStyle: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingLeft: 50,
+    paddingRight: 50
   }
 };
 

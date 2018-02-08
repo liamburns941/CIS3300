@@ -8,7 +8,11 @@ const INITIAL_STATE = {
   workoutName: '',
   exerciseTime: '',
   restTime: '',
-  sets: ''
+  sets: '',
+  dateCreated: '',
+  dateCompleted: '',
+  attempts: '',
+  status: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
