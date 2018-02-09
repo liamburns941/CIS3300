@@ -5,6 +5,7 @@ import { CardSection } from './common';
 
 class WorkoutListItem extends Component {
   onRowPress() {
+    debugger;
     Actions.workoutDetail({ workout: this.props.workout });
   }
 

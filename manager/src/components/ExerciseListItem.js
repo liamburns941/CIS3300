@@ -4,23 +4,21 @@ import { Actions } from 'react-native-router-flux';
 import { CardSection } from './common';
 
 class ExerciseListItem extends Component {
-  onRowPress() {
-
-  }
 
   render() {
-    const { exerciseName } = this.props.exercise;
+    const { exerciseName, benchmark } = this.props.exercise;
 
     return (
-      <TouchableWithoutFeedback onPress={this.onRowPress.bind(this)}>
         <View>
           <CardSection>
             <Text style={styles.titleStyle}>
               {exerciseName}
             </Text>
+            <Text style={styles.benchmarkStyle}>
+              {benchmark}
+            </Text>
           </CardSection>
         </View>
-      </TouchableWithoutFeedback>
     );
   }
 }
@@ -28,6 +26,12 @@ class ExerciseListItem extends Component {
 const styles = {
   titleStyle: {
     fontSize: 24,
+    paddingLeft: 15,
+    paddingTop: 20,
+    paddingBottom: 20
+  },
+  benchmarkStyle: {
+    fontSize: 16,
     paddingLeft: 15,
     paddingTop: 20,
     paddingBottom: 20
