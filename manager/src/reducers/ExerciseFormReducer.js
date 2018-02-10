@@ -6,7 +6,9 @@ import {
 
 const INITIAL_STATE = {
   exerciseName: '',
-  benchmark: ''
+  benchmark: '',
+  dateAddedToWorkout: '',
+  rating: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
