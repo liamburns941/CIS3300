@@ -4,6 +4,7 @@ import {
   CLIENT_UPDATE,
   CLIENT_CREATE,
   CLIENTS_FETCH_SUCCESS,
+  CLIENT_FETCH_SUCCESS,
   CLIENT_SAVE_SUCCESS
 } from './types';
 
@@ -36,6 +37,10 @@ export const clientsFetch = () => {
         dispatch({ type: CLIENTS_FETCH_SUCCESS, payload: snapshot.val() });
       });
   };
+};
+
+export const clientFetch = (client) => {
+    return {type: CLIENT_FETCH_SUCCESS, payload: client}
 };
 
 export const clientSave = ({ firstName, lastName, email, clientUid }) => {

@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ListView, Text } from 'react-native';
+import { ListView, Text, Keyboard } from 'react-native';
 import { workoutsFetch, workoutCreate } from '../actions';
 import WorkoutListItem from './WorkoutListItem';
 import { Card, CardSection, Button } from './common';
@@ -9,7 +9,7 @@ import { Actions } from 'react-native-router-flux';
 
 class WorkoutList extends Component {
   componentWillMount() {
-    this.props.workoutsFetch({ clientUid:this.props.client.clientUid });
+    this.props.workoutsFetch({ clientUid:this.props.singleClient.clientUid });
     this.createDataSource(this.props);
   }
 
@@ -34,32 +34,45 @@ class WorkoutList extends Component {
   }
 
   onButtonPress() {
-    Actions.workoutCreate({ clientUid:this.props.client.clientUid });
+    Actions.workoutCreate({ clientUid:this.props.singleClient.clientUid });
   }
 
   render() {
-    const { firstName, lastName } = this.props.client;
+    const { firstName, lastName } = this.props.singleClient;
 
     const { nameStyle, workoutTitleStyle } = styles;
 
     return (
       <Card>
-        <Text style={nameStyle}>
-          {firstName} {lastName}
-        </Text>
-        <CardSection>
-          <Button onPress={this.onButtonPress.bind(this)}>
-            Create Workout
-          </Button>
-        </CardSection>
-        <Text style={workoutTitleStyle}>
-        Workouts
-        </Text>
-        <ListView
-          enableEmptySections
-          dataSource={this.dataSource}
-          renderRow={this.renderRow}
-        />
+        <Card>
+          <CardSection>
+            <Text style={nameStyle}>
+              {firstName} {lastName}
+            </Text>
+          </CardSection>
+
+          <CardSection>
+            <Button onPress={this.onButtonPress.bind(this)}>
+              Create Workout
+            </Button>
+          </CardSection>
+
+        </Card>
+
+        <Card>
+          <CardSection>
+            <Text style={workoutTitleStyle}>
+            Workouts
+            </Text>
+          </CardSection>
+          <CardSection>
+              <ListView
+                enableEmptySections
+                dataSource={this.dataSource}
+                renderRow={this.renderRow}
+              />
+          </CardSection>
+        </Card>
       </Card>
     );
   }
@@ -70,23 +83,26 @@ const styles = {
     fontSize: 36,
     paddingTop: 20,
     paddingBottom: 20,
-    textAlign: 'center'
+    textAlign: 'center',
+    fontWeight: 'bold',
+    flex: 1
   },
   workoutTitleStyle: {
     fontSize: 24,
     paddingTop: 20,
     paddingBottom: 20,
-    textAlign: 'center'
+    textAlign: 'center',
+    fontWeight: 'bold',
+    flex: 1
   }
 };
 
 const mapStateToProps = state => {
-
-  const workouts = _.map(state.workouts, (val, clientUid) => {
-    return { ...val, clientUid };
+  const workouts = _.map(state.workouts, (val, workoutUid) => {
+    return { ...val, workoutUid };
   });
 
-  return { workouts };
+  return { workouts, singleClient: state.singleClient };
 };
 
 export default connect(mapStateToProps, { workoutsFetch, workoutCreate })(WorkoutList);

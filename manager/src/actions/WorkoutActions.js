@@ -4,6 +4,7 @@ import {
   WORKOUT_UPDATE,
   WORKOUT_CREATE,
   WORKOUTS_FETCH_SUCCESS,
+  WORKOUT_FETCH_SUCCESS,
   WORKOUT_SAVE_SUCCESS
 } from './types';
 
@@ -20,7 +21,7 @@ export const workoutCreate = ({ workoutName, exerciseTime, restTime, sets, clien
   return (dispatch) => {
     const ref = firebase.database().ref().child(`/users/${currentUser.uid}/clients/${clientUid}/workouts`);
 
-    const workout = ref.push({ workoutName, exerciseTime, restTime, sets });
+    const workout = ref.push({ workoutName, exerciseTime, restTime, sets, dateCreated: '', dateCompleted: '', attempts: '0', status: 'Outstanding', });
 
     const workoutUid = workout.key;
 
@@ -40,6 +41,10 @@ export const workoutsFetch = ({clientUid}) => {
         dispatch({ type: WORKOUTS_FETCH_SUCCESS, payload: snapshot.val() });
       });
   };
+};
+
+export const workoutFetch = (workout) => {
+    return {type: WORKOUT_FETCH_SUCCESS, payload: workout}
 };
 
 export const workoutSave = ({ workoutName, clientUid, workoutUid }) => {

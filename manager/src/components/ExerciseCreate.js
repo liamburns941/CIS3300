@@ -9,7 +9,6 @@ class ExerciseCreate extends Component {
 
   onCreateWorkoutButtonPress() {
     const { exerciseName, benchmark, clientUid, workoutUid } = this.props;
-    debugger;
     this.props.exerciseCreate({ exerciseName, benchmark, clientUid, workoutUid });
   }
 
