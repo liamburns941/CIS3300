@@ -2,15 +2,18 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ListView, Text } from 'react-native';
-import { workoutsFetch, workoutCreate } from '../actions';
+import { workoutsFetch, workoutCreate, clientFetch } from '../actions';
 import WorkoutListItem from './WorkoutListItem';
 import { Card, CardSection, Button } from './common';
 import { Actions } from 'react-native-router-flux';
 
 class WorkoutList extends Component {
   componentWillMount() {
+    debugger;
     this.props.workoutsFetch({ clientUid:this.props.client.clientUid });
     this.createDataSource(this.props);
+    debugger;
+    this.props.clientFetch({ clientUid:this.props.client.clientUid });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -81,12 +84,17 @@ const styles = {
 };
 
 const mapStateToProps = state => {
+  debugger;
 
-  const workouts = _.map(state.workouts, (val, clientUid) => {
+  const workouts = _.map(state.workouts, (val, workoutUid) => {
+    return { ...val, workoutUid };
+  });
+
+  const singleClient = _.map(state.singleClient, (val, clientUid) => {
     return { ...val, clientUid };
   });
 
-  return { workouts };
+  return { workouts, singleClient };
 };
 
-export default connect(mapStateToProps, { workoutsFetch, workoutCreate })(WorkoutList);
+export default connect(mapStateToProps, { workoutsFetch, workoutCreate, clientFetch })(WorkoutList);

@@ -4,6 +4,7 @@ import {
   CLIENT_UPDATE,
   CLIENT_CREATE,
   CLIENTS_FETCH_SUCCESS,
+  CLIENT_FETCH_SUCCESS,
   CLIENT_SAVE_SUCCESS
 } from './types';
 
@@ -34,6 +35,27 @@ export const clientsFetch = () => {
     firebase.database().ref(`/users/${currentUser.uid}/clients`)
       .on('value', snapshot => {
         dispatch({ type: CLIENTS_FETCH_SUCCESS, payload: snapshot.val() });
+      });
+  };
+};
+
+export const clientFetch = ({clientUid}) => {
+  const { currentUser } = firebase.auth();
+  debugger;
+  return (dispatch) => {
+    const ref = firebase.database().ref().child(`/users/${currentUser.uid}/clients/${clientUid}`);
+
+    const refKey = ref.getKey();
+    console.log(refKey);
+
+
+
+    ref.on('value', snapshot => {
+        var clientObj = {};
+        clientObj[refKey] = snapshot.val();
+        var key = Object.keys(snapshot);
+        console.log(key);
+        dispatch({ type: CLIENT_FETCH_SUCCESS, payload: clientObj });
       });
   };
 };

@@ -44,6 +44,7 @@ class ClientList extends Component {
 }
 
 const mapStateToProps = state => {
+  debugger;
   const clients = _.map(state.clients, (val, clientUid) => {
     return { ...val, clientUid };
   });

@@ -6,6 +6,7 @@ import { workoutUpdate, workoutsFetch } from '../actions';
 
 class ClientListItem extends Component {
   onRowPress() {
+    debugger;
     Actions.workoutList({ client:this.props.client });
   }
 

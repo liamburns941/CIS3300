@@ -12,7 +12,7 @@ class WorkoutDetail extends Component {
   componentWillMount() {
     debugger;
     console.log(this.props);
-    this.props.exercisesFetch({ clientUid:this.props.clientUid, workoutUid:this.props.workout.workoutUid });
+    this.props.exercisesFetch({ clientUid:this.props.client.clientUid, workoutUid:this.props.workout.workoutUid });
     this.createDataSource(this.props);
   }
 /*
@@ -129,9 +129,8 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-
-  const exercises = _.map(state.exercises, (val, workoutUid) => {
-    return { ...val, workoutUid };
+  const exercises = _.map(state.exercises, (val, workoutUid, clientUid) => {
+    return { ...val, workoutUid, clientUid };
   });
 
   return { exercises };
