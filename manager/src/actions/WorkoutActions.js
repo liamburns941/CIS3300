@@ -4,6 +4,7 @@ import {
   WORKOUT_UPDATE,
   WORKOUT_CREATE,
   WORKOUTS_FETCH_SUCCESS,
+  WORKOUT_FETCH_SUCCESS,
   WORKOUT_SAVE_SUCCESS
 } from './types';
 
@@ -40,6 +41,10 @@ export const workoutsFetch = ({clientUid}) => {
         dispatch({ type: WORKOUTS_FETCH_SUCCESS, payload: snapshot.val() });
       });
   };
+};
+
+export const workoutFetch = (workout) => {
+    return {type: WORKOUT_FETCH_SUCCESS, payload: workout}
 };
 
 export const workoutSave = ({ workoutName, clientUid, workoutUid }) => {

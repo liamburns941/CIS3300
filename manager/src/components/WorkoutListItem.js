@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import { Text, TouchableWithoutFeedback, View } from 'react-native';
+import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { CardSection } from './common';
+import { workoutFetch } from '../actions';
 
 class WorkoutListItem extends Component {
   onRowPress() {
-    debugger;
-    Actions.workoutDetail({ workout: this.props.workout });
+    this.props.workoutFetch(this.props.workout);
+    Actions.workoutDetail();
   }
 
   render() {
+
     const { workoutName, status } = this.props.workout;
 
     return (
@@ -65,4 +68,4 @@ const styles = {
   }
 };
 
-export default WorkoutListItem;
+export default connect(null, { workoutFetch })(WorkoutListItem);

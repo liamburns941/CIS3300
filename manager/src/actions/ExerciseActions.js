@@ -6,6 +6,7 @@ import {
   EXERCISES_FETCH_SUCCESS,
   EXERCISE_SAVE_SUCCESS
 } from './types';
+import { Keyboard } from 'react-native';
 
 export const exerciseUpdate = ({ prop, value }) => {
   return {
@@ -23,7 +24,8 @@ export const exerciseCreate = ({ exerciseName, benchmark, clientUid, workoutUid 
       .then(() => {
         dispatch({ type: EXERCISE_CREATE });
         //Actions.pop({ type: 'reset' });
-        Actions.main();
+        Actions.workoutList();
+        Keyboard.dismiss();
       });
   };
 };
@@ -34,6 +36,7 @@ export const exercisesFetch = ({ clientUid, workoutUid }) => {
   return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/clients/${clientUid}/workouts/${workoutUid}/exercises`)
       .on('value', snapshot => {
+        console.log(snapshot.val());
         dispatch({ type: EXERCISES_FETCH_SUCCESS, payload: snapshot.val() });
       });
   };

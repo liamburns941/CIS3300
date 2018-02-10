@@ -39,25 +39,8 @@ export const clientsFetch = () => {
   };
 };
 
-export const clientFetch = ({clientUid}) => {
-  const { currentUser } = firebase.auth();
-  debugger;
-  return (dispatch) => {
-    const ref = firebase.database().ref().child(`/users/${currentUser.uid}/clients/${clientUid}`);
-
-    const refKey = ref.getKey();
-    console.log(refKey);
-
-
-
-    ref.on('value', snapshot => {
-        var clientObj = {};
-        clientObj[refKey] = snapshot.val();
-        var key = Object.keys(snapshot);
-        console.log(key);
-        dispatch({ type: CLIENT_FETCH_SUCCESS, payload: clientObj });
-      });
-  };
+export const clientFetch = (client) => {
+    return {type: CLIENT_FETCH_SUCCESS, payload: client}
 };
 
 export const clientSave = ({ firstName, lastName, email, clientUid }) => {

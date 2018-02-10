@@ -18,7 +18,7 @@ class WorkoutForm extends Component {
         </CardSection>
         <CardSection>
           <Input
-            label="Exercise time"
+            label="Exercise time (s)"
             placeholder="Enter exercise time (s)"
             value={this.props.exerciseTime}
             onChangeText={value => this.props.workoutUpdate({ prop: 'exerciseTime', value })}
@@ -26,7 +26,7 @@ class WorkoutForm extends Component {
         </CardSection>
         <CardSection>
           <Input
-            label="Rest time"
+            label="Rest time (s)"
             placeholder="Enter rest time (s)"
             value={this.props.restTime}
             onChangeText={value => this.props.workoutUpdate({ prop: 'restTime', value })}

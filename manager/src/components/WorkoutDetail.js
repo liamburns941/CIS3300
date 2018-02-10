@@ -3,19 +3,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ListView, Text } from 'react-native';
 import { exercisesFetch } from '../actions';
-import ExerciseListItem from './WorkoutListItem';
+import ExerciseListItem from './ExerciseListItem';
 import { Card, CardSection, Button } from './common';
 import { Actions } from 'react-native-router-flux';
 
 class WorkoutDetail extends Component {
 
   componentWillMount() {
-    debugger;
-    console.log(this.props);
-    this.props.exercisesFetch({ clientUid:this.props.client.clientUid, workoutUid:this.props.workout.workoutUid });
+    this.props.exercisesFetch({ clientUid:this.props.singleClient.clientUid, workoutUid:this.props.singleWorkout.workoutUid });
     this.createDataSource(this.props);
   }
-/*
+
   componentWillReceiveProps(nextProps) {
     // nextProps are the next set of props that this component
     // will be rendered with
@@ -35,54 +33,56 @@ class WorkoutDetail extends Component {
   renderRow(exercise) {
     return <ExerciseListItem exercise={exercise} />;
   }
-  */
+
 
   render() {
-    debugger;
-    console.log(this.props);
-    const { workoutName, exerciseTime, restTime, sets, attempts, dateCreated, dateCompleted, status } = this.props.workout;
+    const { workoutName, exerciseTime, restTime, sets, attempts, dateCreated, dateCompleted, status } = this.props.singleWorkout;
 
     const { nameStyle, workoutTitleStyle, statusTitleStyle, exerciseTitleStyle, listViewStyle } = styles;
 
     return (
       <Card>
-        <CardSection>
-          <Text style={nameStyle}>
-            {workoutName}
-          </Text>
-        </CardSection>
+        <Card>
+          <CardSection>
+            <Text style={nameStyle}>
+              {workoutName}
+            </Text>
+          </CardSection>
 
-        <CardSection>
-        <Text style={workoutTitleStyle}>
-          {exerciseTime} seconds work
-        </Text>
-        <Text style={statusTitleStyle}>
-          {status}
-        </Text>
-        </CardSection>
-
-        <CardSection>
-        <Text style={workoutTitleStyle}>
-          {restTime} seconds rest
-        </Text>
-        <Text style={workoutTitleStyle}>
-          {sets} sets
-        </Text>
-        </CardSection>
-
-        <CardSection>
+          <CardSection>
           <Text style={workoutTitleStyle}>
-          Exercises
+            {exerciseTime} seconds work
           </Text>
-        </CardSection>
+          <Text style={statusTitleStyle}>
+            {status}
+          </Text>
+          </CardSection>
 
-        <CardSection>
-          <ListView
-            enableEmptySections
-            //dataSource={this.dataSource}
-            //renderRow={this.renderRow}
-          />
-        </CardSection>
+          <CardSection>
+          <Text style={workoutTitleStyle}>
+            {restTime} seconds rest
+          </Text>
+          <Text style={workoutTitleStyle}>
+            {sets} sets
+          </Text>
+          </CardSection>
+        </Card>
+
+        <Card>
+          <CardSection>
+            <Text style={exerciseTitleStyle}>
+            Exercises
+            </Text>
+          </CardSection>
+
+          <CardSection>
+            <ListView
+              enableEmptySections
+              dataSource={this.dataSource}
+              renderRow={this.renderRow}
+            />
+          </CardSection>
+        </Card>
 
       </Card>
     );
@@ -117,14 +117,9 @@ const styles = {
     fontSize: 24,
     paddingTop: 20,
     paddingBottom: 20,
-    textAlign: 'center'
-  },
-  listViewStyle: {
-    flex: 0
-  },
-  cardSectionStyle: {
-    flex: 1,
-    flexDirection: 'row'
+    textAlign: 'center',
+    fontWeight: 'bold',
+    flex: 1
   }
 };
 
@@ -133,7 +128,7 @@ const mapStateToProps = state => {
     return { ...val, workoutUid, clientUid };
   });
 
-  return { exercises };
+  return { exercises, singleWorkout: state.singleWorkout, singleClient: state.singleClient };
 };
 
 export default connect(mapStateToProps, { exercisesFetch })(WorkoutDetail);

@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Text, TouchableWithoutFeedback, View } from 'react-native';
+import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { CardSection } from './common';
-import { workoutUpdate, workoutsFetch } from '../actions';
+import { workoutUpdate, workoutsFetch, clientFetch } from '../actions';
 
 class ClientListItem extends Component {
   onRowPress() {
-    debugger;
-    Actions.workoutList({ client:this.props.client });
+    this.props.clientFetch(this.props.client);
+    Actions.workoutList();
   }
 
   render() {
@@ -36,4 +37,4 @@ const styles = {
   }
 };
 
-export default ClientListItem;
+export default connect(null, { clientFetch })(ClientListItem);

@@ -8,14 +8,16 @@ class ExerciseListItem extends Component {
   render() {
     const { exerciseName, benchmark } = this.props.exercise;
 
+    const { titleStyle } = styles;
+
     return (
         <View>
           <CardSection>
-            <Text style={styles.titleStyle}>
+            <Text style={titleStyle}>
               {exerciseName}
             </Text>
-            <Text style={styles.benchmarkStyle}>
-              {benchmark}
+            <Text style={titleStyle}>
+              {benchmark} per set
             </Text>
           </CardSection>
         </View>
@@ -28,13 +30,9 @@ const styles = {
     fontSize: 24,
     paddingLeft: 15,
     paddingTop: 20,
-    paddingBottom: 20
-  },
-  benchmarkStyle: {
-    fontSize: 16,
-    paddingLeft: 15,
-    paddingTop: 20,
-    paddingBottom: 20
+    paddingBottom: 20,
+    flex: 1,
+    textAlign: 'center'
   }
 };
 
