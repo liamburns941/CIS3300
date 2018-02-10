@@ -1,4 +1,6 @@
 import firebase from 'firebase';
+import moment from 'moment';
+import { Keyboard } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import {
   EXERCISE_UPDATE,
@@ -6,7 +8,6 @@ import {
   EXERCISES_FETCH_SUCCESS,
   EXERCISE_SAVE_SUCCESS
 } from './types';
-import { Keyboard } from 'react-native';
 
 export const exerciseUpdate = ({ prop, value }) => {
   return {
@@ -19,11 +20,14 @@ export const exerciseCreate = ({ exerciseName, benchmark, clientUid, workoutUid 
   const { currentUser } = firebase.auth();
 
   return (dispatch) => {
-    firebase.database().ref(`/users/${currentUser.uid}/clients/${clientUid}/workouts/${workoutUid}/exercises`)
-      .push({ exerciseName, benchmark })
+    const ref = firebase.database().ref(`/users/${currentUser.uid}/clients/${clientUid}/workouts/${workoutUid}/exercises`);
+
+    const dateAddedToWorkout = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
+
+
+      ref.push({ exerciseName, benchmark, rating: '', dateAddedToWorkout })
       .then(() => {
         dispatch({ type: EXERCISE_CREATE });
-        //Actions.pop({ type: 'reset' });
         Actions.workoutList();
         Keyboard.dismiss();
       });

@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import moment from 'moment';
 import { Actions } from 'react-native-router-flux';
 import {
   WORKOUT_UPDATE,
@@ -7,7 +8,6 @@ import {
   WORKOUT_FETCH_SUCCESS,
   WORKOUT_SAVE_SUCCESS
 } from './types';
-import moment from 'moment';
 
 export const workoutUpdate = ({ prop, value }) => {
   return {
@@ -19,20 +19,21 @@ export const workoutUpdate = ({ prop, value }) => {
 export const workoutCreate = ({ workoutName, exerciseTime, restTime, sets, clientUid }) => {
   const { currentUser } = firebase.auth();
 
-  debugger;
-
   return (dispatch) => {
     const ref = firebase.database().ref().child(`/users/${currentUser.uid}/clients/${clientUid}/workouts`);
 
-    //const dateNow = new Date();
+    const dateCreated = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
 
-    //const dateCreated = dateNow.toUTCString();
-
-  //  var now = moment().format();
-
-    const dateCreated = moment(new Date()).format("YYYY-MM-DD HH:mm");
-
-    const workout = ref.push({ workoutName, exerciseTime, restTime, sets, dateCreated, dateCompleted: '', attempts: '0', status: 'Outstanding', });
+    const workout = ref.push({
+      workoutName,
+      exerciseTime,
+      restTime,
+      sets,
+      dateCreated,
+      dateCompleted: '',
+      attempts: '0',
+      status: 'Outstanding'
+    });
 
     const workoutUid = workout.key;
 
@@ -55,7 +56,7 @@ export const workoutsFetch = ({clientUid}) => {
 };
 
 export const workoutFetch = (workout) => {
-    return {type: WORKOUT_FETCH_SUCCESS, payload: workout}
+    return { type: WORKOUT_FETCH_SUCCESS, payload: workout }
 };
 
 export const workoutSave = ({ workoutName, clientUid, workoutUid }) => {
