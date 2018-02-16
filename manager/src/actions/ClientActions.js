@@ -40,7 +40,7 @@ export const clientsFetch = () => {
 };
 
 export const clientFetch = (client) => {
-    return {type: CLIENT_FETCH_SUCCESS, payload: client}
+    return { type: CLIENT_FETCH_SUCCESS, payload: client };
 };
 
 export const clientSave = ({ firstName, lastName, email, clientUid }) => {

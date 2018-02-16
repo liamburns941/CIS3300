@@ -3,7 +3,7 @@ import { Text, TouchableWithoutFeedback, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { CardSection } from './common';
-import { workoutUpdate, workoutsFetch, clientFetch } from '../actions';
+import { clientFetch } from '../actions';
 
 class ClientListItem extends Component {
   onRowPress() {

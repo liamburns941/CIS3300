@@ -10,6 +10,10 @@ export const CLIENTS_FETCH_SUCCESS = 'clients_fetch_success';
 export const CLIENT_FETCH_SUCCESS = 'client_fetch_success';
 export const CLIENT_SAVE_SUCCESS = 'client_save_success';
 
+export const CLIENT_EMAIL_CHANGED = 'client_email_changed';
+
+export const CLIENTS_LOOKUP = 'clients_lookup';
+
 export const WORKOUT_UPDATE = 'workout_update';
 export const WORKOUT_CREATE = 'workout_create';
 export const WORKOUTS_FETCH_SUCCESS = 'workouts_fetch_success';

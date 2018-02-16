@@ -44,7 +44,7 @@ export const workoutCreate = ({ workoutName, exerciseTime, restTime, sets, clien
   };
 };
 
-export const workoutsFetch = ({clientUid}) => {
+export const workoutsFetch = ({ clientUid }) => {
   const { currentUser } = firebase.auth();
 
   return (dispatch) => {
@@ -56,7 +56,7 @@ export const workoutsFetch = ({clientUid}) => {
 };
 
 export const workoutFetch = (workout) => {
-    return { type: WORKOUT_FETCH_SUCCESS, payload: workout }
+    return { type: WORKOUT_FETCH_SUCCESS, payload: workout };
 };
 
 export const workoutSave = ({ workoutName, clientUid, workoutUid }) => {

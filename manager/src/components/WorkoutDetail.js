@@ -4,13 +4,15 @@ import { connect } from 'react-redux';
 import { ListView, Text } from 'react-native';
 import { exercisesFetch } from '../actions';
 import ExerciseListItem from './ExerciseListItem';
-import { Card, CardSection, Button } from './common';
-import { Actions } from 'react-native-router-flux';
+import { Card, CardSection } from './common';
 
 class WorkoutDetail extends Component {
-
   componentWillMount() {
-    this.props.exercisesFetch({ clientUid:this.props.singleClient.clientUid, workoutUid:this.props.singleWorkout.workoutUid });
+    const { singleClient, singleWorkout } = this.props;
+    this.props.exercisesFetch({
+      clientUid: singleClient.clientUid,
+      workoutUid: singleWorkout.workoutUid
+    });
     this.createDataSource(this.props);
   }
 
@@ -26,7 +28,6 @@ class WorkoutDetail extends Component {
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
-    console.log(this.dataSource);
     this.dataSource = ds.cloneWithRows(exercises);
   }
 
@@ -36,9 +37,9 @@ class WorkoutDetail extends Component {
 
 
   render() {
-    const { workoutName, exerciseTime, restTime, sets, attempts, dateCreated, dateCompleted, status } = this.props.singleWorkout;
+    const { workoutName, exerciseTime, restTime, sets, status } = this.props.singleWorkout;
 
-    const { nameStyle, workoutTitleStyle, statusTitleStyle, exerciseTitleStyle, listViewStyle } = styles;
+    const { nameStyle, workoutTitleStyle, statusTitleStyle, exerciseTitleStyle } = styles;
 
     return (
       <Card>

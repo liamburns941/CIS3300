@@ -12,7 +12,6 @@ class WorkoutListItem extends Component {
   }
 
   render() {
-
     const { workoutName, status } = this.props.workout;
 
     return (

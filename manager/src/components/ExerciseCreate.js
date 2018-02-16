@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Text } from 'react-native';
 import { exerciseUpdate, exerciseCreate } from '../actions';
 import { Card, CardSection, Button } from './common';
 import ExerciseForm from './ExerciseForm';
-import { Text } from 'react-native';
 
 class ExerciseCreate extends Component {
-
   onCreateWorkoutButtonPress() {
     const { exerciseName, benchmark, clientUid, workoutUid } = this.props;
     this.props.exerciseCreate({ exerciseName, benchmark, clientUid, workoutUid });

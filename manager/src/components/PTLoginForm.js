@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Text, Image, KeyboardAvoidingView, View, ScrollView } from 'react-native';
+import { Text, Image, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { emailChanged, passwordChanged, loginUser } from '../actions';
-import { Card, CardSection, Input, Button, Spinner } from './common';
+import { CardSection, Input, Button, Spinner } from './common';
 
-class LoginForm extends Component {
-
+class PTLoginForm extends Component {
   onEmailChange(text) {
     this.props.emailChanged(text);
   }
@@ -37,15 +36,18 @@ class LoginForm extends Component {
 
     <ScrollView>
     <KeyboardAvoidingView
-      keyboardVerticalOffset= {-200}
+      keyboardVerticalOffset={-200}
       behavior="padding"
     >
       <CardSection>
-      <Image source={require('./images/CIS3300_Login_Icon.png')}
+        <Image
+          source={require('./images/CIS3300_Login_Icon.png')}
              style={{
                height: 300,
                flex: 1,
-               width: null}} />
+               width: null
+             }}
+        />
       </CardSection>
         <CardSection>
           <Input
@@ -87,12 +89,12 @@ const styles = {
   }
 };
 
-const mapStateToProps = ({ auth }) => {
-  const { email, password, error, loading } = auth;
+const mapStateToProps = ({ ptAuth }) => {
+  const { email, password, error, loading } = ptAuth;
 
   return { email, password, error, loading };
 };
 
 export default connect(mapStateToProps, {
   emailChanged, passwordChanged, loginUser
-})(LoginForm);
+})(PTLoginForm);

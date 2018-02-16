@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
-import AuthReducer from './AuthReducer';
+import PTAuthReducer from './PTAuthReducer';
+import ClientAuthReducer from './ClientAuthReducer';
+import ClientAuthListReducer from './ClientAuthListReducer';
 import ClientFormReducer from './ClientFormReducer';
 import ClientReducer from './ClientReducer';
 import SingleClientReducer from './SingleClientReducer';
@@ -10,7 +12,9 @@ import ExerciseFormReducer from './ExerciseFormReducer';
 import ExerciseReducer from './ExerciseReducer';
 
 export default combineReducers({
-  auth: AuthReducer,
+  ptAuth: PTAuthReducer,
+  clientAuth: ClientAuthReducer,
+  clientAuthList: ClientAuthListReducer,
   clientForm: ClientFormReducer,
   clients: ClientReducer,
   singleClient: SingleClientReducer,

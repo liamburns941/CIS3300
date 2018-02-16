@@ -1,6 +1,9 @@
 import React from 'react';
 import { Scene, Router, Actions } from 'react-native-router-flux';
-import LoginForm from './components/LoginForm';
+import RoleChoice from './components/RoleChoice';
+import PTLoginForm from './components/PTLoginForm';
+import ClientLoginForm from './components/ClientLoginForm';
+import ClientMyProfile from './components/ClientMyProfile';
 import ClientList from './components/ClientList';
 import ClientCreate from './components/ClientCreate';
 import ClientEdit from './components/ClientEdit';
@@ -14,10 +17,17 @@ const RouterComponent = () => {
     <Router>
       <Scene key="root">
         <Scene key="auth">
-          <Scene key="login" component={LoginForm} title="Welcome" />
+          <Scene
+            key="roleChoice"
+            component={RoleChoice}
+            title="Choose your role"
+            initial
+          />
+          <Scene key="ptLogin" component={PTLoginForm} title="Personal Trainer Login" />
+          <Scene key="clientLogin" component={ClientLoginForm} title="Client Login" />
         </Scene>
 
-        <Scene key="main">
+        <Scene key="ptSide">
           <Scene
             onRight={() => Actions.clientCreate()}
             rightTitle="Create"
@@ -36,6 +46,10 @@ const RouterComponent = () => {
           <Scene key="workoutCreate" component={WorkoutCreate} title="Create Workout" />
           <Scene key="workoutDetail" component={WorkoutDetail} title="Workout" />
           <Scene key="exerciseCreate" component={ExerciseCreate} title="Create Workout" />
+        </Scene>
+
+        <Scene key="clientSide">
+          <Scene key="clientMyProfile" component={ClientMyProfile} title="My Profile" />
         </Scene>
       </Scene>
     </Router>

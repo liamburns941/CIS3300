@@ -7,7 +7,7 @@ import { workoutsFetch, workoutCreate } from '../actions';
 import WorkoutListItem from './WorkoutListItem';
 import { Card, CardSection, Button } from './common';
 
-class WorkoutList extends Component {
+class ClientMyProfile extends Component {
   componentWillMount() {
     this.props.workoutsFetch({ clientUid: this.props.singleClient.clientUid });
     this.createDataSource(this.props);
@@ -19,10 +19,6 @@ class WorkoutList extends Component {
     // this.props is still the old set of props
 
     this.createDataSource(nextProps);
-  }
-
-  onButtonPress() {
-    Actions.workoutCreate({ clientUid: this.props.singleClient.clientUid });
   }
 
   createDataSource({ workouts }) {
@@ -50,13 +46,6 @@ class WorkoutList extends Component {
               {firstName} {lastName}
             </Text>
           </CardSection>
-
-          <CardSection>
-            <Button onPress={this.onButtonPress.bind(this)}>
-              Create Workout
-            </Button>
-          </CardSection>
-
         </Card>
 
         <Card>
@@ -105,4 +94,4 @@ const mapStateToProps = state => {
   return { workouts, singleClient: state.singleClient };
 };
 
-export default connect(mapStateToProps, { workoutsFetch, workoutCreate })(WorkoutList);
+export default connect(mapStateToProps, { workoutsFetch, workoutCreate })(ClientMyProfile);

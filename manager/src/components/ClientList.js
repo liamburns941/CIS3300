@@ -8,7 +8,6 @@ import ClientListItem from './ClientListItem';
 class ClientList extends Component {
   componentWillMount() {
     this.props.clientsFetch();
-
     this.createDataSource(this.props);
   }
 
@@ -47,7 +46,6 @@ const mapStateToProps = state => {
   const clients = _.map(state.clients, (val, clientUid) => {
     return { ...val, clientUid };
   });
-
   return { clients };
 };
 

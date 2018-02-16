@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { Text, TouchableWithoutFeedback, View } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import { Text, View } from 'react-native';
 import { CardSection } from './common';
 
 class ExerciseListItem extends Component {
-
   render() {
     const { exerciseName, benchmark } = this.props.exercise;
 
