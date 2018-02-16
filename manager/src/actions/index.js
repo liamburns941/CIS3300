@@ -1,3 +1,4 @@
+export * from './RoleActions';
 export * from './PTAuthActions';
 export * from './ClientAuthActions';
 export * from './ClientAuthListActions';

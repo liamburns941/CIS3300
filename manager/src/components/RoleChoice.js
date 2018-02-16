@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import { emailChanged, passwordChanged, loginUser, clientsLookup } from '../actions';
+import { emailChanged, passwordChanged, loginUser, clientsLookup, roleUpdate } from '../actions';
 import { CardSection, Button, Spinner, Card } from './common';
 
 class RoleChoice extends Component {
@@ -10,10 +10,12 @@ class RoleChoice extends Component {
   }
 
   onPTButtonPress() {
+    this.props.roleUpdate('PT');
     Actions.ptLogin();
   }
 
   onClientButtonPress() {
+    this.props.roleUpdate('CLIENT');
     Actions.clientLogin();
   }
 
@@ -62,5 +64,5 @@ const styles = {
 };
 
 export default connect(null, {
-  emailChanged, passwordChanged, loginUser, clientsLookup
+  emailChanged, passwordChanged, loginUser, clientsLookup, roleUpdate
 })(RoleChoice);

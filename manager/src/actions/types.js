@@ -4,6 +4,8 @@ export const LOGIN_USER_SUCCESS = 'login_user_success';
 export const LOGIN_USER_FAIL = 'login_user_fail';
 export const LOGIN_USER = 'login_user';
 
+export const ROLE_UPDATE = 'role_update';
+
 export const CLIENT_UPDATE = 'client_update';
 export const CLIENT_CREATE = 'client_create';
 export const CLIENTS_FETCH_SUCCESS = 'clients_fetch_success';

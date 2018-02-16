@@ -7,24 +7,21 @@ import { clientsLookup, clientEmailChanged, clientFetch } from '../actions';
 import { CardSection, Input, Button, Spinner } from './common';
 
 class ClientLoginForm extends Component {
-
   onClientEmailChange(text) {
     this.props.clientEmailChanged(text);
   }
 
   onButtonPress() {
-    debugger;
-
     const { clientAuthList, email } = this.props;
 
-    for (var key in clientAuthList) {
+    for (const key in clientAuthList) {
       if (clientAuthList.hasOwnProperty(key)) {
         const thisClient = clientAuthList[key];
-        const thisClientEmail = thisClient['email'];
+        const thisClientEmail = thisClient.email;
 
-        if(thisClientEmail === email) {
+        if (thisClientEmail === email) {
           this.props.clientFetch(thisClient);
-          Actions.clientMyProfile();
+          Actions.workoutList();
           break;
         }
       }
@@ -108,4 +105,8 @@ const mapStateToProps = state => {
   return { clientAuthList, email };
 };
 
-export default connect(mapStateToProps, { clientsLookup, clientEmailChanged, clientFetch })(ClientLoginForm);
+export default connect(mapStateToProps, {
+  clientsLookup,
+  clientEmailChanged,
+  clientFetch
+})(ClientLoginForm);

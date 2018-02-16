@@ -10,6 +10,7 @@ import WorkoutReducer from './WorkoutReducer';
 import SingleWorkoutReducer from './SingleWorkoutReducer';
 import ExerciseFormReducer from './ExerciseFormReducer';
 import ExerciseReducer from './ExerciseReducer';
+import RoleReducer from './RoleReducer';
 
 export default combineReducers({
   ptAuth: PTAuthReducer,
@@ -22,5 +23,6 @@ export default combineReducers({
   workouts: WorkoutReducer,
   singleWorkout: SingleWorkoutReducer,
   exerciseForm: ExerciseFormReducer,
-  exercises: ExerciseReducer
+  exercises: ExerciseReducer,
+  role: RoleReducer
 });

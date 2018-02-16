@@ -42,6 +42,14 @@ class WorkoutList extends Component {
 
     const { nameStyle, workoutTitleStyle } = styles;
 
+    const { role } = this.props;
+
+    let button = null;
+
+    if (role === 'PT') {
+       button = <Button onPress={this.onButtonPress.bind(this)}>Create Workout</Button>;
+    }
+
     return (
       <Card>
         <Card>
@@ -52,9 +60,7 @@ class WorkoutList extends Component {
           </CardSection>
 
           <CardSection>
-            <Button onPress={this.onButtonPress.bind(this)}>
-              Create Workout
-            </Button>
+            {button}
           </CardSection>
 
         </Card>
@@ -102,7 +108,7 @@ const mapStateToProps = state => {
     return { ...val, workoutUid };
   });
 
-  return { workouts, singleClient: state.singleClient };
+  return { workouts, singleClient: state.singleClient, role: state.role };
 };
 
 export default connect(mapStateToProps, { workoutsFetch, workoutCreate })(WorkoutList);

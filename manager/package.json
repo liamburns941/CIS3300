@@ -13,7 +13,12 @@
     "react": "16.2.0",
     "react-native": "0.52.2",
     "react-native-communications": "^2.2.1",
+    "react-native-countdown": "0.0.3",
+    "react-native-countdown-circle": "^3.0.0",
+    "react-native-countdown-clock": "^2.0.2",
+    "react-native-countdown-component": "^1.4.0",
     "react-native-router-flux": "^4.0.0-beta.28",
+    "react-native-timer-countdown": "^1.1.0",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0"
