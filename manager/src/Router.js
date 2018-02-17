@@ -9,6 +9,7 @@ import ClientEdit from './components/ClientEdit';
 import WorkoutList from './components/WorkoutList';
 import WorkoutCreate from './components/WorkoutCreate';
 import WorkoutDetail from './components/WorkoutDetail';
+import WorkoutReview from './components/WorkoutReview';
 import ExerciseCreate from './components/ExerciseCreate';
 import WorkoutWarmUp from './components/WorkoutWarmUp';
 import WorkoutExerciseTimer from './components/WorkoutExerciseTimer';
@@ -57,6 +58,7 @@ const RouterComponent = () => {
           <Scene key="workoutExerciseTimer" component={WorkoutExerciseTimer} title="Exercise" />
           <Scene key="workoutRestTimer" component={WorkoutRestTimer} title="Rest" />
           <Scene key="workoutCoolDown" component={WorkoutCoolDown} title="Cool Down" />
+          <Scene key="workoutReview" component={WorkoutReview} title="Review" />
         </Scene>
       </Scene>
     </Router>

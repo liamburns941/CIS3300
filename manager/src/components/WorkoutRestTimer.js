@@ -67,7 +67,7 @@ class WorkoutRestTimer extends Component {
 
     const { sets } = this.props;
 
-    const newSets = parseInt(sets, 10);
+    const newSets = parseInt(sets, 10) - 1;
 
     const newrestTime = parseInt(restTime, 10);
 
@@ -93,12 +93,12 @@ class WorkoutRestTimer extends Component {
               bgColor="#fff"
               textStyle={{ fontSize: 50 }}
               onTimeElapsed={() => {
-                if (newSets > 1) {
-                  const newSetsMinusOne = null;
-                  console.log(newSetsMinusOne);
-                  newSetsMinusOne = newSets - 1;
-                  console.log(newSetsMinusOne);
-                  this.props.setUpdate(newSetsMinusOne);
+                if (newSets > 0) {
+                  //const newSetsMinusOne = null;
+                  //console.log(newSetsMinusOne);
+                  //newSetsMinusOne = newSets - 1;
+                  //console.log(newSetsMinusOne);
+                  this.props.setUpdate(newSets);
                   Actions.workoutExerciseTimer();
                 } else {
                   this.props.setUpdate(newSets);

@@ -20,7 +20,7 @@ export const WORKOUT_UPDATE = 'workout_update';
 export const WORKOUT_CREATE = 'workout_create';
 export const WORKOUTS_FETCH_SUCCESS = 'workouts_fetch_success';
 export const WORKOUT_FETCH_SUCCESS = 'workout_fetch_success';
-export const WORKOUT_SAVE_SUCCESS = 'workout_save_success';
+export const WORKOUT_SAVE_FOR_REVIEW = 'workout_save_for_review';
 
 export const EXERCISE_UPDATE = 'exercise_update';
 export const EXERCISE_CREATE = 'exercise_create';

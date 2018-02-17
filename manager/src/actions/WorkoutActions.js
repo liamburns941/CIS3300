@@ -6,7 +6,7 @@ import {
   WORKOUT_CREATE,
   WORKOUTS_FETCH_SUCCESS,
   WORKOUT_FETCH_SUCCESS,
-  WORKOUT_SAVE_SUCCESS
+  WORKOUT_SAVE_FOR_REVIEW
 } from './types';
 
 export const workoutUpdate = ({ prop, value }) => {
@@ -59,16 +59,17 @@ export const workoutFetch = (workout) => {
     return { type: WORKOUT_FETCH_SUCCESS, payload: workout };
 };
 
-export const workoutSave = ({ workoutName, clientUid, workoutUid }) => {
-  const { currentUser } = firebase.auth();
-
+export const workoutSaveForReview = ({ clientUid, workoutUid, attempts }) => {
   return (dispatch) => {
-    firebase.database().ref(`/users/${currentUser.uid}/clients/${clientUid}/workouts/${workoutUid}`)
-      .set({ workoutName })
-      .then(() => {
-        dispatch({ type: WORKOUT_SAVE_SUCCESS });
-        Actions.pop({ type: 'reset' });
-      });
+    attempts = parseInt(attempts, 10) + 1;
+
+    const ref = firebase.database().ref().child(`/users/pKlr8qiNUCbStPlzSX4EEpNczNv2/clients/${clientUid}/workouts/${workoutUid}`);
+
+    ref.update({ attempts })
+       .then(() => {
+        dispatch({ type: WORKOUT_SAVE_FOR_REVIEW });
+        Actions.workoutReview();
+       });
   };
 };
 

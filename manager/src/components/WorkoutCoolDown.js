@@ -2,9 +2,8 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ListView, Text } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import CountdownCircle from 'react-native-countdown-circle';
-import { exercisesFetch } from '../actions';
+import { exercisesFetch, workoutSaveForReview } from '../actions';
 import ExerciseListItem from './ExerciseListItem';
 import { Card, CardSection, Button } from './common';
 
@@ -42,7 +41,11 @@ class WorkoutCoolDown extends Component {
   }
 
   render() {
-    const { workoutName, exerciseTime } = this.props.singleWorkout;
+    console.log(this.props);
+    const { workoutName, workoutUid, attempts } = this.props.singleWorkout;
+
+    const { clientUid } = this.props.singleClient;
+    console.log('workoutUid: ' + workoutUid + ' and clientUid: ' + clientUid);
 
     const { sets } = this.props;
 
@@ -61,13 +64,13 @@ class WorkoutCoolDown extends Component {
         <Card>
           <CardSection style={{ alignItems: 'center', justifyContent: 'center' }}>
             <CountdownCircle
-              seconds={11}
+              seconds={1}
               radius={170}
               borderWidth={20}
               color="#FFBF00"
               bgColor="#fff"
               textStyle={{ fontSize: 50 }}
-              onTimeElapsed={() => Actions.workoutDetail()}
+              onTimeElapsed={() => this.props.workoutSaveForReview({ clientUid, workoutUid, attempts })}
             />
           </CardSection>
           <CardSection>
@@ -132,6 +135,7 @@ const styles = {
 };
 
 const mapStateToProps = state => {
+  console.log(state);
   const exercises = _.map(state.exercises, (val, workoutUid, clientUid) => {
     return { ...val, workoutUid, clientUid };
   });
@@ -139,4 +143,4 @@ const mapStateToProps = state => {
   return { exercises, singleWorkout: state.singleWorkout, singleClient: state.singleClient, sets: state.sets };
 };
 
-export default connect(mapStateToProps, { exercisesFetch })(WorkoutCoolDown);
+export default connect(mapStateToProps, { exercisesFetch, workoutSaveForReview })(WorkoutCoolDown);
