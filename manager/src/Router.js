@@ -10,7 +10,10 @@ import WorkoutList from './components/WorkoutList';
 import WorkoutCreate from './components/WorkoutCreate';
 import WorkoutDetail from './components/WorkoutDetail';
 import ExerciseCreate from './components/ExerciseCreate';
-import WorkoutTimer from './components/WorkoutTimer';
+import WorkoutWarmUp from './components/WorkoutWarmUp';
+import WorkoutExerciseTimer from './components/WorkoutExerciseTimer';
+import WorkoutRestTimer from './components/WorkoutRestTimer';
+import WorkoutCoolDown from './components/WorkoutCoolDown';
 
 const RouterComponent = () => {
   return (
@@ -50,14 +53,10 @@ const RouterComponent = () => {
         </Scene>
 
         <Scene key="clientSide">
-          <Scene
-            key="clientMyProfile"
-            component={WorkoutDetail}
-            title="My Profile"
-            backTitle="BACK"
-            onBack={() => Actions.clientLogin()}
-          />
-          <Scene key="workoutTimer" component={WorkoutTimer} title="Timer" />
+          <Scene key="workoutWarmUp" component={WorkoutWarmUp} title="Warm Up" />
+          <Scene key="workoutExerciseTimer" component={WorkoutExerciseTimer} title="Exercise" />
+          <Scene key="workoutRestTimer" component={WorkoutRestTimer} title="Rest" />
+          <Scene key="workoutCoolDown" component={WorkoutCoolDown} title="Cool Down" />
         </Scene>
       </Scene>
     </Router>

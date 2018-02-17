@@ -26,3 +26,4 @@ export const EXERCISE_UPDATE = 'exercise_update';
 export const EXERCISE_CREATE = 'exercise_create';
 export const EXERCISES_FETCH_SUCCESS = 'exercise_fetch_success';
 export const EXERCISE_SAVE_SUCCESS = 'exercise_save_success';
+export const SET_UPDATE = 'set_update';

@@ -2,12 +2,13 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ListView, Text } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import CountdownCircle from 'react-native-countdown-circle';
-import { exercisesFetch } from '../actions';
+import { exercisesFetch, setUpdate } from '../actions';
 import ExerciseListItem from './ExerciseListItem';
 import { Card, CardSection, Button } from './common';
 
-class WorkoutTimer extends Component {
+class WorkoutExerciseTimer extends Component {
   componentWillMount() {
     const { singleClient, singleWorkout } = this.props;
     this.props.exercisesFetch({
@@ -25,6 +26,11 @@ class WorkoutTimer extends Component {
     this.createDataSource(nextProps);
   }
 
+  onTimerEnd(newSets) {
+    this.props.setUpdate(newSets);
+    Actions.workoutWarmUp();
+  }
+
   onButtonPress() {
 
   }
@@ -40,9 +46,15 @@ class WorkoutTimer extends Component {
     return <ExerciseListItem exercise={exercise} />;
   }
 
-
   render() {
-    const { workoutName, exerciseTime, sets } = this.props.singleWorkout;
+    const { workoutName, exerciseTime } = this.props.singleWorkout;
+
+    const { sets } = this.props;
+    console.log(this.props);
+
+    const newSets = parseInt(sets, 10);
+
+    const newExerciseTime = parseInt(exerciseTime, 10);
 
     const { nameStyle, workoutTitleStyle } = styles;
 
@@ -54,23 +66,20 @@ class WorkoutTimer extends Component {
               {workoutName}
             </Text>
           </CardSection>
-
-          <CardSection style={{ alignItems: 'center', justifyContent: 'center' }}>
-            <CountdownCircle
-              seconds={40}
-              radius={170}
-              borderWidth={8}
-              color="#ff003f"
-              bgColor="#fff"
-              textStyle={{ fontSize: 50 }}
-              onTimeElapsed={() => console.log('Elapsed!')}
-            />
-          </CardSection>
-
-
         </Card>
 
         <Card>
+          <CardSection style={{ alignItems: 'center', justifyContent: 'center' }}>
+            <CountdownCircle
+              seconds={newExerciseTime}
+              radius={170}
+              borderWidth={20}
+              color="#00ff00"
+              bgColor="#fff"
+              textStyle={{ fontSize: 50 }}
+              onTimeElapsed={() => Actions.workoutRestTimer()}
+            />
+          </CardSection>
           <CardSection>
             <ListView
               enableEmptySections
@@ -83,7 +92,7 @@ class WorkoutTimer extends Component {
         <Card>
           <CardSection>
             <Text style={workoutTitleStyle}>
-              Sets left: {sets}
+              Sets left: {newSets}
             </Text>
           </CardSection>
         </Card>
@@ -135,11 +144,12 @@ const styles = {
 };
 
 const mapStateToProps = state => {
+  console.log(state);
   const exercises = _.map(state.exercises, (val, workoutUid, clientUid) => {
     return { ...val, workoutUid, clientUid };
   });
 
-  return { exercises, singleWorkout: state.singleWorkout, singleClient: state.singleClient };
+  return { exercises, singleWorkout: state.singleWorkout, singleClient: state.singleClient, sets: state.sets };
 };
 
-export default connect(mapStateToProps, { exercisesFetch })(WorkoutTimer);
+export default connect(mapStateToProps, { exercisesFetch, setUpdate })(WorkoutExerciseTimer);

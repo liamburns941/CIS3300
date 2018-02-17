@@ -10,6 +10,7 @@ import WorkoutReducer from './WorkoutReducer';
 import SingleWorkoutReducer from './SingleWorkoutReducer';
 import ExerciseFormReducer from './ExerciseFormReducer';
 import ExerciseReducer from './ExerciseReducer';
+import ExerciseSetReducer from './ExerciseSetReducer';
 import RoleReducer from './RoleReducer';
 
 export default combineReducers({
@@ -24,5 +25,6 @@ export default combineReducers({
   singleWorkout: SingleWorkoutReducer,
   exerciseForm: ExerciseFormReducer,
   exercises: ExerciseReducer,
+  sets: ExerciseSetReducer,
   role: RoleReducer
 });

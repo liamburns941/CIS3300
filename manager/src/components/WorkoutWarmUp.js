@@ -3,11 +3,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ListView, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import CountdownCircle from 'react-native-countdown-circle';
 import { exercisesFetch, setUpdate } from '../actions';
 import ExerciseListItem from './ExerciseListItem';
 import { Card, CardSection, Button } from './common';
 
-class WorkoutDetail extends Component {
+class WorkoutWarmUp extends Component {
   componentWillMount() {
     const { singleClient, singleWorkout } = this.props;
     this.props.exercisesFetch({
@@ -25,14 +26,13 @@ class WorkoutDetail extends Component {
     this.createDataSource(nextProps);
   }
 
+  onTimerEnd(newSets) {
+    this.props.setUpdate(newSets);
+    Actions.workoutExerciseTimer();
+  }
+
   onButtonPress() {
-    const { sets } = this.props.singleWorkout;
-    console.log(sets);
-    console.log(this.props);
 
-    this.props.setUpdate(sets);
-
-    Actions.workoutWarmUp();
   }
 
   createDataSource({ exercises }) {
@@ -46,19 +46,14 @@ class WorkoutDetail extends Component {
     return <ExerciseListItem exercise={exercise} />;
   }
 
-
   render() {
-    const { workoutName, exerciseTime, restTime, sets, status } = this.props.singleWorkout;
+    const { workoutName } = this.props.singleWorkout;
 
-    const { nameStyle, workoutTitleStyle, statusTitleStyle, exerciseTitleStyle } = styles;
+    const { sets } = this.props;
 
-    const { role } = this.props;
+    const newSets = parseInt(sets, 10);
 
-    let button = null;
-
-    if (role === 'CLIENT') {
-       button = <Button onPress={this.onButtonPress.bind(this)}>Start Workout</Button>;
-    }
+    const { nameStyle, workoutTitleStyle } = styles;
 
     return (
       <Card>
@@ -68,48 +63,42 @@ class WorkoutDetail extends Component {
               {workoutName}
             </Text>
           </CardSection>
-
-          <CardSection>
-          <Text style={workoutTitleStyle}>
-            {exerciseTime} seconds work
-          </Text>
-          <Text style={statusTitleStyle}>
-            {status}
-          </Text>
-          </CardSection>
-
-          <CardSection>
-          <Text style={workoutTitleStyle}>
-            {restTime} seconds rest
-          </Text>
-          <Text style={workoutTitleStyle}>
-            {sets} sets
-          </Text>
-          </CardSection>
         </Card>
 
         <Card>
-          <CardSection>
-            <Text style={exerciseTitleStyle}>
-            Exercises
-            </Text>
-          </CardSection>
-
-          <CardSection>
-            <ListView
-              enableEmptySections
-              dataSource={this.dataSource}
-              renderRow={this.renderRow}
+          <CardSection style={{ alignItems: 'center', justifyContent: 'center' }}>
+            <CountdownCircle
+              seconds={11}
+              radius={170}
+              borderWidth={20}
+              color="#FFBF00"
+              bgColor="#fff"
+              textStyle={{ fontSize: 50 }}
+              onTimeElapsed={() => Actions.workoutExerciseTimer()}
             />
           </CardSection>
+          <CardSection>
+            <Text style={workoutTitleStyle}>
+              Warm Up
+            </Text>
+          </CardSection>
         </Card>
 
         <Card>
           <CardSection>
-            {button}
+            <Text style={workoutTitleStyle}>
+              Sets left: {newSets}
+            </Text>
           </CardSection>
         </Card>
 
+        <Card>
+          <CardSection>
+            <Button onPress={this.onButtonPress.bind(this)}>
+              Pause Workout
+            </Button>
+          </CardSection>
+        </Card>
       </Card>
     );
   }
@@ -154,7 +143,7 @@ const mapStateToProps = state => {
     return { ...val, workoutUid, clientUid };
   });
 
-  return { exercises, singleWorkout: state.singleWorkout, singleClient: state.singleClient, role: state.role, sets: state.sets };
+  return { exercises, singleWorkout: state.singleWorkout, singleClient: state.singleClient, sets: state.sets };
 };
 
-export default connect(mapStateToProps, { exercisesFetch, setUpdate })(WorkoutDetail);
+export default connect(mapStateToProps, { exercisesFetch, setUpdate })(WorkoutWarmUp);

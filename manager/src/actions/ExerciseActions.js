@@ -6,7 +6,8 @@ import {
   EXERCISE_UPDATE,
   EXERCISE_CREATE,
   EXERCISES_FETCH_SUCCESS,
-  EXERCISE_SAVE_SUCCESS
+  EXERCISE_SAVE_SUCCESS,
+  SET_UPDATE
 } from './types';
 
 export const exerciseUpdate = ({ prop, value }) => {
@@ -68,4 +69,8 @@ export const exerciseDelete = ({ clientUid, workoutUid, exerciseUid }) => {
         Actions.pop({ type: 'reset' });
       });
   };
+};
+
+export const setUpdate = (sets) => {
+    return { type: SET_UPDATE, payload: sets };
 };
