@@ -41,11 +41,9 @@ class WorkoutCoolDown extends Component {
   }
 
   render() {
-    console.log(this.props);
     const { workoutName, workoutUid, attempts } = this.props.singleWorkout;
 
     const { clientUid } = this.props.singleClient;
-    console.log('workoutUid: ' + workoutUid + ' and clientUid: ' + clientUid);
 
     const { sets } = this.props;
 
@@ -135,7 +133,6 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-  console.log(state);
   const exercises = _.map(state.exercises, (val, workoutUid, clientUid) => {
     return { ...val, workoutUid, clientUid };
   });

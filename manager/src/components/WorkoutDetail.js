@@ -27,8 +27,6 @@ class WorkoutDetail extends Component {
 
   onButtonPress() {
     const { sets } = this.props.singleWorkout;
-    console.log(sets);
-    console.log(this.props);
 
     this.props.setUpdate(sets);
 

@@ -50,7 +50,6 @@ class WorkoutExerciseTimer extends Component {
     const { workoutName, exerciseTime } = this.props.singleWorkout;
 
     const { sets } = this.props;
-    console.log(this.props);
 
     const newSets = parseInt(sets, 10);
 
@@ -144,7 +143,6 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-  console.log(state);
   const exercises = _.map(state.exercises, (val, workoutUid, clientUid) => {
     return { ...val, workoutUid, clientUid };
   });

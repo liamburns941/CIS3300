@@ -2,19 +2,23 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ListView, Text } from 'react-native';
-import { Actions } from 'react-native-router-flux';
-import { exercisesFetch, setUpdate } from '../actions';
+import { exercisesFetch, setUpdate, ratingChanged, exerciseSave, exerciseFetch, workoutComplete } from '../actions';
 import ExerciseListItem from './ExerciseListItem';
-import { Card, CardSection, Button } from './common';
+import { Card, CardSection, Button, Input } from './common';
 
 class WorkoutReview extends Component {
   componentWillMount() {
-    console.log('WorkoutReview componentWillMount');
+  console.log(this.props);
     const { singleClient, singleWorkout } = this.props;
     this.props.exercisesFetch({
       clientUid: singleClient.clientUid,
       workoutUid: singleWorkout.workoutUid
     });
+    console.log(this.props);
+    console.log(this.props.exercises[0]);
+    this.props.exerciseFetch(this.props.exercises[0]);
+    console.log(this.props);
+
     this.createDataSource(this.props);
   }
 
@@ -26,14 +30,20 @@ class WorkoutReview extends Component {
     this.createDataSource(nextProps);
   }
 
-  onButtonPress() {
-    const { sets } = this.props.singleWorkout;
-    console.log(sets);
+  onRatingChange(text) {
+    this.props.ratingChanged(text);
     console.log(this.props);
+  }
 
-    this.props.setUpdate(sets);
-
-    Actions.workoutWarmUp();
+  onButtonPress() {
+    //clientUid, workoutUid, exerciseUid, rating
+    const { clientUid } = this.props.singleClient;
+    const { workoutUid } = this.props.singleWorkout;
+    const { exerciseUid } = this.props.singleExercise;
+    const { rating } = this.props.rating;
+    console.log(clientUid, workoutUid, exerciseUid, rating);
+    this.props.exerciseSave({ clientUid, workoutUid, exerciseUid, rating });
+    this.props.workoutComplete({ clientUid, workoutUid });
   }
 
   createDataSource({ exercises }) {
@@ -49,11 +59,20 @@ class WorkoutReview extends Component {
 
 
   render() {
-    const { workoutName, exerciseTime, restTime, sets, dateCompleted, attempts } = this.props.singleWorkout;
+    const { workoutName, exerciseTime, restTime, sets, attempts } = this.props.singleWorkout;
 
-    const { nameStyle, workoutTitleStyle, statusTitleStyle, exerciseTitleStyle } = styles;
+    const { nameStyle, workoutTitleStyle, exerciseTitleStyle } = styles;
 
-    console.log('line 56 workout review');
+    const attemptsPlusOne = parseInt(attempts, 10) + 1;
+
+    let attemptsWording = null;
+
+    if (attemptsPlusOne === 1) {
+      attemptsWording = 'attempt';
+    } else {
+      attemptsWording = 'attempts';
+    }
+
     return (
       <Card>
         <Card>
@@ -77,7 +96,7 @@ class WorkoutReview extends Component {
               {restTime} seconds rest
             </Text>
             <Text style={workoutTitleStyle}>
-              {attempts} attempts
+              {attemptsPlusOne} {attemptsWording}
             </Text>
           </CardSection>
         </Card>
@@ -95,6 +114,18 @@ class WorkoutReview extends Component {
               dataSource={this.dataSource}
               renderRow={this.renderRow}
             />
+            <Input
+              label="Rating"
+              placeholder="Enter rating"
+              onChangeText={this.onRatingChange.bind(this)}
+              value={this.props.rating.rating}
+            />
+          </CardSection>
+
+          <CardSection>
+            <Button onPress={this.onButtonPress.bind(this)}>
+              Complete
+            </Button>
           </CardSection>
         </Card>
 
@@ -138,12 +169,28 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-  console.log('WorkoutReview mapStateToProps');
-  const exercises = _.map(state.exercises, (val, workoutUid, clientUid) => {
-    return { ...val, workoutUid, clientUid };
+  console.log(state.exercises);
+  console.log(state);
+  const exercises = _.map(state.exercises, (val, exerciseUid) => {
+    return { ...val, exerciseUid };
   });
 
-  return { exercises, singleWorkout: state.singleWorkout, singleClient: state.singleClient, role: state.role, sets: state.sets };
+  return {
+    exercises,
+    singleWorkout: state.singleWorkout,
+    singleClient: state.singleClient,
+    singleExercise: state.singleExercise,
+    role: state.role,
+    sets: state.sets,
+    rating: state.rating
+  };
 };
 
-export default connect(mapStateToProps, { exercisesFetch, setUpdate })(WorkoutReview);
+export default connect(mapStateToProps, {
+  exercisesFetch,
+  setUpdate,
+  ratingChanged,
+  exerciseSave,
+  exerciseFetch,
+  workoutComplete
+})(WorkoutReview);

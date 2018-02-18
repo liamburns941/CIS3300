@@ -1,7 +1,8 @@
 import {
   WORKOUT_UPDATE,
   WORKOUT_CREATE,
-  WORKOUT_SAVE_FOR_REVIEW
+  WORKOUT_SAVE_FOR_REVIEW,
+  WORKOUT_COMPLETE
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -22,6 +23,8 @@ export default (state = INITIAL_STATE, action) => {
     case WORKOUT_CREATE:
       return INITIAL_STATE;
     case WORKOUT_SAVE_FOR_REVIEW:
+      return INITIAL_STATE;
+    case WORKOUT_COMPLETE:
       return INITIAL_STATE;
     default:
       return state;

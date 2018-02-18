@@ -6,6 +6,7 @@ import {
   EXERCISE_UPDATE,
   EXERCISE_CREATE,
   EXERCISES_FETCH_SUCCESS,
+  EXERCISE_FETCH_SUCCESS,
   EXERCISE_SAVE_SUCCESS,
   SET_UPDATE
 } from './types';
@@ -46,16 +47,21 @@ export const exercisesFetch = ({ clientUid, workoutUid }) => {
   };
 };
 
-export const exerciseSave = ({ exerciseName, benchmark, clientUid, workoutUid, exerciseUid }) => {
-  const { currentUser } = firebase.auth();
+export const exerciseFetch = (workout) => {
+    return { type: EXERCISE_FETCH_SUCCESS, payload: workout };
+};
 
+export const exerciseSave = ({ clientUid, workoutUid, exerciseUid, rating }) => {
+  console.log(clientUid, workoutUid, exerciseUid, rating);
   return (dispatch) => {
-    firebase.database().ref(`/users/${currentUser.uid}/clients/${clientUid}/workouts/${workoutUid}/exercises/${exerciseUid}`)
-      .set({ exerciseName, benchmark })
-      .then(() => {
+
+    const ref = firebase.database().ref().child(`/users/pKlr8qiNUCbStPlzSX4EEpNczNv2/clients/${clientUid}/workouts/${workoutUid}/exercises/${exerciseUid}`);
+
+    ref.update({ rating })
+       .then(() => {
         dispatch({ type: EXERCISE_SAVE_SUCCESS });
-        Actions.pop({ type: 'reset' });
-      });
+        Actions.workoutList();
+       });
   };
 };
 

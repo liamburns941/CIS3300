@@ -6,7 +6,8 @@ import {
   WORKOUT_CREATE,
   WORKOUTS_FETCH_SUCCESS,
   WORKOUT_FETCH_SUCCESS,
-  WORKOUT_SAVE_FOR_REVIEW
+  WORKOUT_SAVE_FOR_REVIEW,
+  WORKOUT_COMPLETE
 } from './types';
 
 export const workoutUpdate = ({ prop, value }) => {
@@ -69,6 +70,21 @@ export const workoutSaveForReview = ({ clientUid, workoutUid, attempts }) => {
        .then(() => {
         dispatch({ type: WORKOUT_SAVE_FOR_REVIEW });
         Actions.workoutReview();
+       });
+  };
+};
+
+export const workoutComplete = ({ clientUid, workoutUid }) => {
+  return (dispatch) => {
+    const ref = firebase.database().ref().child(`/users/pKlr8qiNUCbStPlzSX4EEpNczNv2/clients/${clientUid}/workouts/${workoutUid}`);
+
+    const dateCompleted = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
+    const status = 'Completed';
+
+    ref.update({ dateCompleted, status })
+       .then(() => {
+        dispatch({ type: WORKOUT_COMPLETE });
+        Actions.workoutList();
        });
   };
 };

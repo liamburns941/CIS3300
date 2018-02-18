@@ -7,6 +7,7 @@ import { workoutFetch } from '../actions';
 
 class WorkoutListItem extends Component {
   onRowPress() {
+    console.log(this.props.workout);
     this.props.workoutFetch(this.props.workout);
     Actions.workoutDetail();
   }

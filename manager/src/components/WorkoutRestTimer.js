@@ -28,18 +28,12 @@ class WorkoutRestTimer extends Component {
 
   onTimerEnd() {
     const { sets } = this.props;
-    console.log('31');
-    console.log(this.props);
-    console.log(sets);
 
     const newSets = parseInt(sets, 10);
-    console.log(newSets);
 
     if (newSets > 0) {
       const newSetsMinusOne = null;
-      console.log(newSetsMinusOne);
       newSetsMinusOne = newSets - 1;
-      console.log(newSetsMinusOne);
       this.props.setUpdate(newSetsMinusOne);
       Actions.workoutExerciseTimer();
     } else {
@@ -94,10 +88,6 @@ class WorkoutRestTimer extends Component {
               textStyle={{ fontSize: 50 }}
               onTimeElapsed={() => {
                 if (newSets > 0) {
-                  //const newSetsMinusOne = null;
-                  //console.log(newSetsMinusOne);
-                  //newSetsMinusOne = newSets - 1;
-                  //console.log(newSetsMinusOne);
                   this.props.setUpdate(newSets);
                   Actions.workoutExerciseTimer();
                 } else {
