@@ -15,17 +15,31 @@ class WorkoutListItem extends Component {
   render() {
     const { workoutName, status } = this.props.workout;
 
+    const {
+      cardSectionStyle,
+      workoutTitleStyle,
+      dashTitleStyle,
+      statusOutstandingTitleStyle,
+      statusCompletedTitleStyle
+    } = styles;
+
+    let stylingToUse = statusOutstandingTitleStyle;
+
+    if (status === 'Completed') {
+      stylingToUse = statusCompletedTitleStyle;
+    }
+
     return (
       <TouchableWithoutFeedback onPress={this.onRowPress.bind(this)}>
         <View>
-          <CardSection style={styles.cardSectionStyle}>
-            <Text style={styles.workoutTitleStyle}>
+          <CardSection style={cardSectionStyle}>
+            <Text style={workoutTitleStyle}>
               {workoutName}
             </Text>
-            <Text style={styles.dashTitleStyle}>
+            <Text style={dashTitleStyle}>
               -
             </Text>
-            <Text style={styles.statusTitleStyle}>
+            <Text style={stylingToUse}>
               {status}
             </Text>
           </CardSection>
@@ -37,7 +51,6 @@ class WorkoutListItem extends Component {
 
 const styles = {
   workoutTitleStyle: {
-    //flex: 5,
     fontSize: 24,
     paddingTop: 20,
     paddingBottom: 20,
@@ -45,18 +58,23 @@ const styles = {
     textAlign: 'center'
   },
   dashTitleStyle: {
-    //flex: 2,
     fontSize: 24,
     paddingTop: 20,
     paddingBottom: 20,
     textAlign: 'center'
   },
-  statusTitleStyle: {
-    //flex: 3,
+  statusOutstandingTitleStyle: {
     fontSize: 24,
     paddingTop: 20,
     paddingBottom: 20,
     color: '#FFBF00',
+    textAlign: 'center'
+  },
+  statusCompletedTitleStyle: {
+    fontSize: 24,
+    paddingTop: 20,
+    paddingBottom: 20,
+    color: '#00FF00',
     textAlign: 'center'
   },
   cardSectionStyle: {

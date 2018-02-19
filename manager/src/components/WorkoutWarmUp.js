@@ -143,7 +143,12 @@ const mapStateToProps = state => {
     return { ...val, workoutUid, clientUid };
   });
 
-  return { exercises, singleWorkout: state.singleWorkout, singleClient: state.singleClient, sets: state.sets };
+  return {
+    exercises,
+    singleWorkout: state.singleWorkout,
+    singleClient: state.singleClient,
+    sets: state.sets
+  };
 };
 
 export default connect(mapStateToProps, { exercisesFetch, setUpdate })(WorkoutWarmUp);

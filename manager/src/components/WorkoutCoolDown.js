@@ -68,7 +68,11 @@ class WorkoutCoolDown extends Component {
               color="#FFBF00"
               bgColor="#fff"
               textStyle={{ fontSize: 50 }}
-              onTimeElapsed={() => this.props.workoutSaveForReview({ clientUid, workoutUid, attempts })}
+              onTimeElapsed={() => this.props.workoutSaveForReview({
+                clientUid,
+                workoutUid,
+                attempts
+              })}
             />
           </CardSection>
           <CardSection>
@@ -137,7 +141,11 @@ const mapStateToProps = state => {
     return { ...val, workoutUid, clientUid };
   });
 
-  return { exercises, singleWorkout: state.singleWorkout, singleClient: state.singleClient, sets: state.sets };
+  return {
+    exercises,
+    singleWorkout: state.singleWorkout,
+    singleClient: state.singleClient,
+    sets: state.sets };
 };
 
 export default connect(mapStateToProps, { exercisesFetch, workoutSaveForReview })(WorkoutCoolDown);

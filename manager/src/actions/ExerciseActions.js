@@ -54,7 +54,6 @@ export const exerciseFetch = (workout) => {
 export const exerciseSave = ({ clientUid, workoutUid, exerciseUid, rating }) => {
   console.log(clientUid, workoutUid, exerciseUid, rating);
   return (dispatch) => {
-
     const ref = firebase.database().ref().child(`/users/pKlr8qiNUCbStPlzSX4EEpNczNv2/clients/${clientUid}/workouts/${workoutUid}/exercises/${exerciseUid}`);
 
     ref.update({ rating })

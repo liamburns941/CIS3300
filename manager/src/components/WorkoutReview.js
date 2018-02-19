@@ -2,22 +2,25 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ListView, Text } from 'react-native';
-import { exercisesFetch, setUpdate, ratingChanged, exerciseSave, exerciseFetch, workoutComplete } from '../actions';
+import {
+  exercisesFetch,
+  setUpdate,
+  ratingChanged,
+  exerciseSave,
+  exerciseFetch,
+  workoutComplete
+} from '../actions';
 import ExerciseListItem from './ExerciseListItem';
 import { Card, CardSection, Button, Input } from './common';
 
 class WorkoutReview extends Component {
   componentWillMount() {
-  console.log(this.props);
     const { singleClient, singleWorkout } = this.props;
     this.props.exercisesFetch({
       clientUid: singleClient.clientUid,
       workoutUid: singleWorkout.workoutUid
     });
-    console.log(this.props);
-    console.log(this.props.exercises[0]);
     this.props.exerciseFetch(this.props.exercises[0]);
-    console.log(this.props);
 
     this.createDataSource(this.props);
   }
@@ -32,7 +35,6 @@ class WorkoutReview extends Component {
 
   onRatingChange(text) {
     this.props.ratingChanged(text);
-    console.log(this.props);
   }
 
   onButtonPress() {
@@ -41,7 +43,6 @@ class WorkoutReview extends Component {
     const { workoutUid } = this.props.singleWorkout;
     const { exerciseUid } = this.props.singleExercise;
     const { rating } = this.props.rating;
-    console.log(clientUid, workoutUid, exerciseUid, rating);
     this.props.exerciseSave({ clientUid, workoutUid, exerciseUid, rating });
     this.props.workoutComplete({ clientUid, workoutUid });
   }
@@ -73,6 +74,16 @@ class WorkoutReview extends Component {
       attemptsWording = 'attempts';
     }
 
+    const setsInt = parseInt(sets, 10);
+
+    let setsWording = null;
+
+    if (setsInt === 1) {
+      setsWording = 'set';
+    } else {
+      setsWording = 'sets';
+    }
+
     return (
       <Card>
         <Card>
@@ -87,7 +98,7 @@ class WorkoutReview extends Component {
               {exerciseTime} seconds work
             </Text>
             <Text style={workoutTitleStyle}>
-              {sets} sets
+              {sets} {setsWording}
             </Text>
           </CardSection>
 
@@ -115,7 +126,6 @@ class WorkoutReview extends Component {
               renderRow={this.renderRow}
             />
             <Input
-              label="Rating"
               placeholder="Enter rating"
               onChangeText={this.onRatingChange.bind(this)}
               value={this.props.rating.rating}

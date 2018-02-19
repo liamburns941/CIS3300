@@ -46,16 +46,78 @@ class WorkoutDetail extends Component {
 
 
   render() {
-    const { workoutName, exerciseTime, restTime, sets, status } = this.props.singleWorkout;
+    const {
+      workoutName,
+      exerciseTime,
+      restTime,
+      sets,
+      status,
+      dateCompleted,
+      attempts
+    } = this.props.singleWorkout;
 
-    const { nameStyle, workoutTitleStyle, statusTitleStyle, exerciseTitleStyle } = styles;
+    const {
+      nameStyle,
+      workoutTitleStyle,
+      statusOutstandingTitleStyle,
+      statusCompletedTitleStyle,
+      exerciseTitleStyle,
+      exerciseSubTitleStyle
+    } = styles;
 
     const { role } = this.props;
 
     let button = null;
 
-    if (role === 'CLIENT') {
-       button = <Button onPress={this.onButtonPress.bind(this)}>Start Workout</Button>;
+    if (role === 'CLIENT' && status === 'Outstanding') {
+       button =
+       (<Card>
+         <CardSection>
+           <Button onPress={this.onButtonPress.bind(this)}>Start Workout</Button>
+         </CardSection>
+       </Card>);
+    }
+
+    let attemptsWording = null;
+
+    if (attempts === 1) {
+      attemptsWording = 'attempt';
+    } else {
+      attemptsWording = 'attempts';
+    }
+
+    const setsInt = parseInt(sets, 10);
+    let setsWording = null;
+
+    if (setsInt === 1) {
+      setsWording = 'set';
+    } else {
+      setsWording = 'sets';
+    }
+
+    let completedRow = null;
+    let ratingHeader = null;
+    let stylingToUse = statusOutstandingTitleStyle;
+
+    if (status === 'Completed') {
+      completedRow =
+        (
+          <CardSection>
+          <Text style={workoutTitleStyle}>
+            {dateCompleted}
+          </Text>
+          <Text style={workoutTitleStyle}>
+            {attempts} {attemptsWording}
+          </Text>
+          </CardSection>
+        );
+      ratingHeader =
+        (
+          <Text style={exerciseSubTitleStyle}>
+            Rating
+          </Text>
+        );
+      stylingToUse = statusCompletedTitleStyle;
     }
 
     return (
@@ -71,7 +133,7 @@ class WorkoutDetail extends Component {
           <Text style={workoutTitleStyle}>
             {exerciseTime} seconds work
           </Text>
-          <Text style={statusTitleStyle}>
+          <Text style={stylingToUse}>
             {status}
           </Text>
           </CardSection>
@@ -81,9 +143,11 @@ class WorkoutDetail extends Component {
             {restTime} seconds rest
           </Text>
           <Text style={workoutTitleStyle}>
-            {sets} sets
+            {sets} {setsWording}
           </Text>
           </CardSection>
+
+          {completedRow}
         </Card>
 
         <Card>
@@ -91,6 +155,16 @@ class WorkoutDetail extends Component {
             <Text style={exerciseTitleStyle}>
             Exercises
             </Text>
+          </CardSection>
+
+          <CardSection>
+            <Text style={exerciseSubTitleStyle}>
+            Name
+            </Text>
+            <Text style={exerciseSubTitleStyle}>
+            Benchmark
+            </Text>
+            {ratingHeader}
           </CardSection>
 
           <CardSection>
@@ -102,11 +176,7 @@ class WorkoutDetail extends Component {
           </CardSection>
         </Card>
 
-        <Card>
-          <CardSection>
-            {button}
-          </CardSection>
-        </Card>
+        {button}
 
       </Card>
     );
@@ -129,7 +199,7 @@ const styles = {
     textAlign: 'center',
     flex: 1
   },
-  statusTitleStyle: {
+  statusOutstandingTitleStyle: {
     fontSize: 24,
     paddingTop: 20,
     paddingBottom: 20,
@@ -137,7 +207,23 @@ const styles = {
     flex: 1,
     color: '#FFBF00'
   },
+  statusCompletedTitleStyle: {
+    fontSize: 24,
+    paddingTop: 20,
+    paddingBottom: 20,
+    textAlign: 'center',
+    flex: 1,
+    color: '#00FF00'
+  },
   exerciseTitleStyle: {
+    fontSize: 30,
+    paddingTop: 20,
+    paddingBottom: 20,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    flex: 1
+  },
+  exerciseSubTitleStyle: {
     fontSize: 24,
     paddingTop: 20,
     paddingBottom: 20,
@@ -152,7 +238,13 @@ const mapStateToProps = state => {
     return { ...val, workoutUid, clientUid };
   });
 
-  return { exercises, singleWorkout: state.singleWorkout, singleClient: state.singleClient, role: state.role, sets: state.sets };
+  return {
+    exercises,
+    singleWorkout: state.singleWorkout,
+    singleClient: state.singleClient,
+    role: state.role,
+    sets: state.sets
+  };
 };
 
 export default connect(mapStateToProps, { exercisesFetch, setUpdate })(WorkoutDetail);
