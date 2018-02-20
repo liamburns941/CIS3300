@@ -11,6 +11,7 @@ import WorkoutCreate from './components/WorkoutCreate';
 import WorkoutDetail from './components/WorkoutDetail';
 import WorkoutReview from './components/WorkoutReview';
 import ExerciseCreate from './components/ExerciseCreate';
+import GlobalExerciseList from './components/GlobalExerciseList';
 import WorkoutWarmUp from './components/WorkoutWarmUp';
 import WorkoutExerciseTimer from './components/WorkoutExerciseTimer';
 import WorkoutRestTimer from './components/WorkoutRestTimer';
@@ -51,6 +52,7 @@ const RouterComponent = () => {
           <Scene key="workoutCreate" component={WorkoutCreate} title="Create Workout" />
           <Scene key="workoutDetail" component={WorkoutDetail} title="Workout" />
           <Scene key="exerciseCreate" component={ExerciseCreate} title="Create Workout" />
+          <Scene key="globalExerciseList" component={GlobalExerciseList} title="Select an exercise to add to the workout" />
         </Scene>
 
         <Scene key="clientSide">

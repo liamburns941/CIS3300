@@ -7,7 +7,8 @@ import {
   WORKOUTS_FETCH_SUCCESS,
   WORKOUT_FETCH_SUCCESS,
   WORKOUT_SAVE_FOR_REVIEW,
-  WORKOUT_COMPLETE
+  WORKOUT_COMPLETE,
+  WORKOUT_DETAIL_FETCH_SUCCESS
 } from './types';
 
 export const workoutUpdate = ({ prop, value }) => {
@@ -33,14 +34,16 @@ export const workoutCreate = ({ workoutName, exerciseTime, restTime, sets, clien
       dateCreated,
       dateCompleted: '',
       attempts: '0',
-      status: 'Outstanding'
+      status: 'ExercisesToBeAdded'
     });
 
-    const workoutUid = workout.key;
+    //const workoutUid = workout.key;
 
     workout.then(() => {
         dispatch({ type: WORKOUT_CREATE });
-        Actions.exerciseCreate({ clientUid, workoutUid });
+        //Actions.workoutDetailFetch(clientUid, workoutUid);
+         Actions.workoutDetail();
+        // Actions.exerciseCreate({ clientUid, workoutUid });
       });
   };
 };
@@ -57,7 +60,21 @@ export const workoutsFetch = ({ clientUid }) => {
 };
 
 export const workoutFetch = (workout) => {
-    return { type: WORKOUT_FETCH_SUCCESS, payload: workout };
+  return (dispatch) => {
+    dispatch({ type: WORKOUT_FETCH_SUCCESS, payload: workout });
+  };
+};
+
+export const workoutDetailFetch = ({ clientUid, workoutUid }) => {
+  const { currentUser } = firebase.auth();
+
+  return (dispatch) => {
+    firebase.database().ref(`/users/${currentUser.uid}/clients/${clientUid}/workouts/${workoutUid}`)
+      .on('value', snapshot => {
+        dispatch({ type: WORKOUT_DETAIL_FETCH_SUCCESS, payload: snapshot.val() });
+        Actions.workoutDetail();
+      });
+  };
 };
 
 export const workoutSaveForReview = ({ clientUid, workoutUid, attempts }) => {

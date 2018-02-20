@@ -100,7 +100,7 @@ class WorkoutRestTimer extends Component {
           </CardSection>
           <CardSection>
           <Text style={workoutTitleStyle}>
-            Rest time!
+            Rest Time
           </Text>
           </CardSection>
         </Card>

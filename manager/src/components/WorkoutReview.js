@@ -38,7 +38,6 @@ class WorkoutReview extends Component {
   }
 
   onButtonPress() {
-    //clientUid, workoutUid, exerciseUid, rating
     const { clientUid } = this.props.singleClient;
     const { workoutUid } = this.props.singleWorkout;
     const { exerciseUid } = this.props.singleExercise;
@@ -58,11 +57,10 @@ class WorkoutReview extends Component {
     return <ExerciseListItem exercise={exercise} />;
   }
 
-
   render() {
     const { workoutName, exerciseTime, restTime, sets, attempts } = this.props.singleWorkout;
 
-    const { nameStyle, workoutTitleStyle, exerciseTitleStyle } = styles;
+    const { nameStyle, workoutTitleStyle, exerciseTitleStyle, ratingStyle } = styles;
 
     const attemptsPlusOne = parseInt(attempts, 10) + 1;
 
@@ -126,6 +124,7 @@ class WorkoutReview extends Component {
               renderRow={this.renderRow}
             />
             <Input
+              style={ratingStyle}
               placeholder="Enter rating"
               onChangeText={this.onRatingChange.bind(this)}
               value={this.props.rating.rating}
@@ -174,6 +173,11 @@ const styles = {
     paddingBottom: 20,
     textAlign: 'center',
     fontWeight: 'bold',
+    flex: 1
+  },
+  ratingStyle: {
+    borderTopWidth: 20,
+    borderBottomWidth: 20,
     flex: 1
   }
 };

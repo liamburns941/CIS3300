@@ -68,7 +68,7 @@ class WorkoutWarmUp extends Component {
         <Card>
           <CardSection style={{ alignItems: 'center', justifyContent: 'center' }}>
             <CountdownCircle
-              seconds={1}
+              seconds={6}
               radius={170}
               borderWidth={20}
               color="#FFBF00"

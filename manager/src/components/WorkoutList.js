@@ -104,7 +104,6 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-  console.log(state.workouts);
   const workouts = _.map(state.workouts, (val, workoutUid) => {
     return { ...val, workoutUid };
   });

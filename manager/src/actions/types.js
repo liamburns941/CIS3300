@@ -20,6 +20,7 @@ export const WORKOUT_UPDATE = 'workout_update';
 export const WORKOUT_CREATE = 'workout_create';
 export const WORKOUTS_FETCH_SUCCESS = 'workouts_fetch_success';
 export const WORKOUT_FETCH_SUCCESS = 'workout_fetch_success';
+export const WORKOUT_DETAIL_FETCH_SUCCESS = 'workout_detail_fetch_success';
 export const WORKOUT_SAVE_FOR_REVIEW = 'workout_save_for_review';
 export const WORKOUT_COMPLETE = 'workout_complete';
 
@@ -29,5 +30,7 @@ export const EXERCISES_FETCH_SUCCESS = 'exercises_fetch_success';
 export const EXERCISE_FETCH_SUCCESS = 'exercise_fetch_success';
 export const EXERCISE_SAVE_SUCCESS = 'exercise_save_success';
 export const SET_UPDATE = 'set_update';
+
+export const GLOBAL_EXERCISES_FETCH_SUCCESS = 'global_exercises_fetch_success';
 
 export const RATING_CHANGED = 'rating_changed';

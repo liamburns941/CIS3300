@@ -1,19 +1,27 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ListView, Text } from 'react-native';
+import { ListView, Text, Keyboard } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { exercisesFetch, setUpdate } from '../actions';
+import { exercisesFetch, setUpdate, workoutDetailFetch, workoutFetch } from '../actions';
 import ExerciseListItem from './ExerciseListItem';
 import { Card, CardSection, Button } from './common';
 
 class WorkoutDetail extends Component {
   componentWillMount() {
-    const { singleClient, singleWorkout } = this.props;
+    Keyboard.dismiss();
+    const { singleClient, singleWorkout, workouts } = this.props;
+
+    if (_.isEmpty(singleWorkout)) {
+      const newWorkout = workouts[workouts.length - 1];
+      this.props.workoutFetch(newWorkout);
+    }
+
     this.props.exercisesFetch({
       clientUid: singleClient.clientUid,
       workoutUid: singleWorkout.workoutUid
     });
+
     this.createDataSource(this.props);
   }
 
@@ -25,12 +33,16 @@ class WorkoutDetail extends Component {
     this.createDataSource(nextProps);
   }
 
-  onButtonPress() {
+  onStartWorkoutButtonPress() {
     const { sets } = this.props.singleWorkout;
 
     this.props.setUpdate(sets);
 
     Actions.workoutWarmUp();
+  }
+
+  onAddExerciseButtonPress() {
+    Actions.globalExerciseList();
   }
 
   createDataSource({ exercises }) {
@@ -67,15 +79,28 @@ class WorkoutDetail extends Component {
 
     const { role } = this.props;
 
-    let button = null;
+    let startWorkoutbutton = null;
 
     if (role === 'CLIENT' && status === 'Outstanding') {
-       button =
+       startWorkoutbutton =
        (<Card>
          <CardSection>
-           <Button onPress={this.onButtonPress.bind(this)}>Start Workout</Button>
+           <Button onPress={this.onStartWorkoutButtonPress.bind(this)}>
+           Start Workout
+           </Button>
          </CardSection>
        </Card>);
+    }
+
+    let addExerciseButton = null;
+
+    if (status === 'ExercisesToBeAdded') {
+      addExerciseButton =
+      (<CardSection>
+        <Button onPress={this.onAddExerciseButtonPress.bind(this)}>
+        Add Exercise To Workout
+        </Button>
+      </CardSection>);
     }
 
     let attemptsWording = null;
@@ -157,6 +182,8 @@ class WorkoutDetail extends Component {
             </Text>
           </CardSection>
 
+          {addExerciseButton}
+
           <CardSection>
             <Text style={exerciseSubTitleStyle}>
             Name
@@ -176,7 +203,7 @@ class WorkoutDetail extends Component {
           </CardSection>
         </Card>
 
-        {button}
+        {startWorkoutbutton}
 
       </Card>
     );
@@ -238,8 +265,15 @@ const mapStateToProps = state => {
     return { ...val, workoutUid, clientUid };
   });
 
+  const workouts = _.map(state.workouts, (val, workoutUid) => {
+    return { ...val, workoutUid };
+  });
+
+  console.log(state);
+
   return {
     exercises,
+    workouts,
     singleWorkout: state.singleWorkout,
     singleClient: state.singleClient,
     role: state.role,
@@ -247,4 +281,9 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { exercisesFetch, setUpdate })(WorkoutDetail);
+export default connect(mapStateToProps, {
+  exercisesFetch,
+  setUpdate,
+  workoutDetailFetch,
+  workoutFetch
+})(WorkoutDetail);
