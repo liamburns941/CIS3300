@@ -26,12 +26,14 @@ export const exerciseCreate = ({ exerciseName, benchmark, clientUid, workoutUid 
 
     const dateAddedToWorkout = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
 
+    const exercise = ref.push({ exerciseName, benchmark, rating: '', dateAddedToWorkout })
 
-      ref.push({ exerciseName, benchmark, rating: '', dateAddedToWorkout })
-      .then(() => {
+    const exerciseUid = exercise.key;
+
+    exercise.then(() => {
         dispatch({ type: EXERCISE_CREATE });
-        Actions.workoutList();
-        Keyboard.dismiss();
+        //Actions.workoutList();
+        //Keyboard.dismiss();
       });
   };
 };
@@ -48,8 +50,8 @@ export const exercisesFetch = ({ clientUid, workoutUid }) => {
   };
 };
 
-export const exerciseFetch = (workout) => {
-    return { type: EXERCISE_FETCH_SUCCESS, payload: workout };
+export const exerciseFetch = (exercise) => {
+    return { type: EXERCISE_FETCH_SUCCESS, payload: exercise };
 };
 
 export const exerciseSave = ({ clientUid, workoutUid, exerciseUid, rating }) => {
