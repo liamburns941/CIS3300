@@ -44,7 +44,6 @@ export const exercisesFetch = ({ clientUid, workoutUid }) => {
   return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/clients/${clientUid}/workouts/${workoutUid}/exercises`)
       .on('value', snapshot => {
-        console.log(snapshot.val());
         dispatch({ type: EXERCISES_FETCH_SUCCESS, payload: snapshot.val() });
       });
   };
@@ -55,7 +54,6 @@ export const exerciseFetch = (exercise) => {
 };
 
 export const exerciseSave = ({ clientUid, workoutUid, exerciseUid, rating }) => {
-  console.log(clientUid, workoutUid, exerciseUid, rating);
   return (dispatch) => {
     const ref = firebase.database().ref().child(`/users/pKlr8qiNUCbStPlzSX4EEpNczNv2/clients/${clientUid}/workouts/${workoutUid}/exercises/${exerciseUid}`);
 

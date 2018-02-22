@@ -23,6 +23,7 @@ export const clientCreate = ({ firstName, lastName, email }) => {
       .push({ firstName, lastName, email })
       .then(() => {
         dispatch({ type: CLIENT_CREATE });
+        Actions.pop({ type: 'reset' });
       });
   };
 };
@@ -33,7 +34,6 @@ export const clientsFetch = () => {
   return (dispatch) => {
     firebase.database().ref(refVar)
       .on('value', snapshot => {
-        console.log(snapshot.val());
         dispatch({ type: CLIENTS_FETCH_SUCCESS, payload: snapshot.val() });
       });
   };

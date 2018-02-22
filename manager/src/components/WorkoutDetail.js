@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ListView, Text, Keyboard } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { exercisesFetch, setUpdate, workoutDetailFetch, workoutFetch } from '../actions';
+import { exercisesFetch, setUpdate, workoutFetch } from '../actions';
 import ExerciseListItem from './ExerciseListItem';
 import { Card, CardSection, Button } from './common';
 
@@ -269,8 +269,6 @@ const mapStateToProps = state => {
     return { ...val, workoutUid };
   });
 
-  console.log(state);
-
   return {
     exercises,
     workouts,
@@ -284,6 +282,5 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps, {
   exercisesFetch,
   setUpdate,
-  workoutDetailFetch,
   workoutFetch
 })(WorkoutDetail);
