@@ -62,7 +62,7 @@ class WorkoutCoolDown extends Component {
         <Card>
           <CardSection style={{ alignItems: 'center', justifyContent: 'center' }}>
             <CountdownCircle
-              seconds={6}
+              seconds={1}
               radius={170}
               borderWidth={20}
               color="#FFBF00"

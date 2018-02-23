@@ -13,6 +13,8 @@ import ExerciseReducer from './ExerciseReducer';
 import GlobalExerciseReducer from './GlobalExerciseReducer';
 import ExerciseSetReducer from './ExerciseSetReducer';
 import ExerciseBenchmarkReducer from './ExerciseBenchmarkReducer';
+import ExerciseNumberReducer from './ExerciseNumberReducer';
+import NoOfExerciseReducer from './NoOfExerciseReducer';
 import SingleExerciseReducer from './SingleExerciseReducer';
 import RoleReducer from './RoleReducer';
 import RatingReducer from './RatingReducer';
@@ -32,6 +34,8 @@ export default combineReducers({
   globalExercises: GlobalExerciseReducer,
   sets: ExerciseSetReducer,
   benchmark: ExerciseBenchmarkReducer,
+  exerciseNumber: ExerciseNumberReducer,
+  noOfExercises: NoOfExerciseReducer,
   singleExercise: SingleExerciseReducer,
   role: RoleReducer,
   rating: RatingReducer

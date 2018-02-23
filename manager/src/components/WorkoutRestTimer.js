@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { ListView, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import CountdownCircle from 'react-native-countdown-circle';
-import { exercisesFetch, setUpdate } from '../actions';
+import { exercisesFetch, setUpdate, exerciseNumberUpdate } from '../actions';
 import ExerciseListItem from './ExerciseListItem';
 import { Card, CardSection, Button } from './common';
 
@@ -16,6 +16,8 @@ class WorkoutRestTimer extends Component {
       workoutUid: singleWorkout.workoutUid
     });
     this.createDataSource(this.props);
+    console.log('this.props');
+    console.log(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -24,22 +26,6 @@ class WorkoutRestTimer extends Component {
     // this.props is still the old set of props
 
     this.createDataSource(nextProps);
-  }
-
-  onTimerEnd() {
-    const { sets } = this.props;
-
-    const newSets = parseInt(sets, 10);
-
-    if (newSets > 0) {
-      const newSetsMinusOne = null;
-      newSetsMinusOne = newSets - 1;
-      this.props.setUpdate(newSetsMinusOne);
-      Actions.workoutExerciseTimer();
-    } else {
-      this.props.setUpdate(newSets);
-      Actions.workoutCoolDown();
-    }
   }
 
   onButtonPress() {
@@ -57,11 +43,15 @@ class WorkoutRestTimer extends Component {
   }
 
   render() {
+    const { sets, noOfExercises } = this.props;
+
+    const { exerciseNumber } = this.props;
+
+    const exerciseNumberPlusOne = exerciseNumber + 1;
+
     const { workoutName, restTime } = this.props.singleWorkout;
 
-    const { sets } = this.props;
-
-    const newSets = parseInt(sets, 10) - 1;
+    const newSets = parseInt(sets, 10);
 
     const newrestTime = parseInt(restTime, 10);
 
@@ -87,12 +77,34 @@ class WorkoutRestTimer extends Component {
               bgColor="#fff"
               textStyle={{ fontSize: 50 }}
               onTimeElapsed={() => {
-                if (newSets > 0) {
-                  this.props.setUpdate(newSets);
-                  Actions.workoutExerciseTimer();
+                console.log('this.props');
+                  console.log(this.props);
+                console.log('exerciseNumber');
+                  console.log(exerciseNumber);
+                console.log('exerciseNumberPlusOne');
+                  console.log(exerciseNumberPlusOne);
+                console.log('noOfExercises');
+                  console.log(noOfExercises);
+                if (exerciseNumberPlusOne === noOfExercises) {
+                  console.log('exerciseNumberPlusOne == noOfExercises is TRUE');
+                  console.log('newSets');
+                    console.log(newSets);
+                  let newSetsMinusOne = null;
+                  newSetsMinusOne = newSets - 1;
+                  if (newSetsMinusOne !== 0) {
+                    console.log('newSetsMinusOne !== 0 is TRUE');
+                    this.props.setUpdate(newSetsMinusOne);
+                    this.props.exerciseNumberUpdate(0);
+                    Actions.workoutExerciseTimer();
+                  } else {
+                    console.log('newSetsMinusOne !== 0 is FALSE');
+                    this.props.setUpdate(newSetsMinusOne);
+                    Actions.workoutCoolDown();
+                  }
                 } else {
-                  this.props.setUpdate(newSets);
-                  Actions.workoutCoolDown();
+                  console.log('exerciseNumberPlusOne == noOfExercises is FALSE');
+                    this.props.exerciseNumberUpdate(exerciseNumberPlusOne);
+                    Actions.workoutExerciseTimer();
                 }
               }
               }
@@ -168,8 +180,14 @@ const mapStateToProps = state => {
     exercises,
     singleWorkout: state.singleWorkout,
     singleClient: state.singleClient,
-    sets: state.sets
+    sets: state.sets,
+    exerciseNumber: state.exerciseNumber,
+    noOfExercises: state.noOfExercises
   };
 };
 
-export default connect(mapStateToProps, { exercisesFetch, setUpdate })(WorkoutRestTimer);
+export default connect(mapStateToProps, {
+  exercisesFetch,
+  setUpdate,
+  exerciseNumberUpdate
+})(WorkoutRestTimer);

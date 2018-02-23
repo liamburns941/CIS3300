@@ -8,7 +8,9 @@ import {
   EXERCISE_FETCH_SUCCESS,
   EXERCISE_SAVE_SUCCESS,
   SET_UPDATE,
-  BENCHMARK_UPDATE
+  BENCHMARK_UPDATE,
+  EXERCISE_NUMBER_UPDATE,
+  NO_OF_EXERCISES_UPDATE
 } from './types';
 
 export const exerciseUpdate = ({ prop, value }) => {
@@ -26,9 +28,7 @@ export const exerciseCreate = ({ exerciseName, benchmark, clientUid, workoutUid 
 
     const dateAddedToWorkout = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
 
-    const exercise = ref.push({ exerciseName, benchmark, rating: '', dateAddedToWorkout })
-
-    const exerciseUid = exercise.key;
+    const exercise = ref.push({ exerciseName, benchmark, rating: '', dateAddedToWorkout });
 
     exercise.then(() => {
         dispatch({ type: EXERCISE_CREATE });
@@ -83,4 +83,12 @@ export const setUpdate = (sets) => {
 
 export const benchmarkUpdate = (benchmark) => {
     return { type: BENCHMARK_UPDATE, payload: benchmark };
+};
+
+export const noOfExercisesUpdate = (noOfExercises) => {
+    return { type: NO_OF_EXERCISES_UPDATE, payload: noOfExercises };
+};
+
+export const exerciseNumberUpdate = (exerciseNumber) => {
+    return { type: EXERCISE_NUMBER_UPDATE, payload: exerciseNumber };
 };
