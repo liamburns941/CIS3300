@@ -1,6 +1,5 @@
 import firebase from 'firebase';
 import moment from 'moment';
-import { Keyboard } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import {
   EXERCISE_UPDATE,
@@ -8,7 +7,8 @@ import {
   EXERCISES_FETCH_SUCCESS,
   EXERCISE_FETCH_SUCCESS,
   EXERCISE_SAVE_SUCCESS,
-  SET_UPDATE
+  SET_UPDATE,
+  BENCHMARK_UPDATE
 } from './types';
 
 export const exerciseUpdate = ({ prop, value }) => {
@@ -26,12 +26,14 @@ export const exerciseCreate = ({ exerciseName, benchmark, clientUid, workoutUid 
 
     const dateAddedToWorkout = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
 
+    const exercise = ref.push({ exerciseName, benchmark, rating: '', dateAddedToWorkout })
 
-      ref.push({ exerciseName, benchmark, rating: '', dateAddedToWorkout })
-      .then(() => {
+    const exerciseUid = exercise.key;
+
+    exercise.then(() => {
         dispatch({ type: EXERCISE_CREATE });
-        Actions.workoutList();
-        Keyboard.dismiss();
+        //Actions.workoutList();
+        //Keyboard.dismiss();
       });
   };
 };
@@ -42,18 +44,16 @@ export const exercisesFetch = ({ clientUid, workoutUid }) => {
   return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/clients/${clientUid}/workouts/${workoutUid}/exercises`)
       .on('value', snapshot => {
-        console.log(snapshot.val());
         dispatch({ type: EXERCISES_FETCH_SUCCESS, payload: snapshot.val() });
       });
   };
 };
 
-export const exerciseFetch = (workout) => {
-    return { type: EXERCISE_FETCH_SUCCESS, payload: workout };
+export const exerciseFetch = (exercise) => {
+    return { type: EXERCISE_FETCH_SUCCESS, payload: exercise };
 };
 
 export const exerciseSave = ({ clientUid, workoutUid, exerciseUid, rating }) => {
-  console.log(clientUid, workoutUid, exerciseUid, rating);
   return (dispatch) => {
     const ref = firebase.database().ref().child(`/users/pKlr8qiNUCbStPlzSX4EEpNczNv2/clients/${clientUid}/workouts/${workoutUid}/exercises/${exerciseUid}`);
 
@@ -79,4 +79,8 @@ export const exerciseDelete = ({ clientUid, workoutUid, exerciseUid }) => {
 
 export const setUpdate = (sets) => {
     return { type: SET_UPDATE, payload: sets };
+};
+
+export const benchmarkUpdate = (benchmark) => {
+    return { type: BENCHMARK_UPDATE, payload: benchmark };
 };

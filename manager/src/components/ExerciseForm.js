@@ -34,14 +34,11 @@ class ExerciseForm extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   const { exerciseName, benchmark } = state.exerciseForm;
 
   const globalExercises = _.map(state.globalExercises, (val, exerciseId) => {
     return { ...val, exerciseId };
   });
-
-  console.log(globalExercises);
 
   return { exerciseName, benchmark, globalExercises };
 };

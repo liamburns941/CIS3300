@@ -9,7 +9,6 @@ export const globalExercisesFetch = () => {
   return (dispatch) => {
     firebase.database().ref(refVar)
       .on('value', snapshot => {
-        console.log(snapshot.val());
         dispatch({ type: GLOBAL_EXERCISES_FETCH_SUCCESS, payload: snapshot.val() });
       });
   };

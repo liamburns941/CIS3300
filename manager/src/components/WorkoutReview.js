@@ -183,8 +183,6 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-  console.log(state.exercises);
-  console.log(state);
   const exercises = _.map(state.exercises, (val, exerciseUid) => {
     return { ...val, exerciseUid };
   });

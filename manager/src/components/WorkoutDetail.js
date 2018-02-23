@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ListView, Text, Keyboard } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { exercisesFetch, setUpdate, workoutDetailFetch, workoutFetch } from '../actions';
+import { exercisesFetch, setUpdate, workoutFetch, workoutSave } from '../actions';
 import ExerciseListItem from './ExerciseListItem';
 import { Card, CardSection, Button } from './common';
 
@@ -41,6 +41,12 @@ class WorkoutDetail extends Component {
     Actions.workoutWarmUp();
   }
 
+  onSaveWorkoutButtonPress() {
+    const { clientUid } = this.props.singleClient;
+    const { workoutUid } = this.props.singleWorkout;
+    this.props.workoutSave({ clientUid, workoutUid });
+  }
+
   onAddExerciseButtonPress() {
     Actions.globalExerciseList();
   }
@@ -68,6 +74,9 @@ class WorkoutDetail extends Component {
       attempts
     } = this.props.singleWorkout;
 
+    const { exercises } = this.props;
+    console.log(this.props);
+
     const {
       nameStyle,
       workoutTitleStyle,
@@ -87,6 +96,19 @@ class WorkoutDetail extends Component {
          <CardSection>
            <Button onPress={this.onStartWorkoutButtonPress.bind(this)}>
            Start Workout
+           </Button>
+         </CardSection>
+       </Card>);
+    }
+
+    let saveWorkoutbutton = null;
+
+    if (role === 'PT' && status === 'ExercisesToBeAdded' && exercises.length > 0) {
+       saveWorkoutbutton =
+       (<Card>
+         <CardSection>
+           <Button onPress={this.onSaveWorkoutButtonPress.bind(this)}>
+           Save Workout
            </Button>
          </CardSection>
        </Card>);
@@ -205,6 +227,8 @@ class WorkoutDetail extends Component {
 
         {startWorkoutbutton}
 
+        {saveWorkoutbutton}
+
       </Card>
     );
   }
@@ -269,8 +293,6 @@ const mapStateToProps = state => {
     return { ...val, workoutUid };
   });
 
-  console.log(state);
-
   return {
     exercises,
     workouts,
@@ -284,6 +306,6 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps, {
   exercisesFetch,
   setUpdate,
-  workoutDetailFetch,
-  workoutFetch
+  workoutFetch,
+  workoutSave
 })(WorkoutDetail);

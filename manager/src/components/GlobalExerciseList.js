@@ -4,8 +4,11 @@ import { connect } from 'react-redux';
 import { ListView } from 'react-native';
 import { globalExercisesFetch } from '../actions';
 import GlobalExerciseListItem from './GlobalExerciseListItem';
+import { Confirm, Card } from './common';
 
 class GlobalExerciseList extends Component {
+  state = { showModal: false };
+
   componentWillMount() {
     this.props.globalExercisesFetch();
     this.createDataSource(this.props);
@@ -33,11 +36,13 @@ class GlobalExerciseList extends Component {
 
   render() {
     return (
-      <ListView
-        enableEmptySections
-        dataSource={this.dataSource}
-        renderRow={this.renderRow}
-      />
+      <Card>
+        <ListView
+          enableEmptySections
+          dataSource={this.dataSource}
+          renderRow={this.renderRow}
+        />
+      </Card>
     );
   }
 }
