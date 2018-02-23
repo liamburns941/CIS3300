@@ -75,7 +75,6 @@ class WorkoutDetail extends Component {
     } = this.props.singleWorkout;
 
     const { exercises } = this.props;
-    console.log(this.props);
 
     const {
       nameStyle,

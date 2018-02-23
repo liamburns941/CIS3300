@@ -68,7 +68,7 @@ class WorkoutWarmUp extends Component {
         <Card>
           <CardSection style={{ alignItems: 'center', justifyContent: 'center' }}>
             <CountdownCircle
-              seconds={6}
+              seconds={1}
               radius={170}
               borderWidth={20}
               color="#FFBF00"
@@ -147,7 +147,8 @@ const mapStateToProps = state => {
     exercises,
     singleWorkout: state.singleWorkout,
     singleClient: state.singleClient,
-    sets: state.sets
+    sets: state.sets,
+    exerciseNumber: state.exerciseNumber
   };
 };
 

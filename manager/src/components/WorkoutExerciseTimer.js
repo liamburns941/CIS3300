@@ -4,17 +4,17 @@ import { connect } from 'react-redux';
 import { ListView, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import CountdownCircle from 'react-native-countdown-circle';
-import { exercisesFetch, setUpdate } from '../actions';
-import ExerciseListItem from './ExerciseListItem';
+import { exercisesFetch, setUpdate, exerciseNumberUpdate, noOfExercisesUpdate } from '../actions';
+import DuringWorkoutExerciseListItem from './DuringWorkoutExerciseListItem';
 import { Card, CardSection, Button } from './common';
 
 class WorkoutExerciseTimer extends Component {
   componentWillMount() {
-    const { singleClient, singleWorkout } = this.props;
-    this.props.exercisesFetch({
-      clientUid: singleClient.clientUid,
-      workoutUid: singleWorkout.workoutUid
-    });
+    const { exercises } = this.props;
+
+    const newNoOfExercises = exercises.length;
+
+    this.props.noOfExercisesUpdate(newNoOfExercises);
     this.createDataSource(this.props);
   }
 
@@ -22,13 +22,7 @@ class WorkoutExerciseTimer extends Component {
     // nextProps are the next set of props that this component
     // will be rendered with
     // this.props is still the old set of props
-
     this.createDataSource(nextProps);
-  }
-
-  onTimerEnd(newSets) {
-    this.props.setUpdate(newSets);
-    Actions.workoutWarmUp();
   }
 
   onButtonPress() {
@@ -36,14 +30,33 @@ class WorkoutExerciseTimer extends Component {
   }
 
   createDataSource({ exercises }) {
+    const { exerciseNumber } = this.props;
+
+    console.log('exerciseNumber');
+    console.log(exerciseNumber);
+
+    console.log('this.props');
+    console.log(this.props);
+
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
-    this.dataSource = ds.cloneWithRows(exercises);
+
+    console.log('exerciseNumber');
+    console.log(exerciseNumber);
+    console.log('exercises');
+    console.log(exercises);
+    console.log('[exercises[exerciseNumber]]');
+    console.log([exercises[exerciseNumber]]);
+    const singleExercise = [exercises[exerciseNumber]];
+    console.log('singleExercise');
+    console.log(singleExercise);
+
+    this.dataSource = ds.cloneWithRows(singleExercise);
   }
 
   renderRow(exercise) {
-    return <ExerciseListItem exercise={exercise} />;
+    return <DuringWorkoutExerciseListItem exercise={exercise} />;
   }
 
   render() {
@@ -143,6 +156,8 @@ const styles = {
 };
 
 const mapStateToProps = state => {
+  console.log('WorkoutExerciseTimer state');
+  console.log(state);
   const exercises = _.map(state.exercises, (val, workoutUid, clientUid) => {
     return { ...val, workoutUid, clientUid };
   });
@@ -151,8 +166,15 @@ const mapStateToProps = state => {
     exercises,
     singleWorkout: state.singleWorkout,
     singleClient: state.singleClient,
-    sets: state.sets
+    sets: state.sets,
+    exerciseNumber: state.exerciseNumber,
+    noOfExercises: state.noOfExercises
   };
 };
 
-export default connect(mapStateToProps, { exercisesFetch, setUpdate })(WorkoutExerciseTimer);
+export default connect(mapStateToProps, {
+  exercisesFetch,
+  setUpdate,
+  exerciseNumberUpdate,
+  noOfExercisesUpdate
+})(WorkoutExerciseTimer);

@@ -24,8 +24,6 @@ class GlobalExerciseListItem extends Component {
 
     this.props.exerciseCreate({ exerciseName, benchmark, clientUid, workoutUid });
     this.props.exercisesFetch({ clientUid, workoutUid });
-    console.log(this.props.exercises);
-    console.log(this.props);
     this.setState({ showModal: false });
     Actions.workoutDetail();
   }
