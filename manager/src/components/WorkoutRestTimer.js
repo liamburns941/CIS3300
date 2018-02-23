@@ -16,8 +16,6 @@ class WorkoutRestTimer extends Component {
       workoutUid: singleWorkout.workoutUid
     });
     this.createDataSource(this.props);
-    console.log('this.props');
-    console.log(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -77,32 +75,17 @@ class WorkoutRestTimer extends Component {
               bgColor="#fff"
               textStyle={{ fontSize: 50 }}
               onTimeElapsed={() => {
-                console.log('this.props');
-                  console.log(this.props);
-                console.log('exerciseNumber');
-                  console.log(exerciseNumber);
-                console.log('exerciseNumberPlusOne');
-                  console.log(exerciseNumberPlusOne);
-                console.log('noOfExercises');
-                  console.log(noOfExercises);
                 if (exerciseNumberPlusOne === noOfExercises) {
-                  console.log('exerciseNumberPlusOne == noOfExercises is TRUE');
-                  console.log('newSets');
-                    console.log(newSets);
-                  let newSetsMinusOne = null;
-                  newSetsMinusOne = newSets - 1;
+                  const newSetsMinusOne = newSets - 1;
                   if (newSetsMinusOne !== 0) {
-                    console.log('newSetsMinusOne !== 0 is TRUE');
                     this.props.setUpdate(newSetsMinusOne);
                     this.props.exerciseNumberUpdate(0);
                     Actions.workoutExerciseTimer();
                   } else {
-                    console.log('newSetsMinusOne !== 0 is FALSE');
                     this.props.setUpdate(newSetsMinusOne);
                     Actions.workoutCoolDown();
                   }
                 } else {
-                  console.log('exerciseNumberPlusOne == noOfExercises is FALSE');
                     this.props.exerciseNumberUpdate(exerciseNumberPlusOne);
                     Actions.workoutExerciseTimer();
                 }

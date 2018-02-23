@@ -32,25 +32,11 @@ class WorkoutExerciseTimer extends Component {
   createDataSource({ exercises }) {
     const { exerciseNumber } = this.props;
 
-    console.log('exerciseNumber');
-    console.log(exerciseNumber);
-
-    console.log('this.props');
-    console.log(this.props);
-
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
 
-    console.log('exerciseNumber');
-    console.log(exerciseNumber);
-    console.log('exercises');
-    console.log(exercises);
-    console.log('[exercises[exerciseNumber]]');
-    console.log([exercises[exerciseNumber]]);
     const singleExercise = [exercises[exerciseNumber]];
-    console.log('singleExercise');
-    console.log(singleExercise);
 
     this.dataSource = ds.cloneWithRows(singleExercise);
   }
@@ -156,8 +142,6 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-  console.log('WorkoutExerciseTimer state');
-  console.log(state);
   const exercises = _.map(state.exercises, (val, workoutUid, clientUid) => {
     return { ...val, workoutUid, clientUid };
   });
