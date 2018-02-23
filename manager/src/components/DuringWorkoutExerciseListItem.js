@@ -4,10 +4,6 @@ import { connect } from 'react-redux';
 import { CardSection } from './common';
 
 class DuringWorkoutExerciseListItem extends Component {
-  componentWillMount() {
-    console.log('this.props');
-    console.log(this.props);
-  }
 
   render() {
     const { exerciseName, benchmark, rating } = this.props.exercise;
