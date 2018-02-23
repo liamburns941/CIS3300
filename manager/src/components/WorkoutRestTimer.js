@@ -51,7 +51,7 @@ class WorkoutRestTimer extends Component {
 
     const { workoutName, restTime } = this.props.singleWorkout;
 
-    const newSets = parseInt(sets, 10) - 1;
+    const newSets = parseInt(sets, 10);
 
     const newrestTime = parseInt(restTime, 10);
 
@@ -89,16 +89,16 @@ class WorkoutRestTimer extends Component {
                   console.log('exerciseNumberPlusOne == noOfExercises is TRUE');
                   console.log('newSets');
                     console.log(newSets);
-                  if (newSets > 0) {
-                    console.log('newSets > 0 is TRUE');
-                    let newSetsMinusOne = null;
-                    newSetsMinusOne = newSets - 1;
+                  let newSetsMinusOne = null;
+                  newSetsMinusOne = newSets - 1;
+                  if (newSetsMinusOne !== 0) {
+                    console.log('newSetsMinusOne !== 0 is TRUE');
                     this.props.setUpdate(newSetsMinusOne);
                     this.props.exerciseNumberUpdate(0);
                     Actions.workoutExerciseTimer();
                   } else {
-                    console.log('newSets > 0 is FALSE');
-                    this.props.setUpdate(newSets);
+                    console.log('newSetsMinusOne !== 0 is FALSE');
+                    this.props.setUpdate(newSetsMinusOne);
                     Actions.workoutCoolDown();
                   }
                 } else {
