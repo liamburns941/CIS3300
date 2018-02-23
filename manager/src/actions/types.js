@@ -30,6 +30,7 @@ export const EXERCISES_FETCH_SUCCESS = 'exercises_fetch_success';
 export const EXERCISE_FETCH_SUCCESS = 'exercise_fetch_success';
 export const EXERCISE_SAVE_SUCCESS = 'exercise_save_success';
 export const SET_UPDATE = 'set_update';
+export const BENCHMARK_UPDATE = 'benchmark_update';
 
 export const GLOBAL_EXERCISES_FETCH_SUCCESS = 'global_exercises_fetch_success';
 

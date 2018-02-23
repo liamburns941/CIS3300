@@ -16,7 +16,6 @@ import WorkoutWarmUp from './components/WorkoutWarmUp';
 import WorkoutExerciseTimer from './components/WorkoutExerciseTimer';
 import WorkoutRestTimer from './components/WorkoutRestTimer';
 import WorkoutCoolDown from './components/WorkoutCoolDown';
-import Benchmark from './components/Benchmark';
 
 const RouterComponent = () => {
   return (
@@ -54,7 +53,6 @@ const RouterComponent = () => {
           <Scene key="workoutDetail" component={WorkoutDetail} title="Workout" />
           <Scene key="exerciseCreate" component={ExerciseCreate} title="Create Workout" />
           <Scene key="globalExerciseList" component={GlobalExerciseList} title="Select an exercise" />
-          <Scene key="benchmark" component={Benchmark} title="Enter Benchmark" />
         </Scene>
 
         <Scene key="clientSide">

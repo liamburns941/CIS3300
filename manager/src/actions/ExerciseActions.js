@@ -1,6 +1,5 @@
 import firebase from 'firebase';
 import moment from 'moment';
-import { Keyboard } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import {
   EXERCISE_UPDATE,
@@ -8,7 +7,8 @@ import {
   EXERCISES_FETCH_SUCCESS,
   EXERCISE_FETCH_SUCCESS,
   EXERCISE_SAVE_SUCCESS,
-  SET_UPDATE
+  SET_UPDATE,
+  BENCHMARK_UPDATE
 } from './types';
 
 export const exerciseUpdate = ({ prop, value }) => {
@@ -79,4 +79,8 @@ export const exerciseDelete = ({ clientUid, workoutUid, exerciseUid }) => {
 
 export const setUpdate = (sets) => {
     return { type: SET_UPDATE, payload: sets };
+};
+
+export const benchmarkUpdate = (benchmark) => {
+    return { type: BENCHMARK_UPDATE, payload: benchmark };
 };

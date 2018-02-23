@@ -4,36 +4,30 @@ import { Text, TouchableWithoutFeedback, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { CardSection, Confirm } from './common';
-import { exerciseUpdate, exerciseCreate, exerciseFetch, exercisesFetch } from '../actions';
+import { exerciseUpdate, exerciseCreate, exerciseFetch, exercisesFetch, benchmarkUpdate } from '../actions';
 
 class GlobalExerciseListItem extends Component {
   state = { showModal: false };
 
   onRowPress() {
-    const { exerciseName } = this.props.globalExercise;
-    const { clientUid } = this.props.singleClient;
-    const { workoutUid } = this.props.singleWorkout;
-    const { exercises } = this.props;
-
-    const benchmark = '';
-
-    if (exercises.length > 0) {
-      const newExercise = exercises[exercises.length - 1];
-      this.props.exerciseFetch(newExercise);
-    } else {
-      this.props.exerciseCreate({ exerciseName, benchmark, clientUid, workoutUid });
-      this.props.exercisesFetch({ clientUid, workoutUid });
-      //Actions.benchmark();
-    }
-
-    // need to somehow go back to mapStateToProps and then map the exercise and then call that to get the new exercise and set it as single exercise... then i can assign the benchmark to that
-
     this.setState({ showModal: !this.state.showModal });
   }
 
   onAccept() {
-    //this.setState({ showModal: false });
+
+    const { exerciseName } = this.props.globalExercise;
+    const { clientUid } = this.props.singleClient;
+    const { workoutUid } = this.props.singleWorkout;
+    const { value } = this.props.benchmark;
+
+    const benchmark = value;
+
+    this.props.exerciseCreate({ exerciseName, benchmark, clientUid, workoutUid });
+    this.props.exercisesFetch({ clientUid, workoutUid });
+    console.log(this.props.exercises);
     console.log(this.props);
+    this.setState({ showModal: false });
+    Actions.workoutDetail();
   }
 
   onDecline() {
@@ -41,12 +35,6 @@ class GlobalExerciseListItem extends Component {
   }
 
   render() {
-    //const { exercises } = this.props;
-    //let newExercise = null;
-    //if (exercises.length === 1 && newExercise == null) {
-    //  newExercise = exercises[exercises.length - 1];
-    //  this.props.exerciseFetch(newExercise);
-    //}
     const { exerciseName } = this.props.globalExercise;
 
     return (
@@ -61,8 +49,8 @@ class GlobalExerciseListItem extends Component {
               visible={this.state.showModal}
               onAccept={this.onAccept.bind(this)}
               onDecline={this.onDecline.bind(this)}
-              thisBenchmark={this.props.benchmark}
-              onBenchmarkUpdate={value => this.props.exerciseUpdate({ prop: 'benchmark', value })}
+              thisBenchmark={this.props.benchmark.value}
+              onBenchmarkUpdate={value => this.props.benchmarkUpdate({ value })}
           >
               What will the benchmark be per set?
           </Confirm>
@@ -92,8 +80,15 @@ const mapStateToProps = state => {
     singleExercise: state.singleExercise,
     singleClient: state.singleClient,
     role: state.role,
-    sets: state.sets
+    sets: state.sets,
+    benchmark: state.benchmark
   };
 };
 
-export default connect(mapStateToProps, { exerciseUpdate, exerciseCreate, exerciseFetch, exercisesFetch })(GlobalExerciseListItem);
+export default connect(mapStateToProps, {
+  exerciseUpdate,
+  exerciseCreate,
+  exerciseFetch,
+  exercisesFetch,
+  benchmarkUpdate
+})(GlobalExerciseListItem);
