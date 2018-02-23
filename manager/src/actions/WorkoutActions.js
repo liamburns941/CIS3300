@@ -7,6 +7,7 @@ import {
   WORKOUTS_FETCH_SUCCESS,
   WORKOUT_FETCH_SUCCESS,
   WORKOUT_SAVE_FOR_REVIEW,
+  WORKOUT_SAVE,
   WORKOUT_COMPLETE,
   WORKOUT_DETAIL_FETCH_SUCCESS
 } from './types';
@@ -87,6 +88,21 @@ export const workoutSaveForReview = ({ clientUid, workoutUid, attempts }) => {
        .then(() => {
         dispatch({ type: WORKOUT_SAVE_FOR_REVIEW });
         Actions.workoutReview();
+       });
+  };
+};
+
+export const workoutSave = ({ clientUid, workoutUid }) => {
+  return (dispatch) => {
+
+    const status = 'Outstanding';
+
+    const ref = firebase.database().ref().child(`/users/pKlr8qiNUCbStPlzSX4EEpNczNv2/clients/${clientUid}/workouts/${workoutUid}`);
+
+    ref.update({ status })
+       .then(() => {
+        dispatch({ type: WORKOUT_SAVE });
+        Actions.workoutList();
        });
   };
 };
