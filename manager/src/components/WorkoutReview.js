@@ -10,8 +10,8 @@ import {
   exerciseFetch,
   workoutComplete
 } from '../actions';
-import ExerciseListItem from './ExerciseListItem';
-import { Card, CardSection, Button, Input } from './common';
+import WorkoutReviewExerciseListItem from './WorkoutReviewExerciseListItem';
+import { Card, CardSection, Button } from './common';
 
 class WorkoutReview extends Component {
   componentWillMount() {
@@ -20,7 +20,7 @@ class WorkoutReview extends Component {
       clientUid: singleClient.clientUid,
       workoutUid: singleWorkout.workoutUid
     });
-    this.props.exerciseFetch(this.props.exercises[0]);
+    //this.props.exerciseFetch(this.props.exercises[0]);
 
     this.createDataSource(this.props);
   }
@@ -40,9 +40,10 @@ class WorkoutReview extends Component {
   onButtonPress() {
     const { clientUid } = this.props.singleClient;
     const { workoutUid } = this.props.singleWorkout;
-    const { exerciseUid } = this.props.singleExercise;
-    const { rating } = this.props.rating;
-    this.props.exerciseSave({ clientUid, workoutUid, exerciseUid, rating });
+    //const { exerciseUid } = this.props.singleExercise;
+    //const { rating } = this.props.rating;
+    // Probably have to do a for loop and save reach exercise
+    // this.props.exerciseSave({ clientUid, workoutUid, exerciseUid, rating });
     this.props.workoutComplete({ clientUid, workoutUid });
   }
 
@@ -54,7 +55,7 @@ class WorkoutReview extends Component {
   }
 
   renderRow(exercise) {
-    return <ExerciseListItem exercise={exercise} />;
+    return <WorkoutReviewExerciseListItem exercise={exercise} />;
   }
 
   render() {
@@ -122,12 +123,6 @@ class WorkoutReview extends Component {
               enableEmptySections
               dataSource={this.dataSource}
               renderRow={this.renderRow}
-            />
-            <Input
-              style={ratingStyle}
-              placeholder="Enter rating"
-              onChangeText={this.onRatingChange.bind(this)}
-              value={this.props.rating.rating}
             />
           </CardSection>
 
