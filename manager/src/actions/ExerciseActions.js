@@ -60,7 +60,6 @@ export const exerciseSave = ({ clientUid, workoutUid, exerciseUid, rating }) => 
     ref.update({ rating })
        .then(() => {
         dispatch({ type: EXERCISE_SAVE_SUCCESS });
-        Actions.workoutList();
        });
   };
 };
