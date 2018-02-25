@@ -1,9 +1,9 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ListView, Text, Keyboard } from 'react-native';
+import { ListView, Text, Keyboard, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { exercisesFetch, setUpdate, workoutFetch, workoutSave } from '../actions';
+import { exercisesFetch, setUpdate, workoutFetch, workoutSave, exercisesReset } from '../actions';
 import ExerciseListItem from './ExerciseListItem';
 import { Card, CardSection, Button } from './common';
 
@@ -167,6 +167,11 @@ class WorkoutDetail extends Component {
     }
 
     return (
+      <ScrollView>
+      <KeyboardAvoidingView
+        keyboardVerticalOffset={-200}
+        behavior="padding"
+      >
       <Card>
         <Card>
           <CardSection>
@@ -229,6 +234,8 @@ class WorkoutDetail extends Component {
         {saveWorkoutbutton}
 
       </Card>
+    </KeyboardAvoidingView>
+    </ScrollView>
     );
   }
 }
@@ -306,5 +313,6 @@ export default connect(mapStateToProps, {
   exercisesFetch,
   setUpdate,
   workoutFetch,
-  workoutSave
+  workoutSave,
+  exercisesReset
 })(WorkoutDetail);

@@ -4,7 +4,11 @@ import { connect } from 'react-redux';
 import { ListView, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import CountdownCircle from 'react-native-countdown-circle';
-import { exercisesFetch, setUpdate, exerciseNumberUpdate } from '../actions';
+import {
+  exercisesFetch,
+  setUpdate,
+  exerciseNumberUpdate
+} from '../actions';
 import ExerciseListItem from './ExerciseListItem';
 import { Card, CardSection, Button } from './common';
 
@@ -26,7 +30,16 @@ class WorkoutRestTimer extends Component {
     this.createDataSource(nextProps);
   }
 
-  onButtonPress() {
+  onCancelButtonPress() {
+    const { sets } = this.props.singleWorkout;
+
+    this.props.setUpdate(sets);
+    this.props.exerciseNumberUpdate(0);
+    Actions.workoutDetail();
+  }
+
+  onPauseButtonPress() {
+
   }
 
   createDataSource({ exercises }) {
@@ -110,7 +123,7 @@ class WorkoutRestTimer extends Component {
 
         <Card>
           <CardSection>
-            <Button onPress={this.onButtonPress.bind(this)}>
+            <Button onPress={this.onPauseButtonPress.bind(this)}>
               Pause Workout
             </Button>
           </CardSection>
