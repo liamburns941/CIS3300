@@ -20,7 +20,10 @@ import WorkoutCoolDown from './components/WorkoutCoolDown';
 const RouterComponent = () => {
   return (
     <Router>
-      <Scene key="root">
+      <Scene
+        key="root"
+        hideNavBar
+      >
         <Scene key="auth">
           <Scene
             key="roleChoice"

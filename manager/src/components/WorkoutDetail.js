@@ -45,6 +45,7 @@ class WorkoutDetail extends Component {
     const { clientUid } = this.props.singleClient;
     const { workoutUid } = this.props.singleWorkout;
     this.props.workoutSave({ clientUid, workoutUid });
+    //this.props.exercisesReset({});
   }
 
   onAddExerciseButtonPress() {
@@ -61,7 +62,6 @@ class WorkoutDetail extends Component {
   renderRow(exercise) {
     return <ExerciseListItem exercise={exercise} />;
   }
-
 
   render() {
     const {
@@ -114,6 +114,7 @@ class WorkoutDetail extends Component {
     }
 
     let addExerciseButton = null;
+    let statusToShow = status;
 
     if (status === 'ExercisesToBeAdded') {
       addExerciseButton =
@@ -122,6 +123,7 @@ class WorkoutDetail extends Component {
         Add Exercise To Workout
         </Button>
       </CardSection>);
+      statusToShow = 'Outstanding';
     }
 
     let attemptsWording = null;
@@ -185,7 +187,7 @@ class WorkoutDetail extends Component {
             {exerciseTime} seconds work
           </Text>
           <Text style={stylingToUse}>
-            {status}
+            {statusToShow}
           </Text>
           </CardSection>
 
@@ -291,6 +293,7 @@ const styles = {
 };
 
 const mapStateToProps = state => {
+  console.log(state.exercises);
   const exercises = _.map(state.exercises, (val, workoutUid, clientUid) => {
     return { ...val, workoutUid, clientUid };
   });
