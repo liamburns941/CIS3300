@@ -20,7 +20,6 @@ class GlobalExerciseListItem extends Component {
   }
 
   onAccept() {
-    console.log(this.props);
     const { exerciseName } = this.props.globalExercise;
     const { clientUid } = this.props.singleClient;
     const { workoutUid } = this.props.singleWorkout;
@@ -77,7 +76,6 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-  console.log(state.benchmark);
   const exercises = _.map(state.exercises, (val, workoutUid, clientUid) => {
     return { ...val, workoutUid, clientUid };
   });
