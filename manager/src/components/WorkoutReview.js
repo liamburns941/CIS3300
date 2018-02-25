@@ -1,26 +1,29 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ListView, Text } from 'react-native';
+import { Actions } from 'react-native-router-flux';
+import { ListView, Text, KeyboardAvoidingView, ScrollView } from 'react-native';
 import {
   exercisesFetch,
   setUpdate,
   ratingChanged,
   exerciseSave,
   exerciseFetch,
-  workoutComplete
+  workoutComplete,
+  workoutFetch,
+  attemptsUpdate
 } from '../actions';
 import WorkoutReviewExerciseListItem from './WorkoutReviewExerciseListItem';
-import { Card, CardSection, Button } from './common';
+import { Card, CardSection, Button, Spinner } from './common';
 
 class WorkoutReview extends Component {
   componentWillMount() {
+    console.log(this.props);
     const { singleClient, singleWorkout } = this.props;
     this.props.exercisesFetch({
       clientUid: singleClient.clientUid,
       workoutUid: singleWorkout.workoutUid
     });
-    //this.props.exerciseFetch(this.props.exercises[0]);
 
     this.createDataSource(this.props);
   }
@@ -37,14 +40,18 @@ class WorkoutReview extends Component {
     this.props.ratingChanged(text);
   }
 
-  onButtonPress() {
+  onCompleteButtonPress() {
     const { clientUid } = this.props.singleClient;
     const { workoutUid } = this.props.singleWorkout;
-    //const { exerciseUid } = this.props.singleExercise;
-    //const { rating } = this.props.rating;
-    // Probably have to do a for loop and save reach exercise
-    // this.props.exerciseSave({ clientUid, workoutUid, exerciseUid, rating });
     this.props.workoutComplete({ clientUid, workoutUid });
+  }
+
+  onRedoButtonPress() {
+    const { sets } = this.props.singleWorkout;
+
+    this.props.setUpdate(sets);
+
+    Actions.workoutWarmUp();
   }
 
   createDataSource({ exercises }) {
@@ -58,16 +65,28 @@ class WorkoutReview extends Component {
     return <WorkoutReviewExerciseListItem exercise={exercise} />;
   }
 
+  renderCompleteButton() {
+    if (this.props.loading) {
+      return <Spinner size="large" />;
+    }
+
+    return (
+      <Button onPress={this.onCompleteButtonPress.bind(this)}>
+        Complete Workout
+      </Button>
+    );
+  }
+
   render() {
-    const { workoutName, exerciseTime, restTime, sets, attempts } = this.props.singleWorkout;
+    const { workoutName, exerciseTime, restTime, sets } = this.props.singleWorkout;
 
-    const { nameStyle, workoutTitleStyle, exerciseTitleStyle, ratingStyle } = styles;
+    const { attempts } = this.props;
 
-    const attemptsPlusOne = parseInt(attempts, 10) + 1;
+    const { nameStyle, workoutTitleStyle, exerciseTitleStyle } = styles;
 
     let attemptsWording = null;
 
-    if (attemptsPlusOne === 1) {
+    if (attempts === 1) {
       attemptsWording = 'attempt';
     } else {
       attemptsWording = 'attempts';
@@ -84,6 +103,11 @@ class WorkoutReview extends Component {
     }
 
     return (
+      <ScrollView>
+      <KeyboardAvoidingView
+        keyboardVerticalOffset={-200}
+        behavior="padding"
+      >
       <Card>
         <Card>
           <CardSection>
@@ -106,7 +130,7 @@ class WorkoutReview extends Component {
               {restTime} seconds rest
             </Text>
             <Text style={workoutTitleStyle}>
-              {attemptsPlusOne} {attemptsWording}
+              {attempts} {attemptsWording}
             </Text>
           </CardSection>
         </Card>
@@ -127,13 +151,18 @@ class WorkoutReview extends Component {
           </CardSection>
 
           <CardSection>
-            <Button onPress={this.onButtonPress.bind(this)}>
-              Complete
+            {this.renderCompleteButton()}
+          </CardSection>
+
+          <CardSection>
+            <Button onPress={this.onRedoButtonPress.bind(this)}>
+              Redo Workout
             </Button>
           </CardSection>
         </Card>
-
       </Card>
+    </KeyboardAvoidingView>
+    </ScrollView>
     );
   }
 }
@@ -178,6 +207,7 @@ const styles = {
 };
 
 const mapStateToProps = state => {
+  console.log(state);
   const exercises = _.map(state.exercises, (val, exerciseUid) => {
     return { ...val, exerciseUid };
   });
@@ -189,7 +219,8 @@ const mapStateToProps = state => {
     singleExercise: state.singleExercise,
     role: state.role,
     sets: state.sets,
-    rating: state.rating
+    rating: state.rating,
+    attempts: state.attempts
   };
 };
 
@@ -199,5 +230,7 @@ export default connect(mapStateToProps, {
   ratingChanged,
   exerciseSave,
   exerciseFetch,
-  workoutComplete
+  workoutComplete,
+  workoutFetch,
+  attemptsUpdate
 })(WorkoutReview);

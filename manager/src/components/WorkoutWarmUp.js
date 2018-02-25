@@ -4,17 +4,19 @@ import { connect } from 'react-redux';
 import { ListView, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import CountdownCircle from 'react-native-countdown-circle';
-import { exercisesFetch, setUpdate } from '../actions';
+import { exercisesFetch, setUpdate, attemptsUpdate, exerciseNumberUpdate } from '../actions';
 import ExerciseListItem from './ExerciseListItem';
 import { Card, CardSection, Button } from './common';
 
 class WorkoutWarmUp extends Component {
   componentWillMount() {
+    console.log(this.props);
     const { singleClient, singleWorkout } = this.props;
     this.props.exercisesFetch({
       clientUid: singleClient.clientUid,
       workoutUid: singleWorkout.workoutUid
     });
+
     this.createDataSource(this.props);
   }
 
@@ -31,7 +33,15 @@ class WorkoutWarmUp extends Component {
     Actions.workoutExerciseTimer();
   }
 
-  onButtonPress() {
+  onCancelButtonPress() {
+    const { sets } = this.props.singleWorkout;
+
+    this.props.setUpdate(sets);
+    this.props.exerciseNumberUpdate(0);
+    Actions.workoutDetail();
+  }
+
+  onPauseButtonPress() {
 
   }
 
@@ -68,7 +78,7 @@ class WorkoutWarmUp extends Component {
         <Card>
           <CardSection style={{ alignItems: 'center', justifyContent: 'center' }}>
             <CountdownCircle
-              seconds={1}
+              seconds={6}
               radius={170}
               borderWidth={20}
               color="#FFBF00"
@@ -94,7 +104,7 @@ class WorkoutWarmUp extends Component {
 
         <Card>
           <CardSection>
-            <Button onPress={this.onButtonPress.bind(this)}>
+            <Button onPress={this.onPauseButtonPress.bind(this)}>
               Pause Workout
             </Button>
           </CardSection>
@@ -148,8 +158,14 @@ const mapStateToProps = state => {
     singleWorkout: state.singleWorkout,
     singleClient: state.singleClient,
     sets: state.sets,
-    exerciseNumber: state.exerciseNumber
+    exerciseNumber: state.exerciseNumber,
+    attempts: state.attempts,
   };
 };
 
-export default connect(mapStateToProps, { exercisesFetch, setUpdate })(WorkoutWarmUp);
+export default connect(mapStateToProps, {
+  exercisesFetch,
+  setUpdate,
+  attemptsUpdate,
+  exerciseNumberUpdate
+})(WorkoutWarmUp);

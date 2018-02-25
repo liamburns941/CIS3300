@@ -4,6 +4,7 @@ import { Actions } from 'react-native-router-flux';
 import {
   EXERCISE_UPDATE,
   EXERCISE_CREATE,
+  EXERCISES_RESET,
   EXERCISES_FETCH_SUCCESS,
   EXERCISE_FETCH_SUCCESS,
   EXERCISE_SAVE_SUCCESS,
@@ -36,6 +37,10 @@ export const exerciseCreate = ({ exerciseName, benchmark, clientUid, workoutUid 
         //Keyboard.dismiss();
       });
   };
+};
+
+export const exercisesReset = (exerciseReset) => {
+    return { type: EXERCISES_RESET, payload: exerciseReset };
 };
 
 export const exercisesFetch = ({ clientUid, workoutUid }) => {

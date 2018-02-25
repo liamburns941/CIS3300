@@ -24,9 +24,11 @@ export const WORKOUT_DETAIL_FETCH_SUCCESS = 'workout_detail_fetch_success';
 export const WORKOUT_SAVE_FOR_REVIEW = 'workout_save_for_review';
 export const WORKOUT_SAVE = 'workout_save';
 export const WORKOUT_COMPLETE = 'workout_complete';
+export const ATTEMPTS_UPDATE = 'attempts_update';
 
 export const EXERCISE_UPDATE = 'exercise_update';
 export const EXERCISE_CREATE = 'exercise_create';
+export const EXERCISES_RESET = 'exercises_reset';
 export const EXERCISES_FETCH_SUCCESS = 'exercises_fetch_success';
 export const EXERCISE_FETCH_SUCCESS = 'exercise_fetch_success';
 export const EXERCISE_SAVE_SUCCESS = 'exercise_save_success';

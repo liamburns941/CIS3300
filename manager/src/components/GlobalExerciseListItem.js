@@ -4,7 +4,13 @@ import { Text, TouchableWithoutFeedback, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { CardSection, Confirm } from './common';
-import { exerciseUpdate, exerciseCreate, exerciseFetch, exercisesFetch, benchmarkUpdate } from '../actions';
+import {
+  exerciseUpdate,
+  exerciseCreate,
+  exerciseFetch,
+  exercisesFetch,
+  benchmarkUpdate
+} from '../actions';
 
 class GlobalExerciseListItem extends Component {
   state = { showModal: false };
@@ -14,7 +20,7 @@ class GlobalExerciseListItem extends Component {
   }
 
   onAccept() {
-
+    console.log(this.props);
     const { exerciseName } = this.props.globalExercise;
     const { clientUid } = this.props.singleClient;
     const { workoutUid } = this.props.singleWorkout;
@@ -25,11 +31,14 @@ class GlobalExerciseListItem extends Component {
     this.props.exerciseCreate({ exerciseName, benchmark, clientUid, workoutUid });
     this.props.exercisesFetch({ clientUid, workoutUid });
     this.setState({ showModal: false });
+    this.props.benchmarkUpdate({ value: '' });
     Actions.workoutDetail();
   }
 
   onDecline() {
+    console.log(this.props);
     this.setState({ showModal: false });
+    this.props.benchmarkUpdate({ value: '' });
   }
 
   render() {
@@ -68,6 +77,7 @@ const styles = {
 };
 
 const mapStateToProps = state => {
+  console.log(state.benchmark);
   const exercises = _.map(state.exercises, (val, workoutUid, clientUid) => {
     return { ...val, workoutUid, clientUid };
   });

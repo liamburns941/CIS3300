@@ -3,17 +3,23 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ListView, Text } from 'react-native';
 import CountdownCircle from 'react-native-countdown-circle';
-import { exercisesFetch, workoutSaveForReview } from '../actions';
+import { exercisesFetch, workoutSaveForReview, attemptsUpdate } from '../actions';
 import ExerciseListItem from './ExerciseListItem';
 import { Card, CardSection, Button } from './common';
 
 class WorkoutCoolDown extends Component {
   componentWillMount() {
-    const { singleClient, singleWorkout } = this.props;
+    console.log(this.props);
+    const { singleClient, singleWorkout, attempts } = this.props;
     this.props.exercisesFetch({
       clientUid: singleClient.clientUid,
       workoutUid: singleWorkout.workoutUid
     });
+
+    const newAttempts = parseInt(attempts, 10) + 1;
+    console.log('newAttempts');
+    console.log(newAttempts);
+    this.props.attemptsUpdate(newAttempts);
     this.createDataSource(this.props);
   }
 
@@ -41,11 +47,11 @@ class WorkoutCoolDown extends Component {
   }
 
   render() {
-    const { workoutName, workoutUid, attempts } = this.props.singleWorkout;
+    const { workoutName, workoutUid } = this.props.singleWorkout;
 
     const { clientUid } = this.props.singleClient;
 
-    const { sets } = this.props;
+    const { sets, attempts } = this.props;
 
     const { nameStyle, workoutTitleStyle } = styles;
 
@@ -137,6 +143,7 @@ const styles = {
 };
 
 const mapStateToProps = state => {
+  console.log(state);
   const exercises = _.map(state.exercises, (val, workoutUid, clientUid) => {
     return { ...val, workoutUid, clientUid };
   });
@@ -145,7 +152,12 @@ const mapStateToProps = state => {
     exercises,
     singleWorkout: state.singleWorkout,
     singleClient: state.singleClient,
-    sets: state.sets };
+    sets: state.sets,
+    attempts: state.attempts };
 };
 
-export default connect(mapStateToProps, { exercisesFetch, workoutSaveForReview })(WorkoutCoolDown);
+export default connect(mapStateToProps, {
+  exercisesFetch,
+  workoutSaveForReview,
+  attemptsUpdate
+})(WorkoutCoolDown);

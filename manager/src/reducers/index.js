@@ -7,6 +7,7 @@ import ClientReducer from './ClientReducer';
 import SingleClientReducer from './SingleClientReducer';
 import WorkoutFormReducer from './WorkoutFormReducer';
 import WorkoutReducer from './WorkoutReducer';
+import WorkoutAttemptsReducer from './WorkoutAttemptsReducer';
 import SingleWorkoutReducer from './SingleWorkoutReducer';
 import ExerciseFormReducer from './ExerciseFormReducer';
 import ExerciseReducer from './ExerciseReducer';
@@ -28,6 +29,7 @@ export default combineReducers({
   singleClient: SingleClientReducer,
   workoutForm: WorkoutFormReducer,
   workouts: WorkoutReducer,
+  attempts: WorkoutAttemptsReducer,
   singleWorkout: SingleWorkoutReducer,
   exerciseForm: ExerciseFormReducer,
   exercises: ExerciseReducer,

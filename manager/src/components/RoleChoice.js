@@ -26,7 +26,7 @@ class RoleChoice extends Component {
 
     return (
       <Button onPress={this.onPTButtonPress.bind(this)}>
-        PT
+        Personal Trainer
       </Button>
     );
   }
