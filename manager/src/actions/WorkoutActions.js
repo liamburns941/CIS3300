@@ -26,7 +26,7 @@ export const workoutCreate = ({ workoutName, exerciseTime, restTime, sets, clien
   return (dispatch) => {
     const ref = firebase.database().ref().child(`/users/${currentUser.uid}/clients/${clientUid}/workouts`);
 
-    const dateCreated = moment(new Date()).format('MMM Do YYYY, h:mm');
+    const dateCreated = moment(new Date()).format('MMM Do YYYY, HH:mm');
 
     const workout = ref.push({
       workoutName,
@@ -110,7 +110,7 @@ export const workoutComplete = ({ clientUid, workoutUid }) => {
   return (dispatch) => {
     const ref = firebase.database().ref().child(`/users/pKlr8qiNUCbStPlzSX4EEpNczNv2/clients/${clientUid}/workouts/${workoutUid}`);
 
-    const dateCompleted = moment(new Date()).format('MMM Do YYYY, h:mm');
+    const dateCompleted = moment(new Date()).format('MMM Do YYYY, HH:mm');
     const status = 'Completed';
 
     ref.update({ dateCompleted, status })
