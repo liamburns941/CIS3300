@@ -19,7 +19,7 @@ class WorkoutForm extends Component {
         <CardSection>
           <Input
             label="Exercise time (s)"
-            placeholder="Enter exercise time (s)"
+            placeholder="Enter exercise time in seconds"
             value={this.props.exerciseTime}
             onChangeText={value => this.props.workoutUpdate({ prop: 'exerciseTime', value })}
           />
@@ -27,7 +27,7 @@ class WorkoutForm extends Component {
         <CardSection>
           <Input
             label="Rest time (s)"
-            placeholder="Enter rest time (s)"
+            placeholder="Enter rest time in seconds"
             value={this.props.restTime}
             onChangeText={value => this.props.workoutUpdate({ prop: 'restTime', value })}
           />
