@@ -26,7 +26,7 @@ export const workoutCreate = ({ workoutName, exerciseTime, restTime, sets, clien
   return (dispatch) => {
     const ref = firebase.database().ref().child(`/users/${currentUser.uid}/clients/${clientUid}/workouts`);
 
-    const dateCreated = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
+    const dateCreated = moment(new Date()).format('MMM Do YYYY, h:mm');
 
     const workout = ref.push({
       workoutName,
@@ -39,13 +39,9 @@ export const workoutCreate = ({ workoutName, exerciseTime, restTime, sets, clien
       status: 'ExercisesToBeAdded'
     });
 
-    //const workoutUid = workout.key;
-
     workout.then(() => {
         dispatch({ type: WORKOUT_CREATE });
-        //Actions.workoutDetailFetch(clientUid, workoutUid);
          Actions.workoutDetail();
-        // Actions.exerciseCreate({ clientUid, workoutUid });
       });
   };
 };
@@ -114,7 +110,7 @@ export const workoutComplete = ({ clientUid, workoutUid }) => {
   return (dispatch) => {
     const ref = firebase.database().ref().child(`/users/pKlr8qiNUCbStPlzSX4EEpNczNv2/clients/${clientUid}/workouts/${workoutUid}`);
 
-    const dateCompleted = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
+    const dateCompleted = moment(new Date()).format('MMM Do YYYY, h:mm');
     const status = 'Completed';
 
     ref.update({ dateCompleted, status })
