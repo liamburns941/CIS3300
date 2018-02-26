@@ -55,7 +55,7 @@ const RouterComponent = () => {
           <Scene key="workoutCreate" component={WorkoutCreate} title="Create Workout" />
           <Scene key="workoutDetail" component={WorkoutDetail} title="Workout" />
           <Scene key="exerciseCreate" component={ExerciseCreate} title="Create Workout" />
-          <Scene key="globalExerciseList" component={GlobalExerciseList} title="Select an exercise" />
+          <Scene key="globalExerciseList" component={GlobalExerciseList} title="Exercise Select" />
         </Scene>
 
         <Scene key="clientSide">

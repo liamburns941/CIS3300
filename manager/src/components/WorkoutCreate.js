@@ -19,7 +19,7 @@ class WorkoutCreate extends Component {
     return (
       <Card>
         <Text style={titleStyle}>
-        Step 1: Workout Details
+        Enter your workout details and on the next screen you can add exercises
         </Text>
         <WorkoutForm {...this.props} />
         <CardSection>
@@ -34,7 +34,7 @@ class WorkoutCreate extends Component {
 
 const styles = {
   titleStyle: {
-    fontSize: 24,
+    fontSize: 16,
     paddingTop: 20,
     paddingBottom: 20,
     textAlign: 'center'

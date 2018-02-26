@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ListView } from 'react-native';
+import { ListView, Text } from 'react-native';
 import { globalExercisesFetch } from '../actions';
 import GlobalExerciseListItem from './GlobalExerciseListItem';
 import { Confirm, Card } from './common';
@@ -35,8 +35,13 @@ class GlobalExerciseList extends Component {
   }
 
   render() {
+    const { titleStyle } = styles;
+
     return (
       <Card>
+        <Text style={titleStyle}>
+          Select an exercise from the list below
+        </Text>
         <ListView
           enableEmptySections
           dataSource={this.dataSource}
@@ -46,6 +51,15 @@ class GlobalExerciseList extends Component {
     );
   }
 }
+
+const styles = {
+  titleStyle: {
+    fontSize: 16,
+    paddingTop: 20,
+    paddingBottom: 20,
+    textAlign: 'center'
+  }
+};
 
 const mapStateToProps = state => {
   const globalExercises = _.map(state.globalExercises, (val, globalExerciseUid) => {

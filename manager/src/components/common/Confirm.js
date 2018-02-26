@@ -4,9 +4,9 @@ import { CardSection } from './CardSection';
 import { Button } from './Button';
 import { Input } from './Input';
 
-const Confirm = ({ children, visible, onAccept, onDecline, thisBenchmark, onBenchmarkUpdate }) => {
+const Confirm = ({ visible, onAccept, onDecline, thisBenchmark, onBenchmarkUpdate }) => {
 
-  const { containerStyle, textStyle, cardSectionStyle } = styles;
+  const { containerStyle, textStyle, cardSectionStyle, helpStyle } = styles;
 
   return (
     <Modal
@@ -18,7 +18,13 @@ const Confirm = ({ children, visible, onAccept, onDecline, thisBenchmark, onBenc
       <View style={containerStyle}>
         <CardSection style={cardSectionStyle}>
           <Text style={textStyle}>
-            {children}
+              What will the benchmark be?
+          </Text>
+        </CardSection>
+
+        <CardSection style={cardSectionStyle}>
+          <Text style={helpStyle}>
+              Motivate your client with a target to aim for each set
           </Text>
         </CardSection>
 
@@ -28,7 +34,6 @@ const Confirm = ({ children, visible, onAccept, onDecline, thisBenchmark, onBenc
             placeholder="Enter benchmark"
             value={thisBenchmark}
             onChangeText={onBenchmarkUpdate}
-            //onChangeText={value => this.props.benchmarkUpdate({ prop: 'benchmark', value })}
           />
         </CardSection>
 
@@ -43,11 +48,15 @@ const Confirm = ({ children, visible, onAccept, onDecline, thisBenchmark, onBenc
 
 const styles = {
   cardSectionStyle: {
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   textStyle: {
-    flex: 1,
-    fontSize: 18,
+    fontSize: 24,
+    textAlign: 'center',
+    lineHeight: 40
+  },
+  helpStyle: {
+    fontSize: 16,
     textAlign: 'center',
     lineHeight: 40
   },
