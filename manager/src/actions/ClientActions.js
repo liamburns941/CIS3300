@@ -19,12 +19,18 @@ export const clientCreate = ({ firstName, lastName, email }) => {
   const { currentUser } = firebase.auth();
 
   return (dispatch) => {
-    firebase.database().ref(`/users/${currentUser.uid}/clients`)
-      .push({ firstName, lastName, email })
-      .then(() => {
-        dispatch({ type: CLIENT_CREATE });
-        Actions.pop({ type: 'reset' });
-      });
+    const ref = firebase.database().ref().child(`/users/${currentUser.uid}/clients`)
+
+    const client = ref.push({
+      firstName, 
+      lastName, 
+      email
+    });
+
+    client.then(() => {
+      dispatch({ type: CLIENT_CREATE });
+      Actions.workoutList();
+    });
   };
 };
 

@@ -7,6 +7,8 @@ import { clientFetch } from '../actions';
 
 class ClientListItem extends Component {
   onRowPress() {
+    console.log('this.props.client');
+    console.log(this.props.client);
     this.props.clientFetch(this.props.client);
     Actions.workoutList();
   }
