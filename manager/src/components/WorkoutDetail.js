@@ -10,6 +10,8 @@ import { Card, CardSection, Button } from './common';
 class WorkoutDetail extends Component {
   componentWillMount() {
     Keyboard.dismiss();
+    console.log('WorkoutDetail this.props');
+    console.log(this.props);
     const { singleClient, singleWorkout, workouts } = this.props;
 
     if (_.isEmpty(singleWorkout)) {
@@ -293,7 +295,8 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-  console.log(state.exercises);
+  console.log('WorkoutDetail state');
+  console.log(state);
   const exercises = _.map(state.exercises, (val, workoutUid, clientUid) => {
     return { ...val, workoutUid, clientUid };
   });

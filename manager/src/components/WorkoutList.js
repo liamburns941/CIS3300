@@ -1,15 +1,34 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ListView, Text } from 'react-native';
+import { ListView, Text, Keyboard } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { workoutsFetch, workoutCreate } from '../actions';
+import { workoutsFetch, workoutCreate, clientFetch } from '../actions';
 import WorkoutListItem from './WorkoutListItem';
 import { Card, CardSection, Button } from './common';
 
 class WorkoutList extends Component {
   componentWillMount() {
-    this.props.workoutsFetch({ clientUid: this.props.singleClient.clientUid });
+    Keyboard.dismiss();
+    console.log('workoutlist this.props before single client check');
+    console.log(this.props);
+    const { singleClient, singleWorkout, clients } = this.props;
+
+
+    if (_.isEmpty(singleClient)) {
+      console.log('singleClient is empty');
+      console.log('clients.length');
+      console.log(clients.length);
+      const newClient = clients[clients.length - 1];
+      console.log('newClient');
+      console.log(newClient);
+      this.props.clientFetch(newClient);
+      this.props.workoutsFetch({ clientUid: newClient.clientUid });
+    } else {
+      console.log('singleClient is not empty');
+      this.props.workoutsFetch({ clientUid: this.props.singleClient.clientUid });
+    }
+
     this.createDataSource(this.props);
   }
 
@@ -104,11 +123,17 @@ const styles = {
 };
 
 const mapStateToProps = state => {
+  console.log('WorkoutList state');
+  console.log(state);
   const workouts = _.map(state.workouts, (val, workoutUid) => {
     return { ...val, workoutUid };
   });
 
-  return { workouts, singleClient: state.singleClient, role: state.role };
+  const clients = _.map(state.clients, (val, clientUid) => {
+    return { ...val, clientUid };
+  });
+
+  return { workouts, clients, singleClient: state.singleClient, role: state.role };
 };
 
-export default connect(mapStateToProps, { workoutsFetch, workoutCreate })(WorkoutList);
+export default connect(mapStateToProps, { workoutsFetch, workoutCreate, clientFetch })(WorkoutList);

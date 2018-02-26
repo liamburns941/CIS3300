@@ -7,6 +7,8 @@ import WorkoutForm from './WorkoutForm';
 
 class WorkoutCreate extends Component {
   onButtonPress() {
+    console.log('WorkoutCreate this.props');
+    console.log(this.props);
     const { workoutName, exerciseTime, restTime, sets, clientUid } = this.props;
     this.props.workoutCreate({ workoutName, exerciseTime, restTime, sets, clientUid });
   }
