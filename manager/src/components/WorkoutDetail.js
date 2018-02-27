@@ -3,15 +3,20 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ListView, Text, Keyboard, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { exercisesFetch, setUpdate, workoutFetch, workoutSave, exercisesReset } from '../actions';
+import {
+  exercisesFetch,
+  setUpdate,
+  workoutFetch,
+  workoutSave,
+  exercisesReset,
+  workoutIsNotCancelledUpdate
+} from '../actions';
 import ExerciseListItem from './ExerciseListItem';
 import { Card, CardSection, Button } from './common';
 
 class WorkoutDetail extends Component {
   componentWillMount() {
     Keyboard.dismiss();
-    console.log('WorkoutDetail this.props');
-    console.log(this.props);
     const { singleClient, singleWorkout, workouts } = this.props;
 
     if (_.isEmpty(singleWorkout)) {
@@ -38,6 +43,7 @@ class WorkoutDetail extends Component {
   onStartWorkoutButtonPress() {
     const { sets } = this.props.singleWorkout;
 
+    this.props.workoutIsNotCancelledUpdate(true);
     this.props.setUpdate(sets);
 
     Actions.workoutWarmUp();
@@ -295,8 +301,6 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-  console.log('WorkoutDetail state');
-  console.log(state);
   const exercises = _.map(state.exercises, (val, workoutUid, clientUid) => {
     return { ...val, workoutUid, clientUid };
   });
@@ -320,5 +324,6 @@ export default connect(mapStateToProps, {
   setUpdate,
   workoutFetch,
   workoutSave,
-  exercisesReset
+  exercisesReset,
+  workoutIsNotCancelledUpdate
 })(WorkoutDetail);

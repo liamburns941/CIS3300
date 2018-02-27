@@ -9,7 +9,6 @@ import { Card, CardSection, Button } from './common';
 
 class WorkoutCoolDown extends Component {
   componentWillMount() {
-    console.log(this.props);
     const { singleClient, singleWorkout, attempts } = this.props;
     this.props.exercisesFetch({
       clientUid: singleClient.clientUid,
@@ -17,8 +16,6 @@ class WorkoutCoolDown extends Component {
     });
 
     const newAttempts = parseInt(attempts, 10) + 1;
-    console.log('newAttempts');
-    console.log(newAttempts);
     this.props.attemptsUpdate(newAttempts);
     this.createDataSource(this.props);
   }
@@ -143,7 +140,6 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-  console.log(state);
   const exercises = _.map(state.exercises, (val, workoutUid, clientUid) => {
     return { ...val, workoutUid, clientUid };
   });

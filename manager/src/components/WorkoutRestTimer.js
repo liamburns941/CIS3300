@@ -7,13 +7,16 @@ import CountdownCircle from 'react-native-countdown-circle';
 import {
   exercisesFetch,
   setUpdate,
-  exerciseNumberUpdate
+  exerciseNumberUpdate,
+  workoutIsNotCancelledUpdate
 } from '../actions';
 import ExerciseListItem from './ExerciseListItem';
 import { Card, CardSection, Button } from './common';
 
 class WorkoutRestTimer extends Component {
   componentWillMount() {
+    console.log('this.props componentWillMount workoutRestTimer');
+    console.log(this.props);
     const { singleClient, singleWorkout } = this.props;
     this.props.exercisesFetch({
       clientUid: singleClient.clientUid,
@@ -31,11 +34,16 @@ class WorkoutRestTimer extends Component {
   }
 
   onCancelButtonPress() {
+    console.log('const { sets } = this.props.singleWorkout;');
     const { sets } = this.props.singleWorkout;
-
+      console.log('this.props.workoutIsNotCancelledUpdate(false);');
+    this.props.workoutIsNotCancelledUpdate(false);
+      console.log('this.props.setUpdate(sets);');
     this.props.setUpdate(sets);
+      console.log('this.props.exerciseNumberUpdate(0);');
     this.props.exerciseNumberUpdate(0);
-    Actions.workoutDetail();
+      console.log('Actions.workoutList();');
+    Actions.workoutList();
   }
 
   onPauseButtonPress() {
@@ -54,9 +62,7 @@ class WorkoutRestTimer extends Component {
   }
 
   render() {
-    const { sets, noOfExercises } = this.props;
-
-    const { exerciseNumber } = this.props;
+    const { sets, noOfExercises, exerciseNumber, workoutIsNotCancelled } = this.props;
 
     const exerciseNumberPlusOne = exerciseNumber + 1;
 
@@ -79,6 +85,14 @@ class WorkoutRestTimer extends Component {
         </Card>
 
         <Card>
+          <CardSection>
+            <Button onPress={this.onCancelButtonPress.bind(this)}>
+              Cancel Workout
+            </Button>
+          </CardSection>
+        </Card>
+
+        <Card>
           <CardSection style={{ alignItems: 'center', justifyContent: 'center' }}>
             <CountdownCircle
               seconds={newrestTime}
@@ -88,21 +102,23 @@ class WorkoutRestTimer extends Component {
               bgColor="#fff"
               textStyle={{ fontSize: 50 }}
               onTimeElapsed={() => {
-                if (exerciseNumberPlusOne === noOfExercises) {
-                  const newSetsMinusOne = newSets - 1;
-                  if (newSetsMinusOne !== 0) {
-                    this.props.setUpdate(newSetsMinusOne);
-                    this.props.exerciseNumberUpdate(0);
-                    Actions.workoutExerciseTimer();
-                  } else {
-                    this.props.setUpdate(newSetsMinusOne);
-                    Actions.workoutCoolDown();
+                  if (workoutIsNotCancelled) {
+                    if (exerciseNumberPlusOne === noOfExercises) {
+                      const newSetsMinusOne = newSets - 1;
+                      if (newSetsMinusOne !== 0) {
+                        this.props.setUpdate(newSetsMinusOne);
+                        this.props.exerciseNumberUpdate(0);
+                        Actions.workoutExerciseTimer();
+                      } else {
+                        this.props.setUpdate(newSetsMinusOne);
+                        Actions.workoutCoolDown();
+                      }
+                    } else {
+                        this.props.exerciseNumberUpdate(exerciseNumberPlusOne);
+                        Actions.workoutExerciseTimer();
+                    }
                   }
-                } else {
-                    this.props.exerciseNumberUpdate(exerciseNumberPlusOne);
-                    Actions.workoutExerciseTimer();
                 }
-              }
               }
             />
           </CardSection>
@@ -178,12 +194,14 @@ const mapStateToProps = state => {
     singleClient: state.singleClient,
     sets: state.sets,
     exerciseNumber: state.exerciseNumber,
-    noOfExercises: state.noOfExercises
+    noOfExercises: state.noOfExercises,
+    workoutIsNotCancelled: state.workoutIsNotCancelled
   };
 };
 
 export default connect(mapStateToProps, {
   exercisesFetch,
   setUpdate,
-  exerciseNumberUpdate
+  exerciseNumberUpdate,
+  workoutIsNotCancelledUpdate
 })(WorkoutRestTimer);

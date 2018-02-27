@@ -4,12 +4,19 @@ import { connect } from 'react-redux';
 import { ListView, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import CountdownCircle from 'react-native-countdown-circle';
-import { exercisesFetch, setUpdate, attemptsUpdate, exerciseNumberUpdate } from '../actions';
+import {
+  exercisesFetch,
+  setUpdate,
+  attemptsUpdate,
+  exerciseNumberUpdate,
+  workoutIsNotCancelledUpdate
+} from '../actions';
 import ExerciseListItem from './ExerciseListItem';
 import { Card, CardSection, Button } from './common';
 
 class WorkoutWarmUp extends Component {
   componentWillMount() {
+    console.log('this.props componentWillMount workoutWarmUp');
     console.log(this.props);
     const { singleClient, singleWorkout } = this.props;
     this.props.exercisesFetch({
@@ -28,17 +35,17 @@ class WorkoutWarmUp extends Component {
     this.createDataSource(nextProps);
   }
 
-  onTimerEnd(newSets) {
-    this.props.setUpdate(newSets);
-    Actions.workoutExerciseTimer();
-  }
-
   onCancelButtonPress() {
+    console.log('const { sets } = this.props.singleWorkout;');
     const { sets } = this.props.singleWorkout;
-
+      console.log('this.props.workoutIsNotCancelledUpdate(false);');
+    this.props.workoutIsNotCancelledUpdate(false);
+      console.log('this.props.setUpdate(sets);');
     this.props.setUpdate(sets);
+      console.log('this.props.exerciseNumberUpdate(0);');
     this.props.exerciseNumberUpdate(0);
-    Actions.workoutDetail();
+      console.log('Actions.workoutList();');
+    Actions.workoutList();
   }
 
   onPauseButtonPress() {
@@ -59,7 +66,7 @@ class WorkoutWarmUp extends Component {
   render() {
     const { workoutName } = this.props.singleWorkout;
 
-    const { sets } = this.props;
+    const { sets, workoutIsNotCancelled, workoutWarmUpTime } = this.props;
 
     const newSets = parseInt(sets, 10);
 
@@ -76,15 +83,28 @@ class WorkoutWarmUp extends Component {
         </Card>
 
         <Card>
+          <CardSection>
+            <Button onPress={this.onCancelButtonPress.bind(this)}>
+              Cancel Workout
+            </Button>
+          </CardSection>
+        </Card>
+
+        <Card>
           <CardSection style={{ alignItems: 'center', justifyContent: 'center' }}>
             <CountdownCircle
-              seconds={5}
+              seconds={workoutWarmUpTime}
               radius={170}
               borderWidth={20}
               color="#FFBF00"
               bgColor="#fff"
               textStyle={{ fontSize: 50 }}
-              onTimeElapsed={() => Actions.workoutExerciseTimer()}
+              onTimeElapsed={() => {
+                if (workoutIsNotCancelled) {
+                  Actions.workoutExerciseTimer();
+                }
+              }
+              }
             />
           </CardSection>
           <CardSection>
@@ -160,6 +180,8 @@ const mapStateToProps = state => {
     sets: state.sets,
     exerciseNumber: state.exerciseNumber,
     attempts: state.attempts,
+    workoutIsNotCancelled: state.workoutIsNotCancelled,
+    workoutWarmUpTime: state.workoutWarmUpTime
   };
 };
 
@@ -167,5 +189,6 @@ export default connect(mapStateToProps, {
   exercisesFetch,
   setUpdate,
   attemptsUpdate,
-  exerciseNumberUpdate
+  exerciseNumberUpdate,
+  workoutIsNotCancelledUpdate
 })(WorkoutWarmUp);

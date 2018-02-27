@@ -18,7 +18,6 @@ import { Card, CardSection, Button, Spinner } from './common';
 
 class WorkoutReview extends Component {
   componentWillMount() {
-    console.log(this.props);
     const { singleClient, singleWorkout } = this.props;
     this.props.exercisesFetch({
       clientUid: singleClient.clientUid,
@@ -207,7 +206,6 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-  console.log(state);
   const exercises = _.map(state.exercises, (val, exerciseUid) => {
     return { ...val, exerciseUid };
   });

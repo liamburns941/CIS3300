@@ -35,7 +35,6 @@ class GlobalExerciseListItem extends Component {
   }
 
   onDecline() {
-    console.log(this.props);
     this.setState({ showModal: false });
     this.props.benchmarkUpdate({ value: '' });
   }

@@ -10,7 +10,9 @@ import {
   WORKOUT_SAVE,
   WORKOUT_COMPLETE,
   WORKOUT_DETAIL_FETCH_SUCCESS,
-  ATTEMPTS_UPDATE
+  ATTEMPTS_UPDATE,
+  WORKOUT_IS_NOT_CANCELLED,
+  WORKOUT_WARM_UP_TIME_UPDATED
 } from './types';
 
 export const workoutUpdate = ({ prop, value }) => {
@@ -77,9 +79,6 @@ export const workoutDetailFetch = ({ clientUid, workoutUid }) => {
 
 export const workoutSaveForReview = ({ clientUid, workoutUid, attempts }) => {
   return (dispatch) => {
-    console.log(clientUid);
-    console.log(workoutUid);
-    console.log(attempts);
 
     const ref = firebase.database().ref().child(`/users/pKlr8qiNUCbStPlzSX4EEpNczNv2/clients/${clientUid}/workouts/${workoutUid}`);
 
@@ -134,6 +133,14 @@ export const workoutDelete = ({ clientUid, workoutUid }) => {
 };
 
 export const attemptsUpdate = (attempts) => {
-  console.log(attempts);
     return { type: ATTEMPTS_UPDATE, payload: attempts };
+};
+
+export const workoutIsNotCancelledUpdate = (workoutIsNotCancelled) => {
+    return { type: WORKOUT_IS_NOT_CANCELLED, payload: workoutIsNotCancelled };
+};
+
+export const workoutWarmUpTimeUpdate = (workoutWarmUpTime) => {
+  console.log(workoutWarmUpTime);
+    return { type: WORKOUT_WARM_UP_TIME_UPDATED, payload: workoutWarmUpTime };
 };
