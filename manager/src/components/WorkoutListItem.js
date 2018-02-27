@@ -8,7 +8,14 @@ import { workoutFetch } from '../actions';
 class WorkoutListItem extends Component {
   onRowPress() {
     this.props.workoutFetch(this.props.workout);
-    Actions.workoutDetail();
+    console.log('this.props on WorkoutListItem');
+    console.log(this.props);
+    const { role } = this.props;
+    if (role === 'CLIENT') {
+      Actions.clientWorkoutDetail();
+    } else {
+      Actions.workoutDetail();
+    }
   }
 
   render() {
@@ -85,4 +92,8 @@ const styles = {
   }
 };
 
-export default connect(null, { workoutFetch })(WorkoutListItem);
+const mapStateToProps = state => {
+  return { role: state.role };
+};
+
+export default connect(mapStateToProps, { workoutFetch })(WorkoutListItem);

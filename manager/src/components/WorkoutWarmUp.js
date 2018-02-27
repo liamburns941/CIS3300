@@ -45,7 +45,7 @@ class WorkoutWarmUp extends Component {
       console.log('this.props.exerciseNumberUpdate(0);');
     this.props.exerciseNumberUpdate(0);
       console.log('Actions.workoutList();');
-    Actions.workoutList();
+    Actions.clientWorkoutList();
   }
 
   onPauseButtonPress() {

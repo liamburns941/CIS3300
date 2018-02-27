@@ -21,7 +21,7 @@ class ClientLoginForm extends Component {
 
         if (thisClientEmail === email) {
           this.props.clientFetch(thisClient);
-          Actions.workoutList();
+          Actions.clientWorkoutList();
           break;
         }
       }
