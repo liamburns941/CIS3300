@@ -15,8 +15,6 @@ import { Card, CardSection, Button } from './common';
 
 class WorkoutRestTimer extends Component {
   componentWillMount() {
-    console.log('this.props componentWillMount workoutRestTimer');
-    console.log(this.props);
     const { singleClient, singleWorkout } = this.props;
     this.props.exercisesFetch({
       clientUid: singleClient.clientUid,
@@ -34,15 +32,10 @@ class WorkoutRestTimer extends Component {
   }
 
   onCancelButtonPress() {
-    console.log('const { sets } = this.props.singleWorkout;');
     const { sets } = this.props.singleWorkout;
-      console.log('this.props.workoutIsNotCancelledUpdate(false);');
     this.props.workoutIsNotCancelledUpdate(false);
-      console.log('this.props.setUpdate(sets);');
     this.props.setUpdate(sets);
-      console.log('this.props.exerciseNumberUpdate(0);');
     this.props.exerciseNumberUpdate(0);
-      console.log('Actions.workoutList();');
     Actions.clientWorkoutList();
   }
 

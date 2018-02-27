@@ -82,7 +82,7 @@ class WorkoutDetail extends Component {
       attempts
     } = this.props.singleWorkout;
 
-    const { exercises } = this.props;
+    const { exercises, role } = this.props;
 
     const {
       nameStyle,
@@ -92,8 +92,6 @@ class WorkoutDetail extends Component {
       exerciseTitleStyle,
       exerciseSubTitleStyle
     } = styles;
-
-    const { role } = this.props;
 
     let startWorkoutbutton = null;
 
@@ -175,6 +173,20 @@ class WorkoutDetail extends Component {
         );
       stylingToUse = statusCompletedTitleStyle;
     }
+    
+    let noExercises = null;
+    if (exercises.length > 0) {
+      noExercises =
+      (<CardSection>
+        <Text style={exerciseSubTitleStyle}>
+        Name
+        </Text>
+        <Text style={exerciseSubTitleStyle}>
+        Benchmark
+        </Text>
+        {ratingHeader}
+      </CardSection>);
+    }
 
     return (
       <ScrollView>
@@ -220,15 +232,7 @@ class WorkoutDetail extends Component {
 
           {addExerciseButton}
 
-          <CardSection>
-            <Text style={exerciseSubTitleStyle}>
-            Name
-            </Text>
-            <Text style={exerciseSubTitleStyle}>
-            Benchmark
-            </Text>
-            {ratingHeader}
-          </CardSection>
+          {noExercises}
 
           <CardSection>
             <ListView

@@ -53,12 +53,22 @@ class WorkoutList extends Component {
 
     const { nameStyle, workoutTitleStyle } = styles;
 
-    const { role } = this.props;
+    const { role, workouts } = this.props;
 
     let button = null;
 
     if (role === 'PT') {
        button = <Button onPress={this.onButtonPress.bind(this)}>Create Workout</Button>;
+    }
+
+    let noWorkouts = null;
+    if (workouts.length > 0) {
+      noWorkouts =
+      (<CardSection>
+          <Text style={workoutTitleStyle}>
+          Workouts
+          </Text>
+        </CardSection>);
     }
 
     return (
@@ -77,18 +87,12 @@ class WorkoutList extends Component {
         </Card>
 
         <Card>
-          <CardSection>
-            <Text style={workoutTitleStyle}>
-            Workouts
-            </Text>
-          </CardSection>
-          <CardSection>
-              <ListView
-                enableEmptySections
-                dataSource={this.dataSource}
-                renderRow={this.renderRow}
-              />
-          </CardSection>
+          {noWorkouts}
+          <ListView
+            enableEmptySections
+            dataSource={this.dataSource}
+            renderRow={this.renderRow}
+          />
         </Card>
       </Card>
     );

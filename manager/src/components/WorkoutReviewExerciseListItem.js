@@ -15,7 +15,6 @@ class WorkoutReviewExerciseListItem extends Component {
     const { workoutUid } = this.props.singleWorkout;
     const { exerciseUid } = this.props.exercise;
 
-    //this.props.ratingChanged(text);
     const rating = text;
     this.props.exerciseSave({ clientUid, workoutUid, exerciseUid, rating });
   }

@@ -8,8 +8,6 @@ import { workoutFetch } from '../actions';
 class WorkoutListItem extends Component {
   onRowPress() {
     this.props.workoutFetch(this.props.workout);
-    console.log('this.props on WorkoutListItem');
-    console.log(this.props);
     const { role } = this.props;
     if (role === 'CLIENT') {
       Actions.clientWorkoutDetail();

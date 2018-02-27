@@ -141,6 +141,5 @@ export const workoutIsNotCancelledUpdate = (workoutIsNotCancelled) => {
 };
 
 export const workoutWarmUpTimeUpdate = (workoutWarmUpTime) => {
-  console.log(workoutWarmUpTime);
     return { type: WORKOUT_WARM_UP_TIME_UPDATED, payload: workoutWarmUpTime };
 };

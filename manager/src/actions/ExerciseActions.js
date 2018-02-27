@@ -33,8 +33,6 @@ export const exerciseCreate = ({ exerciseName, benchmark, clientUid, workoutUid 
 
     exercise.then(() => {
         dispatch({ type: EXERCISE_CREATE });
-        //Actions.workoutList();
-        //Keyboard.dismiss();
       });
   };
 };
