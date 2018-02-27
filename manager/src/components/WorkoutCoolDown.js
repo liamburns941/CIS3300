@@ -92,14 +92,6 @@ class WorkoutCoolDown extends Component {
             </Text>
           </CardSection>
         </Card>
-
-        <Card>
-          <CardSection>
-            <Button onPress={this.onButtonPress.bind(this)}>
-              Pause Workout
-            </Button>
-          </CardSection>
-        </Card>
       </Card>
     );
   }
