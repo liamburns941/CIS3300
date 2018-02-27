@@ -43,7 +43,7 @@ class WorkoutRestTimer extends Component {
       console.log('this.props.exerciseNumberUpdate(0);');
     this.props.exerciseNumberUpdate(0);
       console.log('Actions.workoutList();');
-    Actions.workoutList();
+    Actions.clientWorkoutList();
   }
 
   onPauseButtonPress() {
@@ -134,14 +134,6 @@ class WorkoutRestTimer extends Component {
             <Text style={workoutTitleStyle}>
               Sets left: {newSets}
             </Text>
-          </CardSection>
-        </Card>
-
-        <Card>
-          <CardSection>
-            <Button onPress={this.onPauseButtonPress.bind(this)}>
-              Pause Workout
-            </Button>
           </CardSection>
         </Card>
       </Card>

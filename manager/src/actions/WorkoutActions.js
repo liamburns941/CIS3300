@@ -115,7 +115,7 @@ export const workoutComplete = ({ clientUid, workoutUid }) => {
     ref.update({ dateCompleted, status })
        .then(() => {
         dispatch({ type: WORKOUT_COMPLETE });
-        Actions.workoutList();
+        Actions.clientWorkoutList();
        });
   };
 };

@@ -29,10 +29,23 @@ const RouterComponent = () => {
             key="roleChoice"
             component={RoleChoice}
             title="Choose your role"
+            backTitle=" "
             initial
           />
-          <Scene key="ptLogin" component={PTLoginForm} title="Personal Trainer Login" />
-          <Scene key="clientLogin" component={ClientLoginForm} title="Client Login" />
+          <Scene
+            key="ptLogin"
+            component={PTLoginForm}
+            title="Personal Trainer Login"
+            onBack={() => Actions.roleChoice()}
+            onLeft={() => Actions.roleChoice()}
+          />
+          <Scene
+            key="clientLogin"
+            component={ClientLoginForm}
+            title="Client Login"
+            onBack={() => Actions.roleChoice()}
+            onLeft={() => Actions.roleChoice()}
+          />
         </Scene>
 
         <Scene key="ptSide">
@@ -42,28 +55,108 @@ const RouterComponent = () => {
             key="clientList"
             component={ClientList}
             title="Clients"
+            backTitle=" "
             initial
           />
-          <Scene key="clientCreate" component={ClientCreate} title="Create Client" />
-          <Scene key="clientEdit" component={ClientEdit} title="Edit Client" />
+          <Scene
+            key="clientCreate"
+            component={ClientCreate}
+            title="Create Client"
+            onBack={() => Actions.clientList()}
+            onLeft={() => Actions.clientList()}
+          />
           <Scene
             key="workoutList"
             component={WorkoutList}
             title="Profile"
-            onBack={() => Actions.pop()}
+            onBack={() => Actions.clientList()}
+            onLeft={() => Actions.clientList()}
           />
-          <Scene key="workoutCreate" component={WorkoutCreate} title="Create Workout" />
-          <Scene key="workoutDetail" component={WorkoutDetail} title="Workout" />
-          <Scene key="exerciseCreate" component={ExerciseCreate} title="Create Workout" />
-          <Scene key="globalExerciseList" component={GlobalExerciseList} title="Exercise Select" />
+          <Scene
+            key="workoutCreate"
+            component={WorkoutCreate}
+            title="Create Workout"
+            onBack={() => Actions.workoutList()}
+            onLeft={() => Actions.workoutList()}
+          />
+          <Scene
+            key="workoutDetail"
+            component={WorkoutDetail}
+            title="Workout"
+            onBack={() => Actions.workoutList()}
+            onLeft={() => Actions.workoutList()}
+          />
+          <Scene
+            key="globalExerciseList"
+            component={GlobalExerciseList}
+            title="Exercise Select"
+            onBack={() => Actions.workoutDetail()}
+            onLeft={() => Actions.workoutDetail()}
+          />
         </Scene>
 
         <Scene key="clientSide">
-          <Scene key="workoutWarmUp" component={WorkoutWarmUp} title="Warm Up" />
-          <Scene key="workoutExerciseTimer" component={WorkoutExerciseTimer} title="Exercise" />
-          <Scene key="workoutRestTimer" component={WorkoutRestTimer} title="Rest" />
-          <Scene key="workoutCoolDown" component={WorkoutCoolDown} title="Cool Down" />
-          <Scene key="workoutReview" component={WorkoutReview} title="Review" />
+          <Scene
+            key="clientWorkoutList"
+            component={WorkoutList}
+            title="Profile"
+            backTitle=" "
+            renderBackButton={() => (null)}
+            left={() => null}
+            hideNavBar={true}
+          />
+          <Scene
+            key="clientWorkoutDetail"
+            component={WorkoutDetail}
+            title="Workout"
+            onBack={() => Actions.clientWorkoutList()}
+            onLeft={() => Actions.clientWorkoutList()}
+          />
+          <Scene
+            key="workoutWarmUp"
+            component={WorkoutWarmUp}
+            title="Warm Up"
+            backTitle=" "
+            renderBackButton={() => (null)}
+            left={() => null}
+            hideNavBar={true}
+          />
+          <Scene
+            key="workoutExerciseTimer"
+            component={WorkoutExerciseTimer}
+            title="Exercise"
+            backTitle=" "
+            renderBackButton={() => (null)}
+            left={() => null}
+            hideNavBar={true}
+          />
+          <Scene
+            key="workoutRestTimer"
+            component={WorkoutRestTimer}
+            title="Rest"
+            backTitle=" "
+            renderBackButton={() => (null)}
+            left={() => null}
+            hideNavBar={true}
+          />
+          <Scene
+            key="workoutCoolDown"
+            component={WorkoutCoolDown}
+            title="Cool Down"
+            backTitle=" "
+            renderBackButton={() => (null)}
+            left={() => null}
+            hideNavBar={true}
+          />
+          <Scene
+            key="workoutReview"
+            component={WorkoutReview}
+            title="Review"
+            backTitle=" "
+            renderBackButton={() => (null)}
+            left={() => null}
+            hideNavBar={true}
+          />
         </Scene>
       </Scene>
     </Router>
