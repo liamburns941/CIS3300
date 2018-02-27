@@ -1,9 +1,10 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ListView } from 'react-native';
+import { ListView, Text } from 'react-native';
 import { clientsFetch } from '../actions';
 import ClientListItem from './ClientListItem';
+import { Card } from './common';
 
 class ClientList extends Component {
   componentWillMount() {
@@ -32,15 +33,42 @@ class ClientList extends Component {
   }
 
   render() {
+    const { titleStyle } = styles;
+
+    const { clients } = this.props;
+
+    let noClients = null;
+    if (clients.length > 0) {
+      console.log('clients is not empty');
+    } else {
+      console.log('clients is empty');
+      noClients =
+      (<Text style={titleStyle}>
+        No Clients
+      </Text>);
+    }
+
     return (
-      <ListView
-        enableEmptySections
-        dataSource={this.dataSource}
-        renderRow={this.renderRow}
-      />
+      <Card>
+        <ListView
+          enableEmptySections
+          dataSource={this.dataSource}
+          renderRow={this.renderRow}
+        />
+        {noClients}
+      </Card>
     );
   }
 }
+
+const styles = {
+  titleStyle: {
+    fontSize: 16,
+    paddingTop: 20,
+    paddingBottom: 20,
+    textAlign: 'center'
+  }
+};
 
 const mapStateToProps = state => {
   const clients = _.map(state.clients, (val, clientUid) => {
