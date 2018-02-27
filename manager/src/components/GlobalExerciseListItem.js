@@ -35,7 +35,6 @@ class GlobalExerciseListItem extends Component {
   }
 
   onDecline() {
-    console.log(this.props);
     this.setState({ showModal: false });
     this.props.benchmarkUpdate({ value: '' });
   }
@@ -57,9 +56,7 @@ class GlobalExerciseListItem extends Component {
               onDecline={this.onDecline.bind(this)}
               thisBenchmark={this.props.benchmark.value}
               onBenchmarkUpdate={value => this.props.benchmarkUpdate({ value })}
-          >
-              What will the benchmark be per set?
-          </Confirm>
+          />
         </View>
       </TouchableWithoutFeedback>
     );

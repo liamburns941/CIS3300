@@ -10,22 +10,14 @@ import { Card, CardSection, Button } from './common';
 class WorkoutList extends Component {
   componentWillMount() {
     Keyboard.dismiss();
-    console.log('workoutlist this.props before single client check');
-    console.log(this.props);
-    const { singleClient, singleWorkout, clients } = this.props;
+    const { singleClient, clients } = this.props;
 
 
     if (_.isEmpty(singleClient)) {
-      console.log('singleClient is empty');
-      console.log('clients.length');
-      console.log(clients.length);
       const newClient = clients[clients.length - 1];
-      console.log('newClient');
-      console.log(newClient);
       this.props.clientFetch(newClient);
       this.props.workoutsFetch({ clientUid: newClient.clientUid });
     } else {
-      console.log('singleClient is not empty');
       this.props.workoutsFetch({ clientUid: this.props.singleClient.clientUid });
     }
 
@@ -123,8 +115,6 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-  console.log('WorkoutList state');
-  console.log(state);
   const workouts = _.map(state.workouts, (val, workoutUid) => {
     return { ...val, workoutUid };
   });

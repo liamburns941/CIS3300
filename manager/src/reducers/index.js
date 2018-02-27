@@ -8,6 +8,8 @@ import SingleClientReducer from './SingleClientReducer';
 import WorkoutFormReducer from './WorkoutFormReducer';
 import WorkoutReducer from './WorkoutReducer';
 import WorkoutAttemptsReducer from './WorkoutAttemptsReducer';
+import WorkoutIsNotCancelledReducer from './WorkoutIsNotCancelledReducer';
+import WorkoutWarmUpTimeReducer from './WorkoutWarmUpTimeReducer';
 import SingleWorkoutReducer from './SingleWorkoutReducer';
 import ExerciseFormReducer from './ExerciseFormReducer';
 import ExerciseReducer from './ExerciseReducer';
@@ -30,6 +32,8 @@ export default combineReducers({
   workoutForm: WorkoutFormReducer,
   workouts: WorkoutReducer,
   attempts: WorkoutAttemptsReducer,
+  workoutIsNotCancelled: WorkoutIsNotCancelledReducer,
+  workoutWarmUpTime: WorkoutWarmUpTimeReducer,
   singleWorkout: SingleWorkoutReducer,
   exerciseForm: ExerciseFormReducer,
   exercises: ExerciseReducer,

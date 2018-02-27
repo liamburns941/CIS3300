@@ -8,13 +8,16 @@ import {
   exercisesFetch,
   setUpdate,
   exerciseNumberUpdate,
-  noOfExercisesUpdate
+  noOfExercisesUpdate,
+  workoutIsNotCancelledUpdate
 } from '../actions';
 import DuringWorkoutExerciseListItem from './DuringWorkoutExerciseListItem';
 import { Card, CardSection, Button } from './common';
 
 class WorkoutExerciseTimer extends Component {
   componentWillMount() {
+    console.log('this.props componentWillMount workoutExerciseTimer');
+    console.log(this.props);
     const { exercises } = this.props;
 
     const newNoOfExercises = exercises.length;
@@ -31,11 +34,16 @@ class WorkoutExerciseTimer extends Component {
   }
 
   onCancelButtonPress() {
+    console.log('const { sets } = this.props.singleWorkout;');
     const { sets } = this.props.singleWorkout;
-
+      console.log('this.props.workoutIsNotCancelledUpdate(false);');
+    this.props.workoutIsNotCancelledUpdate(false);
+      console.log('this.props.setUpdate(sets);');
     this.props.setUpdate(sets);
+      console.log('this.props.exerciseNumberUpdate(0);');
     this.props.exerciseNumberUpdate(0);
-    Actions.workoutDetail();
+      console.log('Actions.workoutList();');
+    Actions.workoutList();
   }
 
   onPauseButtonPress() {
@@ -61,7 +69,7 @@ class WorkoutExerciseTimer extends Component {
   render() {
     const { workoutName, exerciseTime } = this.props.singleWorkout;
 
-    const { sets } = this.props;
+    const { sets, workoutIsNotCancelled } = this.props;
 
     const newSets = parseInt(sets, 10);
 
@@ -80,6 +88,14 @@ class WorkoutExerciseTimer extends Component {
         </Card>
 
         <Card>
+          <CardSection>
+            <Button onPress={this.onCancelButtonPress.bind(this)}>
+              Cancel Workout
+            </Button>
+          </CardSection>
+        </Card>
+
+        <Card>
           <CardSection style={{ alignItems: 'center', justifyContent: 'center' }}>
             <CountdownCircle
               seconds={newExerciseTime}
@@ -88,7 +104,12 @@ class WorkoutExerciseTimer extends Component {
               color="#00ff00"
               bgColor="#fff"
               textStyle={{ fontSize: 50 }}
-              onTimeElapsed={() => Actions.workoutRestTimer()}
+              onTimeElapsed={() => {
+                if (workoutIsNotCancelled) {
+                  Actions.workoutRestTimer();
+                }
+              }
+              }
             />
           </CardSection>
           <CardSection>
@@ -165,7 +186,8 @@ const mapStateToProps = state => {
     singleClient: state.singleClient,
     sets: state.sets,
     exerciseNumber: state.exerciseNumber,
-    noOfExercises: state.noOfExercises
+    noOfExercises: state.noOfExercises,
+    workoutIsNotCancelled: state.workoutIsNotCancelled
   };
 };
 
@@ -173,5 +195,6 @@ export default connect(mapStateToProps, {
   exercisesFetch,
   setUpdate,
   exerciseNumberUpdate,
-  noOfExercisesUpdate
+  noOfExercisesUpdate,
+  workoutIsNotCancelledUpdate
 })(WorkoutExerciseTimer);
