@@ -121,14 +121,6 @@ class WorkoutWarmUp extends Component {
             </Text>
           </CardSection>
         </Card>
-
-        <Card>
-          <CardSection>
-            <Button onPress={this.onPauseButtonPress.bind(this)}>
-              Pause Workout
-            </Button>
-          </CardSection>
-        </Card>
       </Card>
     );
   }
