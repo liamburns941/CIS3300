@@ -38,15 +38,12 @@ class ClientList extends Component {
     const { clients } = this.props;
 
     let noClients = null;
-    if (clients.length > 0) {
-      console.log('clients is not empty');
-    } else {
-      console.log('clients is empty');
+    if (clients.length === 0) {
       noClients =
       (<Text style={titleStyle}>
         No Clients
       </Text>);
-    }
+    } 
 
     return (
       <Card>
