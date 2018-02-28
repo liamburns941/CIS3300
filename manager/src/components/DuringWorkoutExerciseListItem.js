@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
-import { connect } from 'react-redux';
 import { CardSection } from './common';
 
 class DuringWorkoutExerciseListItem extends Component {
-
   render() {
     const { exerciseName, benchmark, rating } = this.props.exercise;
 
@@ -47,15 +45,4 @@ const styles = {
   }
 };
 
-const mapStateToProps = state => {
-  return {
-    singleWorkout: state.singleWorkout,
-    singleExercise: state.singleExercise,
-    singleClient: state.singleClient,
-    role: state.role,
-    sets: state.sets,
-    benchmark: state.benchmark
-  };
-};
-
-export default connect(mapStateToProps, {})(DuringWorkoutExerciseListItem);
+export default DuringWorkoutExerciseListItem;

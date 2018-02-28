@@ -6,7 +6,6 @@ import { Actions } from 'react-native-router-flux';
 import { CardSection, Confirm } from './common';
 import {
   exerciseCreate,
-  exerciseFetch,
   exercisesFetch,
   benchmarkUpdate
 } from '../actions';
@@ -72,24 +71,15 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-  const exercises = _.map(state.exercises, (val, workoutUid, clientUid) => {
-    return { ...val, workoutUid, clientUid };
-  });
-
   return {
-    exercises,
     singleWorkout: state.singleWorkout,
-    singleExercise: state.singleExercise,
     singleClient: state.singleClient,
-    role: state.role,
-    sets: state.sets,
     benchmark: state.benchmark
   };
 };
 
 export default connect(mapStateToProps, {
   exerciseCreate,
-  exerciseFetch,
   exercisesFetch,
   benchmarkUpdate
 })(GlobalExerciseListItem);

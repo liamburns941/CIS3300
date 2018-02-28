@@ -5,7 +5,6 @@ import { ListView, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import CountdownCircle from 'react-native-countdown-circle';
 import {
-  exercisesFetch,
   setUpdate,
   exerciseNumberUpdate,
   noOfExercisesUpdate,
@@ -17,7 +16,6 @@ import { Card, CardSection, Button } from './common';
 class WorkoutExerciseTimer extends Component {
   componentWillMount() {
     const { exercises } = this.props;
-
     const newNoOfExercises = exercises.length;
 
     this.props.noOfExercisesUpdate(newNoOfExercises);
@@ -39,10 +37,6 @@ class WorkoutExerciseTimer extends Component {
     Actions.clientWorkoutList();
   }
 
-  onPauseButtonPress() {
-
-  }
-
   createDataSource({ exercises }) {
     const { exerciseNumber } = this.props;
 
@@ -60,15 +54,11 @@ class WorkoutExerciseTimer extends Component {
   }
 
   render() {
-    const { workoutName, exerciseTime } = this.props.singleWorkout;
-
-    const { sets, workoutIsNotCancelled } = this.props;
-
-    const newSets = parseInt(sets, 10);
-
-    const newExerciseTime = parseInt(exerciseTime, 10);
-
     const { nameStyle, workoutTitleStyle } = styles;
+    const { workoutName, exerciseTime } = this.props.singleWorkout;
+    const { sets, workoutIsNotCancelled } = this.props;
+    const newSets = parseInt(sets, 10);
+    const newExerciseTime = parseInt(exerciseTime, 10);
 
     return (
       <Card>
@@ -142,22 +132,6 @@ const styles = {
     textAlign: 'center',
     flex: 1
   },
-  statusTitleStyle: {
-    fontSize: 24,
-    paddingTop: 20,
-    paddingBottom: 20,
-    textAlign: 'center',
-    flex: 1,
-    color: '#FFBF00'
-  },
-  exerciseTitleStyle: {
-    fontSize: 24,
-    paddingTop: 20,
-    paddingBottom: 20,
-    textAlign: 'center',
-    fontWeight: 'bold',
-    flex: 1
-  }
 };
 
 const mapStateToProps = state => {
@@ -168,7 +142,6 @@ const mapStateToProps = state => {
   return {
     exercises,
     singleWorkout: state.singleWorkout,
-    singleClient: state.singleClient,
     sets: state.sets,
     exerciseNumber: state.exerciseNumber,
     noOfExercises: state.noOfExercises,
@@ -177,7 +150,6 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, {
-  exercisesFetch,
   setUpdate,
   exerciseNumberUpdate,
   noOfExercisesUpdate,

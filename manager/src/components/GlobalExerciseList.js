@@ -4,11 +4,9 @@ import { connect } from 'react-redux';
 import { ListView, Text } from 'react-native';
 import { globalExercisesFetch } from '../actions';
 import GlobalExerciseListItem from './GlobalExerciseListItem';
-import { Confirm, Card } from './common';
+import { Card } from './common';
 
 class GlobalExerciseList extends Component {
-  state = { showModal: false };
-
   componentWillMount() {
     this.props.globalExercisesFetch();
     this.createDataSource(this.props);

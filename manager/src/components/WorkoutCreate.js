@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Text } from 'react-native';
-import { workoutUpdate, workoutCreate } from '../actions';
+import { workoutCreate } from '../actions';
 import { Card, CardSection, Button } from './common';
 import WorkoutForm from './WorkoutForm';
 
@@ -46,5 +46,5 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  workoutUpdate, workoutCreate
+  workoutCreate
 })(WorkoutCreate);

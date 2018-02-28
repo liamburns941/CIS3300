@@ -39,10 +39,6 @@ class WorkoutRestTimer extends Component {
     Actions.clientWorkoutList();
   }
 
-  onPauseButtonPress() {
-
-  }
-
   createDataSource({ exercises }) {
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
@@ -55,17 +51,12 @@ class WorkoutRestTimer extends Component {
   }
 
   render() {
-    const { sets, noOfExercises, exerciseNumber, workoutIsNotCancelled } = this.props;
-
-    const exerciseNumberPlusOne = exerciseNumber + 1;
-
-    const { workoutName, restTime } = this.props.singleWorkout;
-
-    const newSets = parseInt(sets, 10);
-
-    const newrestTime = parseInt(restTime, 10);
-
     const { nameStyle, workoutTitleStyle } = styles;
+    const { sets, noOfExercises, exerciseNumber, workoutIsNotCancelled } = this.props;
+    const exerciseNumberPlusOne = exerciseNumber + 1;
+    const { workoutName, restTime } = this.props.singleWorkout;
+    const newSets = parseInt(sets, 10);
+    const newrestTime = parseInt(restTime, 10);
 
     return (
       <Card>
@@ -148,22 +139,6 @@ const styles = {
     paddingTop: 20,
     paddingBottom: 20,
     textAlign: 'center',
-    flex: 1
-  },
-  statusTitleStyle: {
-    fontSize: 24,
-    paddingTop: 20,
-    paddingBottom: 20,
-    textAlign: 'center',
-    flex: 1,
-    color: '#FFBF00'
-  },
-  exerciseTitleStyle: {
-    fontSize: 24,
-    paddingTop: 20,
-    paddingBottom: 20,
-    textAlign: 'center',
-    fontWeight: 'bold',
     flex: 1
   }
 };
