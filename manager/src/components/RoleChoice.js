@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import { emailChanged, passwordChanged, loginUser, clientsLookup, roleUpdate } from '../actions';
-import { CardSection, Button, Spinner, Card } from './common';
+import { clientsLookup, roleUpdate } from '../actions';
+import { CardSection, Button, Card } from './common';
 
 class RoleChoice extends Component {
   componentWillMount() {
@@ -19,38 +19,18 @@ class RoleChoice extends Component {
     Actions.clientLogin();
   }
 
-  renderPTButton() {
-    if (this.props.loading) {
-      return <Spinner size="large" />;
-    }
-
-    return (
-      <Button onPress={this.onPTButtonPress.bind(this)}>
-        Personal Trainer
-      </Button>
-    );
-  }
-
-  renderClientButton() {
-    if (this.props.loading) {
-      return <Spinner size="large" />;
-    }
-
-    return (
-      <Button onPress={this.onClientButtonPress.bind(this)}>
-        Client
-      </Button>
-    );
-  }
-
   render() {
     return (
     <Card>
       <CardSection style={styles.cardSectionStyle}>
-          {this.renderPTButton()}
+        <Button onPress={this.onPTButtonPress.bind(this)}>
+          Personal Trainer
+        </Button>
       </CardSection>
       <CardSection style={styles.cardSectionStyle}>
-          {this.renderClientButton()}
+        <Button onPress={this.onClientButtonPress.bind(this)}>
+          Client
+        </Button>
       </CardSection>
     </Card>
     );
@@ -64,5 +44,5 @@ const styles = {
 };
 
 export default connect(null, {
-  emailChanged, passwordChanged, loginUser, clientsLookup, roleUpdate
+  clientsLookup, roleUpdate
 })(RoleChoice);

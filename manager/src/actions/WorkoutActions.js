@@ -79,7 +79,6 @@ export const workoutDetailFetch = ({ clientUid, workoutUid }) => {
 
 export const workoutSaveForReview = ({ clientUid, workoutUid, attempts }) => {
   return (dispatch) => {
-
     const ref = firebase.database().ref().child(`/users/pKlr8qiNUCbStPlzSX4EEpNczNv2/clients/${clientUid}/workouts/${workoutUid}`);
 
     ref.update({ attempts })
@@ -92,7 +91,6 @@ export const workoutSaveForReview = ({ clientUid, workoutUid, attempts }) => {
 
 export const workoutSave = ({ clientUid, workoutUid }) => {
   return (dispatch) => {
-
     const status = 'Outstanding';
 
     const ref = firebase.database().ref().child(`/users/pKlr8qiNUCbStPlzSX4EEpNczNv2/clients/${clientUid}/workouts/${workoutUid}`);

@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { CardSection, Confirm } from './common';
 import {
-  exerciseUpdate,
   exerciseCreate,
   exerciseFetch,
   exercisesFetch,
@@ -89,7 +88,6 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, {
-  exerciseUpdate,
   exerciseCreate,
   exerciseFetch,
   exercisesFetch,

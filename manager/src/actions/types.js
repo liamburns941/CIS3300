@@ -3,17 +3,13 @@ export const PASSWORD_CHANGED = 'password_changed';
 export const LOGIN_USER_SUCCESS = 'login_user_success';
 export const LOGIN_USER_FAIL = 'login_user_fail';
 export const LOGIN_USER = 'login_user';
-
 export const ROLE_UPDATE = 'role_update';
 
 export const CLIENT_UPDATE = 'client_update';
 export const CLIENT_CREATE = 'client_create';
 export const CLIENTS_FETCH_SUCCESS = 'clients_fetch_success';
 export const CLIENT_FETCH_SUCCESS = 'client_fetch_success';
-export const CLIENT_SAVE_SUCCESS = 'client_save_success';
-
 export const CLIENT_EMAIL_CHANGED = 'client_email_changed';
-
 export const CLIENTS_LOOKUP = 'clients_lookup';
 
 export const WORKOUT_UPDATE = 'workout_update';
@@ -28,7 +24,6 @@ export const ATTEMPTS_UPDATE = 'attempts_update';
 export const WORKOUT_IS_NOT_CANCELLED = 'workout_is_not_cancelled';
 export const WORKOUT_WARM_UP_TIME_UPDATED = 'workout_warm_up_time_updated';
 
-export const EXERCISE_UPDATE = 'exercise_update';
 export const EXERCISE_CREATE = 'exercise_create';
 export const EXERCISES_RESET = 'exercises_reset';
 export const EXERCISES_FETCH_SUCCESS = 'exercises_fetch_success';
@@ -38,7 +33,5 @@ export const SET_UPDATE = 'set_update';
 export const BENCHMARK_UPDATE = 'benchmark_update';
 export const EXERCISE_NUMBER_UPDATE = 'exercise_number_update';
 export const NO_OF_EXERCISES_UPDATE = 'no_of_exercises_update';
-
 export const GLOBAL_EXERCISES_FETCH_SUCCESS = 'global_exercises_fetch_success';
-
 export const RATING_CHANGED = 'rating_changed';

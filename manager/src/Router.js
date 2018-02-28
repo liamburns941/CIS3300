@@ -1,21 +1,19 @@
 import React from 'react';
 import { Scene, Router, Actions } from 'react-native-router-flux';
-import RoleChoice from './components/RoleChoice';
-import PTLoginForm from './components/PTLoginForm';
-import ClientLoginForm from './components/ClientLoginForm';
-import ClientList from './components/ClientList';
 import ClientCreate from './components/ClientCreate';
-import ClientEdit from './components/ClientEdit';
-import WorkoutList from './components/WorkoutList';
+import ClientList from './components/ClientList';
+import ClientLoginForm from './components/ClientLoginForm';
+import GlobalExerciseList from './components/GlobalExerciseList';
+import PTLoginForm from './components/PTLoginForm';
+import RoleChoice from './components/RoleChoice';
+import WorkoutCoolDown from './components/WorkoutCoolDown';
 import WorkoutCreate from './components/WorkoutCreate';
 import WorkoutDetail from './components/WorkoutDetail';
-import WorkoutReview from './components/WorkoutReview';
-import ExerciseCreate from './components/ExerciseCreate';
-import GlobalExerciseList from './components/GlobalExerciseList';
-import WorkoutWarmUp from './components/WorkoutWarmUp';
 import WorkoutExerciseTimer from './components/WorkoutExerciseTimer';
+import WorkoutList from './components/WorkoutList';
 import WorkoutRestTimer from './components/WorkoutRestTimer';
-import WorkoutCoolDown from './components/WorkoutCoolDown';
+import WorkoutReview from './components/WorkoutReview';
+import WorkoutWarmUp from './components/WorkoutWarmUp';
 
 const RouterComponent = () => {
   return (
@@ -99,11 +97,7 @@ const RouterComponent = () => {
           <Scene
             key="clientWorkoutList"
             component={WorkoutList}
-            title="Profile"
-            backTitle=" "
-            renderBackButton={() => (null)}
-            left={() => null}
-            hideNavBar={true}
+            hideNavBar
           />
           <Scene
             key="clientWorkoutDetail"
@@ -115,47 +109,27 @@ const RouterComponent = () => {
           <Scene
             key="workoutWarmUp"
             component={WorkoutWarmUp}
-            title="Warm Up"
-            backTitle=" "
-            renderBackButton={() => (null)}
-            left={() => null}
-            hideNavBar={true}
+            hideNavBar
           />
           <Scene
             key="workoutExerciseTimer"
             component={WorkoutExerciseTimer}
-            title="Exercise"
-            backTitle=" "
-            renderBackButton={() => (null)}
-            left={() => null}
-            hideNavBar={true}
+            hideNavBar
           />
           <Scene
             key="workoutRestTimer"
             component={WorkoutRestTimer}
-            title="Rest"
-            backTitle=" "
-            renderBackButton={() => (null)}
-            left={() => null}
-            hideNavBar={true}
+            hideNavBar
           />
           <Scene
             key="workoutCoolDown"
             component={WorkoutCoolDown}
-            title="Cool Down"
-            backTitle=" "
-            renderBackButton={() => (null)}
-            left={() => null}
-            hideNavBar={true}
+            hideNavBar
           />
           <Scene
             key="workoutReview"
             component={WorkoutReview}
-            title="Review"
-            backTitle=" "
-            renderBackButton={() => (null)}
-            left={() => null}
-            hideNavBar={true}
+            hideNavBar
           />
         </Scene>
       </Scene>

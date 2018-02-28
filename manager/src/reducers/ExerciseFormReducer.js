@@ -1,5 +1,4 @@
 import {
-  EXERCISE_UPDATE,
   EXERCISE_CREATE,
   EXERCISE_SAVE_SUCCESS,
   RATING_CHANGED
@@ -14,8 +13,6 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case EXERCISE_UPDATE:
-      return { ...state, [action.payload.prop]: action.payload.value };
     case EXERCISE_CREATE:
       return INITIAL_STATE;
     case EXERCISE_SAVE_SUCCESS:
