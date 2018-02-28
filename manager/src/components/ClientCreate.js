@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { clientUpdate, clientCreate } from '../actions';
+import { clientCreate } from '../actions';
 import { Card, CardSection, Button } from './common';
 import ClientForm from './ClientForm';
 
 class ClientCreate extends Component {
   onButtonPress() {
     const { firstName, lastName, email } = this.props;
-    
+
     this.props.clientCreate({ firstName, lastName, email });
   }
 
@@ -32,5 +32,5 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  clientUpdate, clientCreate
+  clientCreate
 })(ClientCreate);

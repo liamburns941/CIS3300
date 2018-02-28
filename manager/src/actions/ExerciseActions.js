@@ -1,8 +1,6 @@
 import firebase from 'firebase';
 import moment from 'moment';
-import { Actions } from 'react-native-router-flux';
 import {
-  EXERCISE_UPDATE,
   EXERCISE_CREATE,
   EXERCISES_RESET,
   EXERCISES_FETCH_SUCCESS,
@@ -14,13 +12,6 @@ import {
   NO_OF_EXERCISES_UPDATE
 } from './types';
 
-export const exerciseUpdate = ({ prop, value }) => {
-  return {
-    type: EXERCISE_UPDATE,
-    payload: { prop, value }
-  };
-};
-
 export const exerciseCreate = ({ exerciseName, benchmark, clientUid, workoutUid }) => {
   const { currentUser } = firebase.auth();
 
@@ -29,7 +20,12 @@ export const exerciseCreate = ({ exerciseName, benchmark, clientUid, workoutUid 
 
     const dateAddedToWorkout = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
 
-    const exercise = ref.push({ exerciseName, benchmark, rating: '', dateAddedToWorkout });
+    const exercise = ref.push({
+      exerciseName,
+      benchmark,
+      rating: '',
+      dateAddedToWorkout
+    });
 
     exercise.then(() => {
         dispatch({ type: EXERCISE_CREATE });
@@ -64,18 +60,6 @@ export const exerciseSave = ({ clientUid, workoutUid, exerciseUid, rating }) => 
        .then(() => {
         dispatch({ type: EXERCISE_SAVE_SUCCESS });
        });
-  };
-};
-
-export const exerciseDelete = ({ clientUid, workoutUid, exerciseUid }) => {
-  const { currentUser } = firebase.auth();
-
-  return () => {
-    firebase.database().ref(`/users/${currentUser.uid}/clients/${clientUid}/workouts/${workoutUid}/exercises/${exerciseUid}`)
-      .remove()
-      .then(() => {
-        Actions.pop({ type: 'reset' });
-      });
   };
 };
 
