@@ -7,7 +7,6 @@ import CountdownCircle from 'react-native-countdown-circle';
 import {
   exercisesFetch,
   setUpdate,
-  attemptsUpdate,
   exerciseNumberUpdate,
   workoutIsNotCancelledUpdate
 } from '../actions';
@@ -41,10 +40,6 @@ class WorkoutWarmUp extends Component {
     Actions.clientWorkoutList();
   }
 
-  onPauseButtonPress() {
-
-  }
-
   createDataSource({ exercises }) {
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
@@ -57,13 +52,10 @@ class WorkoutWarmUp extends Component {
   }
 
   render() {
-    const { workoutName } = this.props.singleWorkout;
-
-    const { sets, workoutIsNotCancelled, workoutWarmUpTime } = this.props;
-
-    const newSets = parseInt(sets, 10);
-
     const { nameStyle, workoutTitleStyle } = styles;
+    const { workoutName } = this.props.singleWorkout;
+    const { sets, workoutIsNotCancelled, workoutWarmUpTime } = this.props;
+    const newSets = parseInt(sets, 10);
 
     return (
       <Card>
@@ -93,10 +85,10 @@ class WorkoutWarmUp extends Component {
               bgColor="#fff"
               textStyle={{ fontSize: 50 }}
               onTimeElapsed={() => {
-                if (workoutIsNotCancelled) {
-                  Actions.workoutExerciseTimer();
+                  if (workoutIsNotCancelled) {
+                    Actions.workoutExerciseTimer();
+                  }
                 }
-              }
               }
             />
           </CardSection>
@@ -134,22 +126,6 @@ const styles = {
     paddingBottom: 20,
     textAlign: 'center',
     flex: 1
-  },
-  statusTitleStyle: {
-    fontSize: 24,
-    paddingTop: 20,
-    paddingBottom: 20,
-    textAlign: 'center',
-    flex: 1,
-    color: '#FFBF00'
-  },
-  exerciseTitleStyle: {
-    fontSize: 24,
-    paddingTop: 20,
-    paddingBottom: 20,
-    textAlign: 'center',
-    fontWeight: 'bold',
-    flex: 1
   }
 };
 
@@ -164,7 +140,6 @@ const mapStateToProps = state => {
     singleClient: state.singleClient,
     sets: state.sets,
     exerciseNumber: state.exerciseNumber,
-    attempts: state.attempts,
     workoutIsNotCancelled: state.workoutIsNotCancelled,
     workoutWarmUpTime: state.workoutWarmUpTime
   };
@@ -173,7 +148,6 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps, {
   exercisesFetch,
   setUpdate,
-  attemptsUpdate,
   exerciseNumberUpdate,
   workoutIsNotCancelledUpdate
 })(WorkoutWarmUp);

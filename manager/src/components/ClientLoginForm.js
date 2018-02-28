@@ -50,22 +50,21 @@ class ClientLoginForm extends Component {
 
   render() {
     return (
-
     <ScrollView>
-    <KeyboardAvoidingView
-      keyboardVerticalOffset={-200}
-      behavior="padding"
-    >
-      <CardSection>
-        <Image
-          source={require('./images/CIS3300_Login_Icon.png')}
-             style={{
-               height: 300,
-               flex: 1,
-               width: null
-             }}
-        />
-      </CardSection>
+      <KeyboardAvoidingView
+        keyboardVerticalOffset={-200}
+        behavior="padding"
+      >
+        <CardSection>
+          <Image
+            source={require('./images/CIS3300_Login_Icon.png')}
+               style={{
+                 height: 300,
+                 flex: 1,
+                 width: null
+               }}
+          />
+        </CardSection>
         <CardSection>
           <Input
             label="Email"
@@ -82,7 +81,7 @@ class ClientLoginForm extends Component {
         <CardSection>
           {this.renderButton()}
         </CardSection>
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
     </ScrollView>
     );
   }

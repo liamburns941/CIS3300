@@ -7,11 +7,7 @@ import {
   exercisesFetch,
   setUpdate,
   ratingChanged,
-  exerciseSave,
-  exerciseFetch,
-  workoutComplete,
-  workoutFetch,
-  attemptsUpdate
+  workoutComplete
 } from '../actions';
 import WorkoutReviewExerciseListItem from './WorkoutReviewExerciseListItem';
 import { Card, CardSection, Button, Spinner } from './common';
@@ -47,9 +43,7 @@ class WorkoutReview extends Component {
 
   onRedoButtonPress() {
     const { sets } = this.props.singleWorkout;
-
     this.props.setUpdate(sets);
-
     Actions.workoutWarmUp();
   }
 
@@ -77,23 +71,18 @@ class WorkoutReview extends Component {
   }
 
   render() {
-    const { workoutName, exerciseTime, restTime, sets } = this.props.singleWorkout;
-
-    const { attempts } = this.props;
-
     const { nameStyle, workoutTitleStyle, exerciseTitleStyle } = styles;
-
+    const { workoutName, exerciseTime, restTime, sets } = this.props.singleWorkout;
+    const { attempts } = this.props;
+    const setsInt = parseInt(sets, 10);
     let attemptsWording = null;
+    let setsWording = null;
 
     if (attempts === 1) {
       attemptsWording = 'attempt';
     } else {
       attemptsWording = 'attempts';
     }
-
-    const setsInt = parseInt(sets, 10);
-
-    let setsWording = null;
 
     if (setsInt === 1) {
       setsWording = 'set';
@@ -103,64 +92,64 @@ class WorkoutReview extends Component {
 
     return (
       <ScrollView>
-      <KeyboardAvoidingView
-        keyboardVerticalOffset={-200}
-        behavior="padding"
-      >
-      <Card>
-        <Card>
-          <CardSection>
-            <Text style={nameStyle}>
-              {workoutName}
-            </Text>
-          </CardSection>
+        <KeyboardAvoidingView
+          keyboardVerticalOffset={-200}
+          behavior="padding"
+        >
+          <Card>
+          <Card>
+            <CardSection>
+              <Text style={nameStyle}>
+                {workoutName}
+              </Text>
+            </CardSection>
 
-          <CardSection>
-            <Text style={workoutTitleStyle}>
-              {exerciseTime} seconds work
-            </Text>
-            <Text style={workoutTitleStyle}>
-              {sets} {setsWording}
-            </Text>
-          </CardSection>
+            <CardSection>
+              <Text style={workoutTitleStyle}>
+                {exerciseTime} seconds work
+              </Text>
+              <Text style={workoutTitleStyle}>
+                {sets} {setsWording}
+              </Text>
+            </CardSection>
 
-          <CardSection>
-            <Text style={workoutTitleStyle}>
-              {restTime} seconds rest
-            </Text>
-            <Text style={workoutTitleStyle}>
-              {attempts} {attemptsWording}
-            </Text>
-          </CardSection>
+            <CardSection>
+              <Text style={workoutTitleStyle}>
+                {restTime} seconds rest
+              </Text>
+              <Text style={workoutTitleStyle}>
+                {attempts} {attemptsWording}
+              </Text>
+            </CardSection>
+          </Card>
+
+          <Card>
+            <CardSection>
+              <Text style={exerciseTitleStyle}>
+              Exercises
+              </Text>
+            </CardSection>
+
+            <CardSection>
+              <ListView
+                enableEmptySections
+                dataSource={this.dataSource}
+                renderRow={this.renderRow}
+              />
+            </CardSection>
+
+            <CardSection>
+              {this.renderCompleteButton()}
+            </CardSection>
+
+            <CardSection>
+              <Button onPress={this.onRedoButtonPress.bind(this)}>
+                Redo Workout
+              </Button>
+            </CardSection>
+          </Card>
         </Card>
-
-        <Card>
-          <CardSection>
-            <Text style={exerciseTitleStyle}>
-            Exercises
-            </Text>
-          </CardSection>
-
-          <CardSection>
-            <ListView
-              enableEmptySections
-              dataSource={this.dataSource}
-              renderRow={this.renderRow}
-            />
-          </CardSection>
-
-          <CardSection>
-            {this.renderCompleteButton()}
-          </CardSection>
-
-          <CardSection>
-            <Button onPress={this.onRedoButtonPress.bind(this)}>
-              Redo Workout
-            </Button>
-          </CardSection>
-        </Card>
-      </Card>
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
     </ScrollView>
     );
   }
@@ -182,25 +171,12 @@ const styles = {
     textAlign: 'center',
     flex: 1
   },
-  statusTitleStyle: {
-    fontSize: 24,
-    paddingTop: 20,
-    paddingBottom: 20,
-    textAlign: 'center',
-    flex: 1,
-    color: '#FFBF00'
-  },
   exerciseTitleStyle: {
     fontSize: 24,
     paddingTop: 20,
     paddingBottom: 20,
     textAlign: 'center',
     fontWeight: 'bold',
-    flex: 1
-  },
-  ratingStyle: {
-    borderTopWidth: 20,
-    borderBottomWidth: 20,
     flex: 1
   }
 };
@@ -214,8 +190,6 @@ const mapStateToProps = state => {
     exercises,
     singleWorkout: state.singleWorkout,
     singleClient: state.singleClient,
-    singleExercise: state.singleExercise,
-    role: state.role,
     sets: state.sets,
     rating: state.rating,
     attempts: state.attempts
@@ -226,9 +200,5 @@ export default connect(mapStateToProps, {
   exercisesFetch,
   setUpdate,
   ratingChanged,
-  exerciseSave,
-  exerciseFetch,
-  workoutComplete,
-  workoutFetch,
-  attemptsUpdate
+  workoutComplete
 })(WorkoutReview);

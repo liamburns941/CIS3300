@@ -5,7 +5,7 @@ import { ListView, Text } from 'react-native';
 import CountdownCircle from 'react-native-countdown-circle';
 import { exercisesFetch, workoutSaveForReview, attemptsUpdate } from '../actions';
 import ExerciseListItem from './ExerciseListItem';
-import { Card, CardSection, Button } from './common';
+import { Card, CardSection } from './common';
 
 class WorkoutCoolDown extends Component {
   componentWillMount() {
@@ -28,10 +28,6 @@ class WorkoutCoolDown extends Component {
     this.createDataSource(nextProps);
   }
 
-  onButtonPress() {
-
-  }
-
   createDataSource({ exercises }) {
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
@@ -44,13 +40,10 @@ class WorkoutCoolDown extends Component {
   }
 
   render() {
-    const { workoutName, workoutUid } = this.props.singleWorkout;
-
-    const { clientUid } = this.props.singleClient;
-
-    const { sets, attempts } = this.props;
-
     const { nameStyle, workoutTitleStyle } = styles;
+    const { workoutName, workoutUid } = this.props.singleWorkout;
+    const { clientUid } = this.props.singleClient;
+    const { sets, attempts } = this.props;
 
     return (
       <Card>
@@ -111,22 +104,6 @@ const styles = {
     paddingTop: 20,
     paddingBottom: 20,
     textAlign: 'center',
-    flex: 1
-  },
-  statusTitleStyle: {
-    fontSize: 24,
-    paddingTop: 20,
-    paddingBottom: 20,
-    textAlign: 'center',
-    flex: 1,
-    color: '#FFBF00'
-  },
-  exerciseTitleStyle: {
-    fontSize: 24,
-    paddingTop: 20,
-    paddingBottom: 20,
-    textAlign: 'center',
-    fontWeight: 'bold',
     flex: 1
   }
 };

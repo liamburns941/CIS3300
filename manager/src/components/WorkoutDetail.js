@@ -8,7 +8,6 @@ import {
   setUpdate,
   workoutFetch,
   workoutSave,
-  exercisesReset,
   workoutIsNotCancelledUpdate
 } from '../actions';
 import ExerciseListItem from './ExerciseListItem';
@@ -45,7 +44,6 @@ class WorkoutDetail extends Component {
 
     this.props.workoutIsNotCancelledUpdate(true);
     this.props.setUpdate(sets);
-
     Actions.workoutWarmUp();
   }
 
@@ -53,7 +51,6 @@ class WorkoutDetail extends Component {
     const { clientUid } = this.props.singleClient;
     const { workoutUid } = this.props.singleWorkout;
     this.props.workoutSave({ clientUid, workoutUid });
-    //this.props.exercisesReset({});
   }
 
   onAddExerciseButtonPress() {
@@ -73,6 +70,15 @@ class WorkoutDetail extends Component {
 
   render() {
     const {
+      nameStyle,
+      workoutTitleStyle,
+      statusOutstandingTitleStyle,
+      statusCompletedTitleStyle,
+      exerciseTitleStyle,
+      exerciseSubTitleStyle
+    } = styles;
+
+    const {
       workoutName,
       exerciseTime,
       restTime,
@@ -83,17 +89,18 @@ class WorkoutDetail extends Component {
     } = this.props.singleWorkout;
 
     const { exercises, role } = this.props;
+    const setsInt = parseInt(sets, 10);
 
-    const {
-      nameStyle,
-      workoutTitleStyle,
-      statusOutstandingTitleStyle,
-      statusCompletedTitleStyle,
-      exerciseTitleStyle,
-      exerciseSubTitleStyle
-    } = styles;
-
+    let statusToShow = status;
+    let stylingToUse = statusOutstandingTitleStyle;
+    let setsWording = null;
     let startWorkoutbutton = null;
+    let saveWorkoutbutton = null;
+    let addExerciseButton = null;
+    let attemptsWording = null;
+    let completedRow = null;
+    let ratingHeader = null;
+    let noExercises = null;
 
     if (role === 'CLIENT' && status === 'Outstanding') {
        startWorkoutbutton =
@@ -106,8 +113,6 @@ class WorkoutDetail extends Component {
        </Card>);
     }
 
-    let saveWorkoutbutton = null;
-
     if (role === 'PT' && status === 'ExercisesToBeAdded' && exercises.length > 0) {
        saveWorkoutbutton =
        (<Card>
@@ -117,10 +122,18 @@ class WorkoutDetail extends Component {
            </Button>
          </CardSection>
        </Card>);
-    }
 
-    let addExerciseButton = null;
-    let statusToShow = status;
+       noExercises =
+       (<CardSection>
+         <Text style={exerciseSubTitleStyle}>
+         Name
+         </Text>
+         <Text style={exerciseSubTitleStyle}>
+         Benchmark
+         </Text>
+         {ratingHeader}
+       </CardSection>);
+    }
 
     if (status === 'ExercisesToBeAdded') {
       addExerciseButton =
@@ -132,26 +145,17 @@ class WorkoutDetail extends Component {
       statusToShow = 'Outstanding';
     }
 
-    let attemptsWording = null;
-
     if (attempts === 1) {
       attemptsWording = 'attempt';
     } else {
       attemptsWording = 'attempts';
     }
 
-    const setsInt = parseInt(sets, 10);
-    let setsWording = null;
-
     if (setsInt === 1) {
       setsWording = 'set';
     } else {
       setsWording = 'sets';
     }
-
-    let completedRow = null;
-    let ratingHeader = null;
-    let stylingToUse = statusOutstandingTitleStyle;
 
     if (status === 'Completed') {
       completedRow =
@@ -173,82 +177,67 @@ class WorkoutDetail extends Component {
         );
       stylingToUse = statusCompletedTitleStyle;
     }
-    
-    let noExercises = null;
-    if (exercises.length > 0) {
-      noExercises =
-      (<CardSection>
-        <Text style={exerciseSubTitleStyle}>
-        Name
-        </Text>
-        <Text style={exerciseSubTitleStyle}>
-        Benchmark
-        </Text>
-        {ratingHeader}
-      </CardSection>);
-    }
 
     return (
       <ScrollView>
-      <KeyboardAvoidingView
-        keyboardVerticalOffset={-200}
-        behavior="padding"
-      >
-      <Card>
-        <Card>
-          <CardSection>
-            <Text style={nameStyle}>
-              {workoutName}
-            </Text>
-          </CardSection>
+        <KeyboardAvoidingView
+          keyboardVerticalOffset={-200}
+          behavior="padding"
+        >
+          <Card>
+          <Card>
+            <CardSection>
+              <Text style={nameStyle}>
+                {workoutName}
+              </Text>
+            </CardSection>
 
-          <CardSection>
-          <Text style={workoutTitleStyle}>
-            {exerciseTime} seconds work
-          </Text>
-          <Text style={stylingToUse}>
-            {statusToShow}
-          </Text>
-          </CardSection>
+            <CardSection>
+              <Text style={workoutTitleStyle}>
+                {exerciseTime} seconds work
+              </Text>
+              <Text style={stylingToUse}>
+                {statusToShow}
+              </Text>
+            </CardSection>
 
-          <CardSection>
-          <Text style={workoutTitleStyle}>
-            {restTime} seconds rest
-          </Text>
-          <Text style={workoutTitleStyle}>
-            {sets} {setsWording}
-          </Text>
-          </CardSection>
+            <CardSection>
+              <Text style={workoutTitleStyle}>
+                {restTime} seconds rest
+              </Text>
+              <Text style={workoutTitleStyle}>
+                {sets} {setsWording}
+              </Text>
+            </CardSection>
 
-          {completedRow}
+            {completedRow}
+          </Card>
+
+          <Card>
+            <CardSection>
+              <Text style={exerciseTitleStyle}>
+              Exercises
+              </Text>
+            </CardSection>
+
+            {addExerciseButton}
+
+            {noExercises}
+
+            <CardSection>
+              <ListView
+                enableEmptySections
+                dataSource={this.dataSource}
+                renderRow={this.renderRow}
+              />
+            </CardSection>
+          </Card>
+
+          {startWorkoutbutton}
+
+          {saveWorkoutbutton}
         </Card>
-
-        <Card>
-          <CardSection>
-            <Text style={exerciseTitleStyle}>
-            Exercises
-            </Text>
-          </CardSection>
-
-          {addExerciseButton}
-
-          {noExercises}
-
-          <CardSection>
-            <ListView
-              enableEmptySections
-              dataSource={this.dataSource}
-              renderRow={this.renderRow}
-            />
-          </CardSection>
-        </Card>
-
-        {startWorkoutbutton}
-
-        {saveWorkoutbutton}
-
-      </Card>
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
     </ScrollView>
     );
   }
@@ -328,6 +317,5 @@ export default connect(mapStateToProps, {
   setUpdate,
   workoutFetch,
   workoutSave,
-  exercisesReset,
   workoutIsNotCancelledUpdate
 })(WorkoutDetail);

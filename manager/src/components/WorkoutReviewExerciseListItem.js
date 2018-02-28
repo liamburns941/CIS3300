@@ -1,8 +1,7 @@
-import _ from 'lodash';
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
-import { ratingChanged, exerciseSave, exerciseFetch } from '../actions';
+import { exerciseSave, exerciseFetch } from '../actions';
 import { CardSection, Input } from './common';
 
 class WorkoutReviewExerciseListItem extends Component {
@@ -56,23 +55,14 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-  const exercises = _.map(state.exercises, (val, exerciseUid) => {
-    return { ...val, exerciseUid };
-  });
-
   return {
-    exercises,
     singleWorkout: state.singleWorkout,
     singleClient: state.singleClient,
-    singleExercise: state.singleExercise,
-    role: state.role,
-    sets: state.sets,
     rating: state.rating
   };
 };
 
 export default connect(mapStateToProps, {
-  ratingChanged,
   exerciseSave,
   exerciseFetch
 })(WorkoutReviewExerciseListItem);

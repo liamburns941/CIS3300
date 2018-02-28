@@ -12,7 +12,6 @@ class WorkoutList extends Component {
     Keyboard.dismiss();
     const { singleClient, clients } = this.props;
 
-
     if (_.isEmpty(singleClient)) {
       const newClient = clients[clients.length - 1];
       this.props.clientFetch(newClient);
@@ -49,19 +48,17 @@ class WorkoutList extends Component {
   }
 
   render() {
+    const { nameStyle, workoutTitleStyle } = styles;
+    const { role, workouts } = this.props;
     const { firstName, lastName } = this.props.singleClient;
 
-    const { nameStyle, workoutTitleStyle } = styles;
-
-    const { role, workouts } = this.props;
-
     let button = null;
+    let noWorkouts = null;
 
     if (role === 'PT') {
        button = <Button onPress={this.onButtonPress.bind(this)}>Create Workout</Button>;
     }
 
-    let noWorkouts = null;
     if (workouts.length > 0) {
       noWorkouts =
       (<CardSection>
@@ -83,7 +80,6 @@ class WorkoutList extends Component {
           <CardSection>
             {button}
           </CardSection>
-
         </Card>
 
         <Card>
