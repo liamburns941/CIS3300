@@ -1,5 +1,6 @@
 import React from 'react';
 import { Scene, Router, Actions } from 'react-native-router-flux';
+import { logoutPTUser } from './actions';
 import ClientCreate from './components/ClientCreate';
 import ClientList from './components/ClientList';
 import ClientLoginForm from './components/ClientLoginForm';
@@ -48,8 +49,8 @@ const RouterComponent = () => {
 
         <Scene key="ptSide">
           <Scene
-            onRight={() => Actions.clientCreate()}
-            rightTitle="Create"
+            onRight={() => Actions.ptLogin()}
+            rightTitle="Logout"
             key="clientList"
             component={ClientList}
             title="Clients"
@@ -97,7 +98,10 @@ const RouterComponent = () => {
           <Scene
             key="clientWorkoutList"
             component={WorkoutList}
-            hideNavBar
+            title="Profile"
+            onRight={() => Actions.clientLogin()}
+            rightTitle="Logout"
+            backTitle=" "
           />
           <Scene
             key="clientWorkoutDetail"

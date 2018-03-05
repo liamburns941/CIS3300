@@ -2,9 +2,10 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ListView, Text } from 'react-native';
-import { clientsFetch } from '../actions';
+import { Actions } from 'react-native-router-flux';
+import { clientsFetch, clientCreate } from '../actions';
 import ClientListItem from './ClientListItem';
-import { Card } from './common';
+import { Card, CardSection, Button } from './common';
 
 class ClientList extends Component {
   componentWillMount() {
@@ -18,6 +19,10 @@ class ClientList extends Component {
     // this.props is still the old set of props
 
     this.createDataSource(nextProps);
+  }
+
+  onButtonPress() {
+    Actions.clientCreate();
   }
 
   createDataSource({ clients }) {
@@ -43,10 +48,15 @@ class ClientList extends Component {
       (<Text style={titleStyle}>
         No Clients
       </Text>);
-    } 
+    }
 
     return (
       <Card>
+        <CardSection>
+          <Button onPress={this.onButtonPress.bind(this)}>
+            Create Client
+          </Button>
+        </CardSection>
         <ListView
           enableEmptySections
           dataSource={this.dataSource}
@@ -74,4 +84,4 @@ const mapStateToProps = state => {
   return { clients };
 };
 
-export default connect(mapStateToProps, { clientsFetch })(ClientList);
+export default connect(mapStateToProps, { clientsFetch, clientCreate })(ClientList);
