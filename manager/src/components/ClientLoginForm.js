@@ -23,6 +23,7 @@ class ClientLoginForm extends Component {
 
         if (thisClientEmail === email) {
           this.props.clientFetch(thisClient);
+          this.props.clientEmailChanged('');
           Actions.clientWorkoutList();
           showError = false;
           break;
