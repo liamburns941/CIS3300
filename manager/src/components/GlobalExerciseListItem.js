@@ -1,9 +1,9 @@
-import _ from 'lodash';
 import React, { Component } from 'react';
 import { Text, TouchableWithoutFeedback, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import { CardSection, Confirm } from './common';
+import { CardSection } from './common';
+import { ExerciseConfirm } from './ExerciseConfirm';
 import {
   exerciseCreate,
   exercisesFetch,
@@ -48,7 +48,7 @@ class GlobalExerciseListItem extends Component {
               {exerciseName}
             </Text>
           </CardSection>
-          <Confirm
+          <ExerciseConfirm
               visible={this.state.showModal}
               onAccept={this.onAccept.bind(this)}
               onDecline={this.onDecline.bind(this)}

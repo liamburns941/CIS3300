@@ -1,6 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 
+// Code for reusable CardSection
 const CardSection = (props) => {
   return (
     <View style={[styles.containerStyle, props.style]}>

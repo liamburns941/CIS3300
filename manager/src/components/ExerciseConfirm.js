@@ -1,10 +1,8 @@
 import React from 'react';
 import { Text, View, Modal } from 'react-native';
-import { CardSection } from './CardSection';
-import { Button } from './Button';
-import { Input } from './Input';
+import { CardSection, Button, Input } from './common';
 
-const Confirm = ({ visible, onAccept, onDecline, thisBenchmark, onBenchmarkUpdate }) => {
+const ExerciseConfirm = ({ visible, onAccept, onDecline, thisBenchmark, onBenchmarkUpdate }) => {
 
   const { containerStyle, textStyle, cardSectionStyle, helpStyle } = styles;
 
@@ -68,4 +66,4 @@ const styles = {
   }
 };
 
-export { Confirm };
+export { ExerciseConfirm };

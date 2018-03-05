@@ -1,6 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 
+// Code for reusable Cards, like styled views
 const Card = (props) => {
   return (
     <View style={styles.containerStyle}>

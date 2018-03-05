@@ -1,6 +1,7 @@
 import React from 'react';
 import { TextInput, View, Text } from 'react-native';
 
+// Code for reusable input field
 const Input = ({ label, value, onChangeText, placeholder, secureTextEntry }) => {
   const { inputStyle, labelStyle, containerStyle } = styles;
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 
+// Code for reusable, formatted button
 const Button = ({ onPress, children }) => {
   const { buttonStyle, textStyle } = styles;
 
