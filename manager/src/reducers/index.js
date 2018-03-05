@@ -7,7 +7,6 @@ import ExerciseBenchmarkReducer from './ExerciseBenchmarkReducer';
 import ExerciseFormReducer from './ExerciseFormReducer';
 import ExerciseNumberReducer from './ExerciseNumberReducer';
 import ExerciseReducer from './ExerciseReducer';
-import ExerciseSetReducer from './ExerciseSetReducer';
 import GlobalExerciseReducer from './GlobalExerciseReducer';
 import NoOfExerciseReducer from './NoOfExerciseReducer';
 import PTAuthReducer from './PTAuthReducer';
@@ -20,6 +19,7 @@ import WorkoutAttemptsReducer from './WorkoutAttemptsReducer';
 import WorkoutFormReducer from './WorkoutFormReducer';
 import WorkoutIsNotCancelledReducer from './WorkoutIsNotCancelledReducer';
 import WorkoutReducer from './WorkoutReducer';
+import WorkoutSetReducer from './WorkoutSetReducer';
 import WorkoutWarmUpTimeReducer from './WorkoutWarmUpTimeReducer';
 
 export default combineReducers({
@@ -37,7 +37,7 @@ export default combineReducers({
   ptAuth: PTAuthReducer,
   rating: RatingReducer,
   role: RoleReducer,
-  sets: ExerciseSetReducer,
+  sets: WorkoutSetReducer,
   singleClient: SingleClientReducer,
   singleExercise: SingleExerciseReducer,
   singleWorkout: SingleWorkoutReducer,

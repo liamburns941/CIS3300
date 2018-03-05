@@ -1,6 +1,5 @@
 import React from 'react';
 import { Scene, Router, Actions } from 'react-native-router-flux';
-import { logoutPTUser } from './actions';
 import ClientCreate from './components/ClientCreate';
 import ClientList from './components/ClientList';
 import ClientLoginForm from './components/ClientLoginForm';
