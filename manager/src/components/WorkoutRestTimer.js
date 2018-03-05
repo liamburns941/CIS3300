@@ -94,7 +94,7 @@ class WorkoutRestTimer extends Component {
                         this.props.exerciseNumberUpdate(0);
                         Actions.workoutExerciseTimer();
                       } else {
-                        this.props.setUpdate(newSetsMinusOne);
+                        this.props.setUpdate(newSets);
                         Actions.workoutCoolDown();
                       }
                     } else {

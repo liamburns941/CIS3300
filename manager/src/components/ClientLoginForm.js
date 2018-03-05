@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Text, Image, KeyboardAvoidingView, ScrollView, ListView } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import { clientsLookup, clientEmailChanged, clientFetch } from '../actions';
+import { clientsLookup, clientEmailChanged, clientFetch, clientLoginFail } from '../actions';
 import { CardSection, Input, Button, Spinner } from './common';
 
 class ClientLoginForm extends Component {
@@ -14,6 +14,8 @@ class ClientLoginForm extends Component {
   onButtonPress() {
     const { clientAuthList, email } = this.props;
 
+    let showError = true;
+
     for (const key in clientAuthList) {
       if (clientAuthList.hasOwnProperty(key)) {
         const thisClient = clientAuthList[key];
@@ -21,10 +23,16 @@ class ClientLoginForm extends Component {
 
         if (thisClientEmail === email) {
           this.props.clientFetch(thisClient);
+          this.props.clientEmailChanged('');
           Actions.clientWorkoutList();
+          showError = false;
           break;
         }
       }
+    }
+
+    if (showError) {
+      this.props.clientLoginFail();
     }
   }
 
@@ -100,12 +108,13 @@ const mapStateToProps = state => {
     return { ...val, clientUid };
   });
 
-  const { email } = state.clientAuth;
-  return { clientAuthList, email };
+  const { email, error } = state.clientAuth;
+  return { clientAuthList, email, error };
 };
 
 export default connect(mapStateToProps, {
   clientsLookup,
   clientEmailChanged,
-  clientFetch
+  clientFetch,
+  clientLoginFail
 })(ClientLoginForm);

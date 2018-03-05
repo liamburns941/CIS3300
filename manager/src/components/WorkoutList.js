@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ListView, Text, Keyboard } from 'react-native';
+import { ListView, Text, Keyboard, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { workoutsFetch, workoutCreate, clientFetch } from '../actions';
 import WorkoutListItem from './WorkoutListItem';
@@ -69,28 +69,35 @@ class WorkoutList extends Component {
     }
 
     return (
-      <Card>
-        <Card>
-          <CardSection>
-            <Text style={nameStyle}>
-              {firstName} {lastName}
-            </Text>
-          </CardSection>
+      <ScrollView>
+        <KeyboardAvoidingView
+          keyboardVerticalOffset={-200}
+          behavior="padding"
+        >
+          <Card>
+            <Card>
+              <CardSection>
+                <Text style={nameStyle}>
+                  {firstName} {lastName}
+                </Text>
+              </CardSection>
 
-          <CardSection>
-            {button}
-          </CardSection>
-        </Card>
+              <CardSection>
+                {button}
+              </CardSection>
+            </Card>
 
-        <Card>
-          {noWorkouts}
-          <ListView
-            enableEmptySections
-            dataSource={this.dataSource}
-            renderRow={this.renderRow}
-          />
-        </Card>
-      </Card>
+            <Card>
+              {noWorkouts}
+              <ListView
+                enableEmptySections
+                dataSource={this.dataSource}
+                renderRow={this.renderRow}
+              />
+            </Card>
+          </Card>
+        </KeyboardAvoidingView>
+      </ScrollView>
     );
   }
 }

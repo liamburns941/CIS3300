@@ -5,7 +5,8 @@ import {
   PASSWORD_CHANGED,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAIL,
-  LOGIN_USER
+  LOGIN_USER,
+  LOGOUT_PT_USER
 } from './types';
 
 export const emailChanged = (text) => {
@@ -42,4 +43,12 @@ const loginUserSuccess = (dispatch, user) => {
   });
 
   Actions.ptSide();
+};
+
+export const logoutPTUser = () => {
+  return (dispatch) => {
+    dispatch({ type: LOGOUT_PT_USER });
+    firebase.auth().signOut()
+      .then(() => Actions.ptLogin());
+  };
 };
