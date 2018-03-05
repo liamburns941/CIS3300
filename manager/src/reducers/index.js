@@ -20,8 +20,8 @@ import WorkoutFormReducer from './WorkoutFormReducer';
 import WorkoutIsNotCancelledReducer from './WorkoutIsNotCancelledReducer';
 import WorkoutReducer from './WorkoutReducer';
 import WorkoutSetReducer from './WorkoutSetReducer';
-import WorkoutWarmUpTimeReducer from './WorkoutWarmUpTimeReducer';
 
+// This lists all the values from the reducers and what they will be under in the state
 export default combineReducers({
   attempts: WorkoutAttemptsReducer,
   benchmark: ExerciseBenchmarkReducer,
@@ -43,6 +43,5 @@ export default combineReducers({
   singleWorkout: SingleWorkoutReducer,
   workoutForm: WorkoutFormReducer,
   workoutIsNotCancelled: WorkoutIsNotCancelledReducer,
-  workouts: WorkoutReducer,
-  workoutWarmUpTime: WorkoutWarmUpTimeReducer
+  workouts: WorkoutReducer
 });

@@ -8,6 +8,7 @@ import Router from './Router';
 
 class App extends Component {
   componentWillMount() {
+    // Connect the application with the specific firebase database
     const config = {
       apiKey: 'AIzaSyCBPdpVjHvfpQwDqLjgetJFMe1b78tMl_I',
       authDomain: 'manager-e3359.firebaseapp.com',
@@ -17,10 +18,12 @@ class App extends Component {
       messagingSenderId: '470741785329'
     };
 
+    // Initialise the app with the firebase database
     firebase.initializeApp(config);
   }
 
   render() {
+    // Create the store
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
 
     return (

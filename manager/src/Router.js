@@ -16,6 +16,7 @@ import WorkoutReview from './components/WorkoutReview';
 import WorkoutWarmUp from './components/WorkoutWarmUp';
 
 const RouterComponent = () => {
+  // All "Scences" of the app are listed here, they are the pages
   return (
     <Router>
       <Scene
