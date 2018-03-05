@@ -7,7 +7,6 @@ import ExerciseBenchmarkReducer from './ExerciseBenchmarkReducer';
 import ExerciseFormReducer from './ExerciseFormReducer';
 import ExerciseNumberReducer from './ExerciseNumberReducer';
 import ExerciseReducer from './ExerciseReducer';
-import ExerciseSetReducer from './ExerciseSetReducer';
 import GlobalExerciseReducer from './GlobalExerciseReducer';
 import NoOfExerciseReducer from './NoOfExerciseReducer';
 import PTAuthReducer from './PTAuthReducer';
@@ -20,8 +19,9 @@ import WorkoutAttemptsReducer from './WorkoutAttemptsReducer';
 import WorkoutFormReducer from './WorkoutFormReducer';
 import WorkoutIsNotCancelledReducer from './WorkoutIsNotCancelledReducer';
 import WorkoutReducer from './WorkoutReducer';
-import WorkoutWarmUpTimeReducer from './WorkoutWarmUpTimeReducer';
+import WorkoutSetReducer from './WorkoutSetReducer';
 
+// This lists all the values from the reducers and what they will be under in the state
 export default combineReducers({
   attempts: WorkoutAttemptsReducer,
   benchmark: ExerciseBenchmarkReducer,
@@ -37,12 +37,11 @@ export default combineReducers({
   ptAuth: PTAuthReducer,
   rating: RatingReducer,
   role: RoleReducer,
-  sets: ExerciseSetReducer,
+  sets: WorkoutSetReducer,
   singleClient: SingleClientReducer,
   singleExercise: SingleExerciseReducer,
   singleWorkout: SingleWorkoutReducer,
   workoutForm: WorkoutFormReducer,
   workoutIsNotCancelled: WorkoutIsNotCancelledReducer,
-  workouts: WorkoutReducer,
-  workoutWarmUpTime: WorkoutWarmUpTimeReducer
+  workouts: WorkoutReducer
 });

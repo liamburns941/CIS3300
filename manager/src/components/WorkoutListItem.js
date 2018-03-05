@@ -20,9 +20,7 @@ class WorkoutListItem extends Component {
     const { workoutName, status } = this.props.workout;
 
     const {
-      cardSectionStyle,
       workoutTitleStyle,
-      dashTitleStyle,
       statusOutstandingTitleStyle,
       statusCompletedTitleStyle
     } = styles;

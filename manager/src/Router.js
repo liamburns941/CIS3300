@@ -1,6 +1,5 @@
 import React from 'react';
 import { Scene, Router, Actions } from 'react-native-router-flux';
-import { logoutPTUser } from './actions';
 import ClientCreate from './components/ClientCreate';
 import ClientList from './components/ClientList';
 import ClientLoginForm from './components/ClientLoginForm';
@@ -17,6 +16,7 @@ import WorkoutReview from './components/WorkoutReview';
 import WorkoutWarmUp from './components/WorkoutWarmUp';
 
 const RouterComponent = () => {
+  // All "Scences" of the app are listed here, they are the pages
   return (
     <Router>
       <Scene

@@ -54,7 +54,7 @@ class WorkoutWarmUp extends Component {
   render() {
     const { nameStyle, workoutTitleStyle } = styles;
     const { workoutName } = this.props.singleWorkout;
-    const { sets, workoutIsNotCancelled, workoutWarmUpTime } = this.props;
+    const { sets, workoutIsNotCancelled } = this.props;
     const newSets = parseInt(sets, 10);
 
     return (
@@ -78,7 +78,7 @@ class WorkoutWarmUp extends Component {
         <Card>
           <CardSection style={{ alignItems: 'center', justifyContent: 'center' }}>
             <CountdownCircle
-              seconds={workoutWarmUpTime}
+              seconds={5}
               radius={170}
               borderWidth={20}
               color="#FFBF00"
@@ -140,8 +140,7 @@ const mapStateToProps = state => {
     singleClient: state.singleClient,
     sets: state.sets,
     exerciseNumber: state.exerciseNumber,
-    workoutIsNotCancelled: state.workoutIsNotCancelled,
-    workoutWarmUpTime: state.workoutWarmUpTime
+    workoutIsNotCancelled: state.workoutIsNotCancelled
   };
 };
 
