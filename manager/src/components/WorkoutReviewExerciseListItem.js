@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Picker } from 'react-native';
 import { connect } from 'react-redux';
 import { exerciseSave, exerciseFetch } from '../actions';
-import { CardSection, Input } from './common';
+import { CardSection } from './common';
 
 class WorkoutReviewExerciseListItem extends Component {
+  state = { thisRating: '' };
   componentWillMount() {
+    console.log('this');
+    console.log(this);
     this.props.exerciseFetch(this.props.exercise);
   }
 
@@ -18,10 +21,17 @@ class WorkoutReviewExerciseListItem extends Component {
     this.props.exerciseSave({ clientUid, workoutUid, exerciseUid, rating });
   }
 
+  updateThisRating(thisRating) {
+    console.log('thisRating');
+    console.log(thisRating);
+    this.setState({ thisRating });
+    this.onRatingChange(thisRating);
+  }
+
   render() {
     const { exerciseName, benchmark } = this.props.exercise;
 
-    const { titleStyle } = styles;
+    const { titleStyle, pickerStyle } = styles;
 
     return (
         <View>
@@ -32,11 +42,16 @@ class WorkoutReviewExerciseListItem extends Component {
             <Text style={titleStyle}>
               {benchmark} per set
             </Text>
-            <Input
-              placeholder="Enter rating"
-              onChangeText={this.onRatingChange.bind(this)}
-              value={this.props.exercise.rating}
-            />
+            <Picker
+              style={pickerStyle}
+              selectedValue={this.state.thisRating}
+              onValueChange={(thisRating) => this.updateThisRating(thisRating)}
+            >
+              <Picker.Item label="Select a rating" value="" />
+              <Picker.Item label="Easy" value="Easy" />
+              <Picker.Item label="Okay" value="Okay" />
+              <Picker.Item label="Difficult" value="Difficult" />
+            </Picker>
           </CardSection>
         </View>
     );
@@ -51,10 +66,19 @@ const styles = {
     paddingBottom: 20,
     flex: 1,
     textAlign: 'center'
+  },
+  pickerStyle: {
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingTop: 20,
+    paddingBottom: 20,
+    flex: 1
   }
 };
 
 const mapStateToProps = state => {
+  console.log('state');
+  console.log(state);
   return {
     singleWorkout: state.singleWorkout,
     singleClient: state.singleClient,
