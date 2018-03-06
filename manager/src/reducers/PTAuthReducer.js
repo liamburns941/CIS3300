@@ -19,10 +19,10 @@ export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     // Receive the updated email value and add it to the state
     case EMAIL_CHANGED:
-      return { ...state, email: action.payload };
+      return { ...state, email: action.payload, error: '' };
     // Receive the updated password value and add it to the state
     case PASSWORD_CHANGED:
-      return { ...state, password: action.payload };
+      return { ...state, password: action.payload, error: '' };
     // Set the loading to true and add it to the state, while the user waits for the result of the login
     case LOGIN_USER:
       return { ...state, loading: true, error: '' };
