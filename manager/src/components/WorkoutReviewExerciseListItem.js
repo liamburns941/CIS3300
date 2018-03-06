@@ -5,8 +5,10 @@ import { exerciseSave, exerciseFetch } from '../actions';
 import { CardSection } from './common';
 
 class WorkoutReviewExerciseListItem extends Component {
+  // Set thisRating as blank initially
   state = { thisRating: '' };
   componentWillMount() {
+    // Get the current exercise
     this.props.exerciseFetch(this.props.exercise);
   }
 
@@ -16,10 +18,12 @@ class WorkoutReviewExerciseListItem extends Component {
     const { exerciseUid } = this.props.exercise;
 
     const rating = text;
+    // On rating change, save the rating in firebase
     this.props.exerciseSave({ clientUid, workoutUid, exerciseUid, rating });
   }
 
   updateThisRating(thisRating) {
+    // When the value is changed in the picker, it is passed into here and added to the state
     this.setState({ thisRating });
     this.onRatingChange(thisRating);
   }

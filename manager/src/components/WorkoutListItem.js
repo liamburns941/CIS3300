@@ -7,11 +7,14 @@ import { workoutFetch } from '../actions';
 
 class WorkoutListItem extends Component {
   onRowPress() {
+    // When a workout is selected, fetch that workout to add it to the state
     this.props.workoutFetch(this.props.workout);
     const { role } = this.props;
+    // If the role is client, navigate to the client workout detail
     if (role === 'CLIENT') {
       Actions.clientWorkoutDetail();
     } else {
+      // If the role is PT, navigate to the PT workout detail
       Actions.workoutDetail();
     }
   }
@@ -25,8 +28,10 @@ class WorkoutListItem extends Component {
       statusCompletedTitleStyle
     } = styles;
 
+    // Initially set the styling to be outstanding
     let stylingToUse = statusOutstandingTitleStyle;
 
+    // If the status is completed, change the styling to the completed styling
     if (status === 'Completed') {
       stylingToUse = statusCompletedTitleStyle;
     }
@@ -58,12 +63,6 @@ const styles = {
     flex: 1,
     textAlign: 'center'
   },
-  dashTitleStyle: {
-    fontSize: 24,
-    paddingTop: 20,
-    paddingBottom: 20,
-    textAlign: 'center'
-  },
   statusOutstandingTitleStyle: {
     fontSize: 24,
     paddingTop: 20,
@@ -79,21 +78,6 @@ const styles = {
     paddingBottom: 20,
     paddingLeft: 15,
     color: '#00FF00',
-    flex: 1,
-    textAlign: 'center'
-  },
-  cardSectionStyle: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingLeft: 50,
-    paddingRight: 50
-  },
-  titleStyle: {
-    fontSize: 24,
-    paddingLeft: 15,
-    paddingTop: 20,
-    paddingBottom: 20,
     flex: 1,
     textAlign: 'center'
   }

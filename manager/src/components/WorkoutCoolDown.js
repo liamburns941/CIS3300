@@ -36,6 +36,7 @@ class WorkoutCoolDown extends Component {
   }
 
   renderRow(exercise) {
+    // For each exercise, create an exercise list item
     return <ExerciseListItem exercise={exercise} />;
   }
 
@@ -45,6 +46,7 @@ class WorkoutCoolDown extends Component {
     const { clientUid } = this.props.singleClient;
     const { sets, attempts } = this.props;
 
+    // When the timer ends, call workoutSaveForReview to update the number of attempts and move to workout review screen
     return (
       <Card>
         <Card>

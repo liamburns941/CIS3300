@@ -58,18 +58,6 @@ class WorkoutReview extends Component {
     return <WorkoutReviewExerciseListItem exercise={exercise} />;
   }
 
-  renderCompleteButton() {
-    if (this.props.loading) {
-      return <Spinner size="large" />;
-    }
-
-    return (
-      <Button onPress={this.onCompleteButtonPress.bind(this)}>
-        Complete Workout
-      </Button>
-    );
-  }
-
   render() {
     const { nameStyle, workoutTitleStyle, exerciseTitleStyle } = styles;
     const { workoutName, exerciseTime, restTime, sets } = this.props.singleWorkout;
@@ -139,7 +127,9 @@ class WorkoutReview extends Component {
             </CardSection>
 
             <CardSection>
-              {this.renderCompleteButton()}
+              <Button onPress={this.onCompleteButtonPress.bind(this)}>
+                Complete Workout
+              </Button>
             </CardSection>
 
             <CardSection>
