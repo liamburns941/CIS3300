@@ -8,6 +8,7 @@ import { Card } from './common';
 
 class GlobalExerciseList extends Component {
   componentWillMount() {
+    // Get the global exercises as a list
     this.props.globalExercisesFetch();
     this.createDataSource(this.props);
   }
@@ -29,6 +30,7 @@ class GlobalExerciseList extends Component {
   }
 
   renderRow(globalExercise) {
+    // For each global exercise, create a list item for it
     return <GlobalExerciseListItem globalExercise={globalExercise} />;
   }
 

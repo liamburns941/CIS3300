@@ -6,15 +6,18 @@ import { CardSection, Button, Card } from './common';
 
 class RoleChoice extends Component {
   componentWillMount() {
+    // Get the list of clients in the state
     this.props.clientsLookup();
   }
 
   onPTButtonPress() {
+    // Assign the role PT, and navigate to the PT login
     this.props.roleUpdate('PT');
     Actions.ptLogin();
   }
 
   onClientButtonPress() {
+    // Assign the role Client, and navigate to the Client login
     this.props.roleUpdate('CLIENT');
     Actions.clientLogin();
   }

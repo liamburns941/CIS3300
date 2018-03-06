@@ -7,8 +7,6 @@ import { CardSection } from './common';
 class WorkoutReviewExerciseListItem extends Component {
   state = { thisRating: '' };
   componentWillMount() {
-    console.log('this');
-    console.log(this);
     this.props.exerciseFetch(this.props.exercise);
   }
 
@@ -22,8 +20,6 @@ class WorkoutReviewExerciseListItem extends Component {
   }
 
   updateThisRating(thisRating) {
-    console.log('thisRating');
-    console.log(thisRating);
     this.setState({ thisRating });
     this.onRatingChange(thisRating);
   }
@@ -77,8 +73,6 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-  console.log('state');
-  console.log(state);
   return {
     singleWorkout: state.singleWorkout,
     singleClient: state.singleClient,
