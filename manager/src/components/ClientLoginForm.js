@@ -1,10 +1,10 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { Text, Image, KeyboardAvoidingView, ScrollView, ListView } from 'react-native';
+import { Text, Image, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { clientsLookup, clientEmailChanged, clientFetch, clientLoginFail } from '../actions';
-import { CardSection, Input, Button, Spinner } from './common';
+import { CardSection, Input, Button } from './common';
 
 class ClientLoginForm extends Component {
   // When the email is changed, pass this value to the state

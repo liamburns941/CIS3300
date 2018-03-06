@@ -4,20 +4,10 @@ import { CardSection } from './common';
 
 class DuringWorkoutExerciseListItem extends Component {
   render() {
-    const { exerciseName, benchmark, rating } = this.props.exercise;
+    const { exerciseName, benchmark } = this.props.exercise;
 
     const { titleStyle } = styles;
-
-    let ratingDisplay = null;
-
-    if (rating !== '') {
-      ratingDisplay = (
-        <Text style={titleStyle}>
-        {rating}
-      </Text>
-    );
-    }
-
+    // List item to display the exercise name and benchmark during the workout
     return (
         <View>
           <CardSection>
@@ -27,7 +17,6 @@ class DuringWorkoutExerciseListItem extends Component {
             <Text style={titleStyle}>
               {benchmark} per set
             </Text>
-            {ratingDisplay}
           </CardSection>
         </View>
     );

@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, View, Modal } from 'react-native';
 import { CardSection, Button, Input } from './common';
 
+// Code for a confirm modal after the user has selected an exercise
 const ExerciseConfirm = ({ visible, onAccept, onDecline, thisBenchmark, onBenchmarkUpdate }) => {
 
   const { containerStyle, textStyle, cardSectionStyle, helpStyle } = styles;

@@ -11,29 +11,47 @@ import {
 } from '../actions';
 
 class GlobalExerciseListItem extends Component {
+  // Don't show the modal initially
   state = { showModal: false };
 
   onRowPress() {
+    // When an exercise is selected, show the modal
     this.setState({ showModal: !this.state.showModal });
   }
 
   onAccept() {
+    // When the user confirms that they want to add this exercise
+    // Get the exercise name of the item selected, the clientUid, the workoutUid, and the value of the benchmark
     const { exerciseName } = this.props.globalExercise;
     const { clientUid } = this.props.singleClient;
     const { workoutUid } = this.props.singleWorkout;
     const { value } = this.props.benchmark;
 
+    // Assign the value of the benchmark to a variable called benchmark
     const benchmark = value;
 
+    // Create the exercise with the values above
     this.props.exerciseCreate({ exerciseName, benchmark, clientUid, workoutUid });
+
+    // Get a list of all exercises for this workout
     this.props.exercisesFetch({ clientUid, workoutUid });
+
+    // Hide the modal
     this.setState({ showModal: false });
+
+    // Clear the benchmark value
     this.props.benchmarkUpdate({ value: '' });
+
+    // Navigate the user to the workout detail screen
     Actions.workoutDetail();
   }
 
   onDecline() {
+    // When the user cancells adding the exercise
+    // Hide the modal
     this.setState({ showModal: false });
+
+    // Clear the benchmark value
     this.props.benchmarkUpdate({ value: '' });
   }
 

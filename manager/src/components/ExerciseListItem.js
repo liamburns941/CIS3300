@@ -11,20 +11,22 @@ class ExerciseListItem extends Component {
     let ratingDisplay = null;
     let stylingToUse = null;
 
-    if (rating === 'Easy') {
-      stylingToUse = easyStyle;
-    } else if (rating === 'Okay') {
-      stylingToUse = okayStyle;
-    } else {
-      stylingToUse = difficultStyle;
-    }
-
+    // If the rating is null, don't display it
     if (rating !== '') {
+      // Apply the approriate styling for each rating type
+      if (rating === 'Easy') {
+        stylingToUse = easyStyle;
+      } else if (rating === 'Okay') {
+        stylingToUse = okayStyle;
+      } else {
+        stylingToUse = difficultStyle;
+      }
+
       ratingDisplay = (
         <Text style={stylingToUse}>
-        {rating}
-      </Text>
-    );
+          {rating}
+        </Text>
+      );
     }
 
     return (

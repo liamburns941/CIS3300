@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ListView, Text } from 'react-native';
+import { ListView, Text, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { clientsFetch, clientCreate } from '../actions';
 import ClientListItem from './ClientListItem';
@@ -54,19 +54,26 @@ class ClientList extends Component {
     }
 
     return (
-      <Card>
-        <CardSection>
-          <Button onPress={this.onButtonPress.bind(this)}>
-            Create Client
-          </Button>
-        </CardSection>
-        <ListView
-          enableEmptySections
-          dataSource={this.dataSource}
-          renderRow={this.renderRow}
-        />
-        {noClients}
-      </Card>
+      <ScrollView>
+        <KeyboardAvoidingView
+          keyboardVerticalOffset={-200}
+          behavior="padding"
+        >
+          <Card>
+            <CardSection>
+              <Button onPress={this.onButtonPress.bind(this)}>
+                Create Client
+              </Button>
+            </CardSection>
+            <ListView
+              enableEmptySections
+              dataSource={this.dataSource}
+              renderRow={this.renderRow}
+            />
+            {noClients}
+          </Card>
+        </KeyboardAvoidingView>
+      </ScrollView>
     );
   }
 }

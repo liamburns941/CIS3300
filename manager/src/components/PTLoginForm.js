@@ -5,14 +5,17 @@ import { emailChanged, passwordChanged, loginUser } from '../actions';
 import { CardSection, Input, Button, Spinner } from './common';
 
 class PTLoginForm extends Component {
+  // When the email is changed, pass this value to the state
   onEmailChange(text) {
     this.props.emailChanged(text);
   }
 
+  // When the password is changed, pass this value to the state
   onPasswordChange(text) {
     this.props.passwordChanged(text);
   }
 
+  // On button press, log in the user user with the email and password
   onButtonPress() {
     const { email, password } = this.props;
 
@@ -20,6 +23,7 @@ class PTLoginForm extends Component {
   }
 
   renderButton() {
+    // If the page is loading, show the spinner, otherwise show the button
     if (this.props.loading) {
       return <Spinner size="large" />;
     }
