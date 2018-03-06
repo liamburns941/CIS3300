@@ -15,6 +15,7 @@ import { Card, CardSection, Button } from './common';
 
 class WorkoutWarmUp extends Component {
   componentWillMount() {
+    // Get the list of exercises
     const { singleClient, singleWorkout } = this.props;
     this.props.exercisesFetch({
       clientUid: singleClient.clientUid,
@@ -33,10 +34,20 @@ class WorkoutWarmUp extends Component {
   }
 
   onCancelButtonPress() {
+    // If the workout is cancelled
+    // Get the initial number of sets
     const { sets } = this.props.singleWorkout;
+
+    // Update workoutIsNotCancelled to be false
     this.props.workoutIsNotCancelledUpdate(false);
+
+    // Update the number of sets to the initial number
     this.props.setUpdate(sets);
+
+    // Set the exercise number to be 0
     this.props.exerciseNumberUpdate(0);
+
+    // Navigate the user to the client workout list
     Actions.clientWorkoutList();
   }
 
@@ -48,6 +59,7 @@ class WorkoutWarmUp extends Component {
   }
 
   renderRow(exercise) {
+    // For each exercise, create an exercise list item
     return <ExerciseListItem exercise={exercise} />;
   }
 
@@ -57,6 +69,7 @@ class WorkoutWarmUp extends Component {
     const { sets, workoutIsNotCancelled } = this.props;
     const newSets = parseInt(sets, 10);
 
+    // When the timer ends, navigate to workout exercise timer
     return (
       <Card>
         <Card>

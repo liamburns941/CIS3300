@@ -32,10 +32,20 @@ class WorkoutRestTimer extends Component {
   }
 
   onCancelButtonPress() {
+    // If the workout is cancelled
+    // Get the initial number of sets
     const { sets } = this.props.singleWorkout;
+
+    // Update workoutIsNotCancelled to be false
     this.props.workoutIsNotCancelledUpdate(false);
+
+    // Update the number of sets to the initial number
     this.props.setUpdate(sets);
+
+    // Set the exercise number to be 0
     this.props.exerciseNumberUpdate(0);
+
+    // Navigate the user to the client workout list
     Actions.clientWorkoutList();
   }
 
@@ -47,6 +57,7 @@ class WorkoutRestTimer extends Component {
   }
 
   renderRow(exercise) {
+    // For each exercise, create an exercise list item
     return <ExerciseListItem exercise={exercise} />;
   }
 
@@ -58,6 +69,7 @@ class WorkoutRestTimer extends Component {
     const newSets = parseInt(sets, 10);
     const newrestTime = parseInt(restTime, 10);
 
+    // When the timer ends, check if the workout has been cancelled, if it hasn't then check the other conditions
     return (
       <Card>
         <Card>
@@ -87,18 +99,33 @@ class WorkoutRestTimer extends Component {
               textStyle={{ fontSize: 50 }}
               onTimeElapsed={() => {
                   if (workoutIsNotCancelled) {
+                    // if the workout hasn't been cancelled, check if the exercise number is the last exercise
                     if (exerciseNumberPlusOne === noOfExercises) {
+                      // if the exercise number is the last exercise,
                       const newSetsMinusOne = newSets - 1;
                       if (newSetsMinusOne !== 0) {
+                        // If newSetsMinusOne doesn't = 0, there are more sets
+                        // Update the number of sets
                         this.props.setUpdate(newSetsMinusOne);
+
+                        // Update the exercise number to be 0
                         this.props.exerciseNumberUpdate(0);
+
+                        // Navigate the user to the exercise timer
                         Actions.workoutExerciseTimer();
                       } else {
+                        // If newSetsMinusOne = 0, there are no more sets
+                        // Update the number of sets
                         this.props.setUpdate(newSets);
+
+                        // Navigate the user to the workout cooldown
                         Actions.workoutCoolDown();
                       }
                     } else {
+                        // if the exercise number is not the last exercise, update the exercise number to the next one
                         this.props.exerciseNumberUpdate(exerciseNumberPlusOne);
+
+                        // Navigate the user to the exercise time
                         Actions.workoutExerciseTimer();
                     }
                   }

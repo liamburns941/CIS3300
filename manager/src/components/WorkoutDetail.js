@@ -15,14 +15,19 @@ import { Card, CardSection, Button } from './common';
 
 class WorkoutDetail extends Component {
   componentWillMount() {
+    // Dismiss the keyboard if it is open
     Keyboard.dismiss();
+
+    // Get the selected client, selected workout and the list of workouts
     const { singleClient, singleWorkout, workouts } = this.props;
 
     if (_.isEmpty(singleWorkout)) {
+      // If there isn't any selected workout, select the last workout and pass them in as the selected workout
       const newWorkout = workouts[workouts.length - 1];
       this.props.workoutFetch(newWorkout);
     }
 
+    // Get the exercises for the selected workout
     this.props.exercisesFetch({
       clientUid: singleClient.clientUid,
       workoutUid: singleWorkout.workoutUid
@@ -40,20 +45,28 @@ class WorkoutDetail extends Component {
   }
 
   onStartWorkoutButtonPress() {
+    // Get the number of sets for the workout
     const { sets } = this.props.singleWorkout;
 
+    // Confirm that the workout is not cancelled
     this.props.workoutIsNotCancelledUpdate(true);
+
+    // Pass the number of sets for the workout
     this.props.setUpdate(sets);
+
+    // Navigate the user to the workout warm up screen
     Actions.workoutWarmUp();
   }
 
   onSaveWorkoutButtonPress() {
+    // Save the current workout in firebase
     const { clientUid } = this.props.singleClient;
     const { workoutUid } = this.props.singleWorkout;
     this.props.workoutSave({ clientUid, workoutUid });
   }
 
   onAddExerciseButtonPress() {
+    // If the user selects to add an exercise, navigate the user to the global exercise list screen
     Actions.globalExerciseList();
   }
 
@@ -65,6 +78,7 @@ class WorkoutDetail extends Component {
   }
 
   renderRow(exercise) {
+    // For each exercise, create a list item
     return <ExerciseListItem exercise={exercise} />;
   }
 
@@ -102,6 +116,7 @@ class WorkoutDetail extends Component {
     let ratingHeader = null;
     let noExercises = null;
 
+    // Only show the start workout button if the user is a client and the workout status is Outstanding
     if (role === 'CLIENT' && status === 'Outstanding') {
        startWorkoutbutton =
        (<Card>
@@ -113,6 +128,8 @@ class WorkoutDetail extends Component {
        </Card>);
     }
 
+    // Only show the save workout button and the list of exercises
+    // if the user is a PT and the workout hasn't been created fully yet, and there's at least one exercise
     if (role === 'PT' && status === 'ExercisesToBeAdded' && exercises.length > 0) {
        saveWorkoutbutton =
        (<Card>
@@ -135,6 +152,7 @@ class WorkoutDetail extends Component {
        </CardSection>);
     }
 
+    // Only show the add exercuse button if the workout hasn't been created fully
     if (status === 'ExercisesToBeAdded') {
       addExerciseButton =
       (<CardSection>
@@ -145,18 +163,21 @@ class WorkoutDetail extends Component {
       statusToShow = 'Outstanding';
     }
 
+    // Handling the wording for attempts
     if (attempts === 1) {
       attemptsWording = 'attempt';
     } else {
       attemptsWording = 'attempts';
     }
 
+    // Handling the wording for sets
     if (setsInt === 1) {
       setsWording = 'set';
     } else {
       setsWording = 'sets';
     }
 
+    // Only show the completed row if the workout status is completed
     if (status === 'Completed') {
       completedRow =
         (

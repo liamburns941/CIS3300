@@ -5,6 +5,7 @@ import { workoutUpdate } from '../actions';
 import { CardSection, Input } from './common';
 
 class WorkoutForm extends Component {
+  // For each value in the form, update this workout in the state
   render() {
     return (
       <View>

@@ -8,6 +8,8 @@ import WorkoutForm from './WorkoutForm';
 class WorkoutCreate extends Component {
   onButtonPress() {
     const { workoutName, exerciseTime, restTime, sets, clientUid } = this.props;
+
+    // Create the workout with the values entered in the form
     this.props.workoutCreate({ workoutName, exerciseTime, restTime, sets, clientUid });
   }
 

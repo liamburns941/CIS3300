@@ -30,10 +30,20 @@ class WorkoutExerciseTimer extends Component {
   }
 
   onCancelButtonPress() {
+    // If the workout is cancelled
+    // Get the initial number of sets
     const { sets } = this.props.singleWorkout;
+
+    // Update workoutIsNotCancelled to be false
     this.props.workoutIsNotCancelledUpdate(false);
+
+    // Update the number of sets to the initial number
     this.props.setUpdate(sets);
+
+    // Set the exercise number to be 0
     this.props.exerciseNumberUpdate(0);
+
+    // Navigate the user to the client workout list
     Actions.clientWorkoutList();
   }
 
@@ -50,6 +60,7 @@ class WorkoutExerciseTimer extends Component {
   }
 
   renderRow(exercise) {
+    // For each exercise, create an exercise list item
     return <DuringWorkoutExerciseListItem exercise={exercise} />;
   }
 
@@ -60,6 +71,7 @@ class WorkoutExerciseTimer extends Component {
     const newSets = parseInt(sets, 10);
     const newExerciseTime = parseInt(exerciseTime, 10);
 
+    // When the timer ends, check if the workout has been cancelled, if it hasn't navigate to workout rest timer
     return (
       <Card>
         <Card>
