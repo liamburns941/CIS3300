@@ -7,6 +7,7 @@ import { clientsLookup, clientEmailChanged, clientFetch, clientLoginFail } from 
 import { CardSection, Input, Button, Spinner } from './common';
 
 class ClientLoginForm extends Component {
+  // When the email is changed, pass this value to the state
   onClientEmailChange(text) {
     this.props.clientEmailChanged(text);
   }
@@ -14,14 +15,19 @@ class ClientLoginForm extends Component {
   onButtonPress() {
     const { clientAuthList, email } = this.props;
 
+    // showError is listed as true
+    // if the entered email matches a client, showError will be set to false so the error won't show
     let showError = true;
 
+    // loop through each client
     for (const key in clientAuthList) {
       if (clientAuthList.hasOwnProperty(key)) {
         const thisClient = clientAuthList[key];
         const thisClientEmail = thisClient.email;
 
+        // Check if the entered email matches a client email
         if (thisClientEmail === email) {
+          // If there's a match, select this client, clear the email field, and move to the workout list
           this.props.clientFetch(thisClient);
           this.props.clientEmailChanged('');
           Actions.clientWorkoutList();
@@ -31,29 +37,10 @@ class ClientLoginForm extends Component {
       }
     }
 
+    // Show the error if none of the emails matched
     if (showError) {
       this.props.clientLoginFail();
     }
-  }
-
-  createDataSource({ clientAuth }) {
-    const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
-    });
-
-    this.dataSource = ds.cloneWithRows(clientAuth);
-  }
-
-  renderButton() {
-    if (this.props.loading) {
-      return <Spinner size="large" />;
-    }
-
-    return (
-      <Button onPress={this.onButtonPress.bind(this)}>
-        Login
-      </Button>
-    );
   }
 
   render() {
@@ -87,7 +74,9 @@ class ClientLoginForm extends Component {
         </Text>
 
         <CardSection>
-          {this.renderButton()}
+          <Button onPress={this.onButtonPress.bind(this)}>
+            Login
+          </Button>
         </CardSection>
       </KeyboardAvoidingView>
     </ScrollView>
@@ -104,6 +93,7 @@ const styles = {
 };
 
 const mapStateToProps = state => {
+  // Get the list of clients from the state and map them to props
   const clientAuthList = _.map(state.clientAuthList, (val, clientUid) => {
     return { ...val, clientUid };
   });

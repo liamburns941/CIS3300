@@ -6,6 +6,7 @@ import ClientForm from './ClientForm';
 
 class ClientCreate extends Component {
   onButtonPress() {
+    // Take the values currently in the state, and Create a client with them
     const { firstName, lastName, email } = this.props;
 
     this.props.clientCreate({ firstName, lastName, email });

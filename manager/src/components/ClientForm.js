@@ -5,6 +5,7 @@ import { clientUpdate } from '../actions';
 import { CardSection, Input } from './common';
 
 class ClientForm extends Component {
+  // For each value in the form, update this client in the state
   render() {
     return (
       <View>

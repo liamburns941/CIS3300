@@ -9,6 +9,7 @@ import { Card, CardSection, Button } from './common';
 
 class ClientList extends Component {
   componentWillMount() {
+    // Get a list of all clients for this user
     this.props.clientsFetch();
     this.createDataSource(this.props);
   }
@@ -26,6 +27,7 @@ class ClientList extends Component {
   }
 
   createDataSource({ clients }) {
+    // Create a dataSource of the list of clients
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
@@ -34,6 +36,7 @@ class ClientList extends Component {
   }
 
   renderRow(client) {
+    // For each client create a ClientListItem
     return <ClientListItem client={client} />;
   }
 
@@ -78,6 +81,7 @@ const styles = {
 };
 
 const mapStateToProps = state => {
+  // Get the list of clients from the state and map them to props
   const clients = _.map(state.clients, (val, clientUid) => {
     return { ...val, clientUid };
   });
