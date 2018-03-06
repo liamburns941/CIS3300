@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, ActivityIndicator } from 'react-native';
 
+// Code for reusable spinner. If size not specified it will be large
 const Spinner = ({ size }) => {
   return (
     <View style={styles.spinnerStyle}>
