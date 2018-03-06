@@ -10,10 +10,11 @@ import {
   workoutComplete
 } from '../actions';
 import WorkoutReviewExerciseListItem from './WorkoutReviewExerciseListItem';
-import { Card, CardSection, Button, Spinner } from './common';
+import { Card, CardSection, Button } from './common';
 
 class WorkoutReview extends Component {
   componentWillMount() {
+    // Get the list of exercises for the workout
     const { singleClient, singleWorkout } = this.props;
     this.props.exercisesFetch({
       clientUid: singleClient.clientUid,
@@ -31,19 +32,19 @@ class WorkoutReview extends Component {
     this.createDataSource(nextProps);
   }
 
-  onRatingChange(text) {
-    this.props.ratingChanged(text);
-  }
-
   onCompleteButtonPress() {
+    // on completion of the workout, call the workout complete action for this workout
     const { clientUid } = this.props.singleClient;
     const { workoutUid } = this.props.singleWorkout;
     this.props.workoutComplete({ clientUid, workoutUid });
   }
 
   onRedoButtonPress() {
+    // If the user wants to redo the workout, update the sets number to the original number for the workout
     const { sets } = this.props.singleWorkout;
     this.props.setUpdate(sets);
+
+    // Navigate the user to the workout warmup screen
     Actions.workoutWarmUp();
   }
 
@@ -55,6 +56,7 @@ class WorkoutReview extends Component {
   }
 
   renderRow(exercise) {
+    // For each exercise, create a list item
     return <WorkoutReviewExerciseListItem exercise={exercise} />;
   }
 
@@ -66,12 +68,14 @@ class WorkoutReview extends Component {
     let attemptsWording = null;
     let setsWording = null;
 
+    // Handling the wording for attempts
     if (attempts === 1) {
       attemptsWording = 'attempt';
     } else {
       attemptsWording = 'attempts';
     }
 
+    // Handling the wording for sets
     if (setsInt === 1) {
       setsWording = 'set';
     } else {

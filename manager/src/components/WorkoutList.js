@@ -9,14 +9,21 @@ import { Card, CardSection, Button } from './common';
 
 class WorkoutList extends Component {
   componentWillMount() {
+    // Dismiss the keyboard if it is open
     Keyboard.dismiss();
+    
+    // Get the selected client and the list of clients
     const { singleClient, clients } = this.props;
 
     if (_.isEmpty(singleClient)) {
+        // If there isn't any selected client, select the last client and pass them in as the selected client
       const newClient = clients[clients.length - 1];
       this.props.clientFetch(newClient);
+
+      // Get the workouts for the selected client
       this.props.workoutsFetch({ clientUid: newClient.clientUid });
     } else {
+      // Get the workouts for the selected client
       this.props.workoutsFetch({ clientUid: this.props.singleClient.clientUid });
     }
 
@@ -32,6 +39,7 @@ class WorkoutList extends Component {
   }
 
   onButtonPress() {
+    // Navigate the user to the workout create screen
     Actions.workoutCreate({ clientUid: this.props.singleClient.clientUid });
   }
 
@@ -44,6 +52,7 @@ class WorkoutList extends Component {
   }
 
   renderRow(workout) {
+    // For each workout, create a list item
     return <WorkoutListItem workout={workout} />;
   }
 
@@ -55,10 +64,12 @@ class WorkoutList extends Component {
     let button = null;
     let noWorkouts = null;
 
+    // Only show the create workout button if the user is a PT
     if (role === 'PT') {
        button = <Button onPress={this.onButtonPress.bind(this)}>Create Workout</Button>;
     }
 
+    // Only show the workouts title if there's at least one workout
     if (workouts.length > 0) {
       noWorkouts =
       (<CardSection>
