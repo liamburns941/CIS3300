@@ -7,6 +7,7 @@ import { clientFetch } from '../actions';
 
 class ClientListItem extends Component {
   onRowPress() {
+    // Pass the selected client into the state, and navigate to the workout list
     this.props.clientFetch(this.props.client);
     Actions.workoutList();
   }
